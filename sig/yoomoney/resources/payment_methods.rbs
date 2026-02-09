@@ -1,0 +1,22 @@
+module Yoomoney
+  module Resources
+    class PaymentMethods
+      def create: (
+        type: Yoomoney::Models::PaymentMethodCreateParams::type_,
+        idempotence_key: String,
+        ?card: Yoomoney::CardRequestDataWithCsc,
+        ?client_ip: String,
+        ?confirmation: Yoomoney::PaymentMethodCreateParams::Confirmation,
+        ?holder: Yoomoney::Recipient,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::SavePaymentMethodBankCard
+
+      def retrieve: (
+        String payment_method_id,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::SavePaymentMethodBankCard
+
+      def initialize: (client: Yoomoney::Client) -> void
+    end
+  end
+end

@@ -1,0 +1,16 @@
+module Yoomoney
+  module Models
+    type payout_destination_data =
+      { type: Yoomoney::Models::payout_destination_data_type }
+
+    class PayoutDestinationData < Yoomoney::Internal::Type::BaseModel
+      attr_accessor type: Yoomoney::Models::payout_destination_data_type
+
+      def initialize: (
+        type: Yoomoney::Models::payout_destination_data_type
+      ) -> void
+
+      def to_hash: -> { type: Yoomoney::Models::payout_destination_data_type }
+    end
+  end
+end

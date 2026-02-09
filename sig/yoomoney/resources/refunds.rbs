@@ -1,0 +1,34 @@
+module Yoomoney
+  module Resources
+    class Refunds
+      def create: (
+        amount: Yoomoney::MonetaryAmount,
+        payment_id: String,
+        idempotence_key: String,
+        ?deal: Yoomoney::RefundCreateParams::Deal,
+        ?description: String,
+        ?metadata: ::Hash[Symbol, String?],
+        ?receipt: Yoomoney::ReceiptData,
+        ?refund_method_data: Yoomoney::RefundCreateParams::RefundMethodData,
+        ?sources: ::Array[Yoomoney::RefundSourcesData],
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Refund
+
+      def retrieve: (
+        String refund_id,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Refund
+
+      def list: (
+        ?created_at: Yoomoney::RefundListParams::CreatedAt,
+        ?cursor: String,
+        ?limit: Integer,
+        ?payment_id: String,
+        ?status: Yoomoney::Models::refund_status,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Models::RefundListResponse
+
+      def initialize: (client: Yoomoney::Client) -> void
+    end
+  end
+end

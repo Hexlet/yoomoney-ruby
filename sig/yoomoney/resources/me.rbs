@@ -1,0 +1,12 @@
+module Yoomoney
+  module Resources
+    class Me
+      def retrieve: (
+        ?on_behalf_of: String,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Models::MeRetrieveResponse
+
+      def initialize: (client: Yoomoney::Client) -> void
+    end
+  end
+end

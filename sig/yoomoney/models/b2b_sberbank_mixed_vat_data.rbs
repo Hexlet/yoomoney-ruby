@@ -1,0 +1,15 @@
+module Yoomoney
+  module Models
+    type b2b_sberbank_mixed_vat_data = { amount: Yoomoney::MonetaryAmount }
+
+    class B2bSberbankMixedVatData < Yoomoney::Models::B2bSberbankVatData
+      def amount: -> Yoomoney::MonetaryAmount
+
+      def amount=: (Yoomoney::MonetaryAmount _) -> Yoomoney::MonetaryAmount
+
+      def initialize: (amount: Yoomoney::MonetaryAmount) -> void
+
+      def to_hash: -> { amount: Yoomoney::MonetaryAmount }
+    end
+  end
+end

@@ -1,0 +1,23 @@
+module Yoomoney
+  module Resources
+    class Webhooks
+      def create: (
+        event: Yoomoney::Models::notification_event_type,
+        url: String,
+        idempotence_key: String,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Webhook
+
+      def list: (
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Models::WebhookListResponse
+
+      def delete: (
+        String webhook_id,
+        ?request_options: Yoomoney::request_opts
+      ) -> top
+
+      def initialize: (client: Yoomoney::Client) -> void
+    end
+  end
+end

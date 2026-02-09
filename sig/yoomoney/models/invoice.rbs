@@ -1,0 +1,185 @@
+module Yoomoney
+  module Models
+    type invoice =
+      {
+        id: String,
+        cart: ::Array[Yoomoney::LineItem],
+        created_at: Time,
+        status: Yoomoney::Models::Invoice::status,
+        cancellation_details: Yoomoney::Invoice::CancellationDetails,
+        delivery_method: Yoomoney::Models::Invoice::delivery_method,
+        description: String,
+        expires_at: Time,
+        metadata: ::Hash[Symbol, String?],
+        payment_details: Yoomoney::Invoice::PaymentDetails
+      }
+
+    class Invoice < Yoomoney::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor cart: ::Array[Yoomoney::LineItem]
+
+      attr_accessor created_at: Time
+
+      attr_accessor status: Yoomoney::Models::Invoice::status
+
+      attr_reader cancellation_details: Yoomoney::Invoice::CancellationDetails?
+
+      def cancellation_details=: (
+        Yoomoney::Invoice::CancellationDetails
+      ) -> Yoomoney::Invoice::CancellationDetails
+
+      attr_reader delivery_method: Yoomoney::Models::Invoice::delivery_method?
+
+      def delivery_method=: (
+        Yoomoney::Models::Invoice::delivery_method
+      ) -> Yoomoney::Models::Invoice::delivery_method
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      attr_reader expires_at: Time?
+
+      def expires_at=: (Time) -> Time
+
+      attr_reader metadata: ::Hash[Symbol, String?]?
+
+      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+
+      attr_reader payment_details: Yoomoney::Invoice::PaymentDetails?
+
+      def payment_details=: (
+        Yoomoney::Invoice::PaymentDetails
+      ) -> Yoomoney::Invoice::PaymentDetails
+
+      def initialize: (
+        id: String,
+        cart: ::Array[Yoomoney::LineItem],
+        created_at: Time,
+        status: Yoomoney::Models::Invoice::status,
+        ?cancellation_details: Yoomoney::Invoice::CancellationDetails,
+        ?delivery_method: Yoomoney::Models::Invoice::delivery_method,
+        ?description: String,
+        ?expires_at: Time,
+        ?metadata: ::Hash[Symbol, String?],
+        ?payment_details: Yoomoney::Invoice::PaymentDetails
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        cart: ::Array[Yoomoney::LineItem],
+        created_at: Time,
+        status: Yoomoney::Models::Invoice::status,
+        cancellation_details: Yoomoney::Invoice::CancellationDetails,
+        delivery_method: Yoomoney::Models::Invoice::delivery_method,
+        description: String,
+        expires_at: Time,
+        metadata: ::Hash[Symbol, String?],
+        payment_details: Yoomoney::Invoice::PaymentDetails
+      }
+
+      type status = :pending | :succeeded | :canceled
+
+      module Status
+        extend Yoomoney::Internal::Type::Enum
+
+        PENDING: :pending
+        SUCCEEDED: :succeeded
+        CANCELED: :canceled
+
+        def self?.values: -> ::Array[Yoomoney::Models::Invoice::status]
+      end
+
+      type cancellation_details =
+        {
+          party: Yoomoney::Models::Invoice::CancellationDetails::party,
+          reason: Yoomoney::Models::Invoice::CancellationDetails::reason
+        }
+
+      class CancellationDetails < Yoomoney::Internal::Type::BaseModel
+        attr_accessor party: Yoomoney::Models::Invoice::CancellationDetails::party
+
+        attr_accessor reason: Yoomoney::Models::Invoice::CancellationDetails::reason
+
+        def initialize: (
+          party: Yoomoney::Models::Invoice::CancellationDetails::party,
+          reason: Yoomoney::Models::Invoice::CancellationDetails::reason
+        ) -> void
+
+        def to_hash: -> {
+          party: Yoomoney::Models::Invoice::CancellationDetails::party,
+          reason: Yoomoney::Models::Invoice::CancellationDetails::reason
+        }
+
+        type party = :yoo_money | :merchant
+
+        module Party
+          extend Yoomoney::Internal::Type::Enum
+
+          YOO_MONEY: :yoo_money
+          MERCHANT: :merchant
+
+          def self?.values: -> ::Array[Yoomoney::Models::Invoice::CancellationDetails::party]
+        end
+
+        type reason =
+          :invoice_canceled
+          | :invoice_expired
+          | :general_decline
+          | :payment_canceled
+          | :payment_expired_on_capture
+
+        module Reason
+          extend Yoomoney::Internal::Type::Enum
+
+          INVOICE_CANCELED: :invoice_canceled
+          INVOICE_EXPIRED: :invoice_expired
+          GENERAL_DECLINE: :general_decline
+          PAYMENT_CANCELED: :payment_canceled
+          PAYMENT_EXPIRED_ON_CAPTURE: :payment_expired_on_capture
+
+          def self?.values: -> ::Array[Yoomoney::Models::Invoice::CancellationDetails::reason]
+        end
+      end
+
+      type delivery_method =
+        Yoomoney::Invoice::DeliveryMethod::DeliveryMethodSelf
+        | Yoomoney::DeliveryMethod
+
+      module DeliveryMethod
+        extend Yoomoney::Internal::Type::Union
+
+        type delivery_method_self = { url: String }
+
+        class DeliveryMethodSelf < Yoomoney::Models::DeliveryMethod
+          def url: -> String?
+
+          def url=: (String _) -> String
+
+          def initialize: (?url: String) -> void
+
+          def to_hash: -> { url: String }
+        end
+
+        def self?.variants: -> ::Array[Yoomoney::Models::Invoice::delivery_method]
+      end
+
+      type payment_details =
+        { id: String, status: Yoomoney::Models::payment_status }
+
+      class PaymentDetails < Yoomoney::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        attr_accessor status: Yoomoney::Models::payment_status
+
+        def initialize: (
+          id: String,
+          status: Yoomoney::Models::payment_status
+        ) -> void
+
+        def to_hash: -> { id: String, status: Yoomoney::Models::payment_status }
+      end
+    end
+  end
+end

@@ -1,0 +1,15 @@
+module Yoomoney
+  module Models
+    type sbp_bank_list_params =
+      {  } & Yoomoney::Internal::Type::request_parameters
+
+    class SbpBankListParams < Yoomoney::Internal::Type::BaseModel
+      extend Yoomoney::Internal::Type::RequestParameters::Converter
+      include Yoomoney::Internal::Type::RequestParameters
+
+      def initialize: (?request_options: Yoomoney::request_opts) -> void
+
+      def to_hash: -> { request_options: Yoomoney::RequestOptions }
+    end
+  end
+end

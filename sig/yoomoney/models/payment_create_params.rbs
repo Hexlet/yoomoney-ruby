@@ -1,0 +1,830 @@
+module Yoomoney
+  module Models
+    type payment_create_params =
+      {
+        amount: Yoomoney::MonetaryAmount,
+        idempotence_key: String,
+        airline: Yoomoney::Airline,
+        capture: bool,
+        client_ip: String,
+        confirmation: Yoomoney::Models::PaymentCreateParams::confirmation,
+        deal: Yoomoney::PaymentDealInfo,
+        description: String,
+        merchant_customer_id: String,
+        metadata: ::Hash[Symbol, String?],
+        payment_method_data: Yoomoney::Models::PaymentCreateParams::payment_method_data,
+        payment_method_id: String,
+        payment_order: Yoomoney::PaymentCreateParams::PaymentOrder,
+        payment_token: String,
+        receipt: Yoomoney::ReceiptData,
+        receiver: Yoomoney::Models::PaymentCreateParams::receiver,
+        recipient: Yoomoney::Recipient,
+        save_payment_method: bool,
+        statements: ::Array[Yoomoney::PaymentCreateParams::Statement],
+        transfers: ::Array[Yoomoney::PaymentCreateParams::Transfer]
+      }
+      & Yoomoney::Internal::Type::request_parameters
+
+    class PaymentCreateParams < Yoomoney::Internal::Type::BaseModel
+      extend Yoomoney::Internal::Type::RequestParameters::Converter
+      include Yoomoney::Internal::Type::RequestParameters
+
+      attr_accessor amount: Yoomoney::MonetaryAmount
+
+      attr_accessor idempotence_key: String
+
+      attr_reader airline: Yoomoney::Airline?
+
+      def airline=: (Yoomoney::Airline) -> Yoomoney::Airline
+
+      attr_reader capture: bool?
+
+      def capture=: (bool) -> bool
+
+      attr_reader client_ip: String?
+
+      def client_ip=: (String) -> String
+
+      attr_reader confirmation: Yoomoney::Models::PaymentCreateParams::confirmation?
+
+      def confirmation=: (
+        Yoomoney::Models::PaymentCreateParams::confirmation
+      ) -> Yoomoney::Models::PaymentCreateParams::confirmation
+
+      attr_reader deal: Yoomoney::PaymentDealInfo?
+
+      def deal=: (Yoomoney::PaymentDealInfo) -> Yoomoney::PaymentDealInfo
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      attr_reader merchant_customer_id: String?
+
+      def merchant_customer_id=: (String) -> String
+
+      attr_reader metadata: ::Hash[Symbol, String?]?
+
+      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+
+      attr_reader payment_method_data: Yoomoney::Models::PaymentCreateParams::payment_method_data?
+
+      def payment_method_data=: (
+        Yoomoney::Models::PaymentCreateParams::payment_method_data
+      ) -> Yoomoney::Models::PaymentCreateParams::payment_method_data
+
+      attr_reader payment_method_id: String?
+
+      def payment_method_id=: (String) -> String
+
+      attr_reader payment_order: Yoomoney::PaymentCreateParams::PaymentOrder?
+
+      def payment_order=: (
+        Yoomoney::PaymentCreateParams::PaymentOrder
+      ) -> Yoomoney::PaymentCreateParams::PaymentOrder
+
+      attr_reader payment_token: String?
+
+      def payment_token=: (String) -> String
+
+      attr_reader receipt: Yoomoney::ReceiptData?
+
+      def receipt=: (Yoomoney::ReceiptData) -> Yoomoney::ReceiptData
+
+      attr_reader receiver: Yoomoney::Models::PaymentCreateParams::receiver?
+
+      def receiver=: (
+        Yoomoney::Models::PaymentCreateParams::receiver
+      ) -> Yoomoney::Models::PaymentCreateParams::receiver
+
+      attr_reader recipient: Yoomoney::Recipient?
+
+      def recipient=: (Yoomoney::Recipient) -> Yoomoney::Recipient
+
+      attr_reader save_payment_method: bool?
+
+      def save_payment_method=: (bool) -> bool
+
+      attr_reader statements: ::Array[Yoomoney::PaymentCreateParams::Statement]?
+
+      def statements=: (
+        ::Array[Yoomoney::PaymentCreateParams::Statement]
+      ) -> ::Array[Yoomoney::PaymentCreateParams::Statement]
+
+      attr_reader transfers: ::Array[Yoomoney::PaymentCreateParams::Transfer]?
+
+      def transfers=: (
+        ::Array[Yoomoney::PaymentCreateParams::Transfer]
+      ) -> ::Array[Yoomoney::PaymentCreateParams::Transfer]
+
+      def initialize: (
+        amount: Yoomoney::MonetaryAmount,
+        idempotence_key: String,
+        ?airline: Yoomoney::Airline,
+        ?capture: bool,
+        ?client_ip: String,
+        ?confirmation: Yoomoney::Models::PaymentCreateParams::confirmation,
+        ?deal: Yoomoney::PaymentDealInfo,
+        ?description: String,
+        ?merchant_customer_id: String,
+        ?metadata: ::Hash[Symbol, String?],
+        ?payment_method_data: Yoomoney::Models::PaymentCreateParams::payment_method_data,
+        ?payment_method_id: String,
+        ?payment_order: Yoomoney::PaymentCreateParams::PaymentOrder,
+        ?payment_token: String,
+        ?receipt: Yoomoney::ReceiptData,
+        ?receiver: Yoomoney::Models::PaymentCreateParams::receiver,
+        ?recipient: Yoomoney::Recipient,
+        ?save_payment_method: bool,
+        ?statements: ::Array[Yoomoney::PaymentCreateParams::Statement],
+        ?transfers: ::Array[Yoomoney::PaymentCreateParams::Transfer],
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        amount: Yoomoney::MonetaryAmount,
+        idempotence_key: String,
+        airline: Yoomoney::Airline,
+        capture: bool,
+        client_ip: String,
+        confirmation: Yoomoney::Models::PaymentCreateParams::confirmation,
+        deal: Yoomoney::PaymentDealInfo,
+        description: String,
+        merchant_customer_id: String,
+        metadata: ::Hash[Symbol, String?],
+        payment_method_data: Yoomoney::Models::PaymentCreateParams::payment_method_data,
+        payment_method_id: String,
+        payment_order: Yoomoney::PaymentCreateParams::PaymentOrder,
+        payment_token: String,
+        receipt: Yoomoney::ReceiptData,
+        receiver: Yoomoney::Models::PaymentCreateParams::receiver,
+        recipient: Yoomoney::Recipient,
+        save_payment_method: bool,
+        statements: ::Array[Yoomoney::PaymentCreateParams::Statement],
+        transfers: ::Array[Yoomoney::PaymentCreateParams::Transfer],
+        request_options: Yoomoney::RequestOptions
+      }
+
+      type confirmation =
+        Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataRedirect
+        | Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataExternal
+        | Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataQr
+        | Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataEmbedded
+        | Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataMobileApplication
+
+      module Confirmation
+        extend Yoomoney::Internal::Type::Union
+
+        type confirmation_data_redirect = { return_url: String, enforce: bool }
+
+        class ConfirmationDataRedirect < Yoomoney::Models::ConfirmationData
+          def return_url: -> String
+
+          def return_url=: (String _) -> String
+
+          def enforce: -> bool?
+
+          def enforce=: (bool _) -> bool
+
+          def initialize: (return_url: String, ?enforce: bool) -> void
+
+          def to_hash: -> { return_url: String, enforce: bool }
+        end
+
+        type confirmation_data_external = {  }
+
+        class ConfirmationDataExternal < Yoomoney::Models::ConfirmationData
+          def initialize: -> void
+
+          def to_hash: -> {  }
+        end
+
+        type confirmation_data_qr = { return_url: String }
+
+        class ConfirmationDataQr < Yoomoney::Models::ConfirmationData
+          def return_url: -> String?
+
+          def return_url=: (String _) -> String
+
+          def initialize: (?return_url: String) -> void
+
+          def to_hash: -> { return_url: String }
+        end
+
+        type confirmation_data_embedded = {  }
+
+        class ConfirmationDataEmbedded < Yoomoney::Models::ConfirmationData
+          def initialize: -> void
+
+          def to_hash: -> {  }
+        end
+
+        type confirmation_data_mobile_application = { return_url: String }
+
+        class ConfirmationDataMobileApplication < Yoomoney::Models::ConfirmationData
+          def return_url: -> String
+
+          def return_url=: (String _) -> String
+
+          def initialize: (return_url: String) -> void
+
+          def to_hash: -> { return_url: String }
+        end
+
+        def self?.variants: -> ::Array[Yoomoney::Models::PaymentCreateParams::confirmation]
+      end
+
+      type payment_method_data =
+        Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataBankCard
+        | Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataCash
+        | Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataSberbank
+        | Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataTinkoffBank
+        | Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataYooMoney
+        | Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataMobileBalance
+        | Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataB2bSberbank
+        | Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataSbp
+        | Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataSberLoan
+        | Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate
+        | Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataSberBnpl
+
+      module PaymentMethodData
+        extend Yoomoney::Internal::Type::Union
+
+        type payment_method_data_bank_card =
+          { card: Yoomoney::CardRequestDataWithCsc }
+
+        class PaymentMethodDataBankCard < Yoomoney::Models::PaymentMethodData
+          def card: -> Yoomoney::CardRequestDataWithCsc?
+
+          def card=: (
+            Yoomoney::CardRequestDataWithCsc _
+          ) -> Yoomoney::CardRequestDataWithCsc
+
+          def initialize: (?card: Yoomoney::CardRequestDataWithCsc) -> void
+
+          def to_hash: -> { card: Yoomoney::CardRequestDataWithCsc }
+        end
+
+        type payment_method_data_cash = { phone: String }
+
+        class PaymentMethodDataCash < Yoomoney::Models::PaymentMethodData
+          def phone: -> String?
+
+          def phone=: (String _) -> String
+
+          def initialize: (?phone: String) -> void
+
+          def to_hash: -> { phone: String }
+        end
+
+        type payment_method_data_sberbank = { phone: String }
+
+        class PaymentMethodDataSberbank < Yoomoney::Models::PaymentMethodData
+          def phone: -> String?
+
+          def phone=: (String _) -> String
+
+          def initialize: (?phone: String) -> void
+
+          def to_hash: -> { phone: String }
+        end
+
+        type payment_method_data_tinkoff_bank = {  }
+
+        class PaymentMethodDataTinkoffBank < Yoomoney::Models::PaymentMethodData
+          def initialize: -> void
+
+          def to_hash: -> {  }
+        end
+
+        type payment_method_data_yoo_money = {  }
+
+        class PaymentMethodDataYooMoney < Yoomoney::Models::PaymentMethodData
+          def initialize: -> void
+
+          def to_hash: -> {  }
+        end
+
+        type payment_method_data_mobile_balance = { phone: String }
+
+        class PaymentMethodDataMobileBalance < Yoomoney::Models::PaymentMethodData
+          def phone: -> String
+
+          def phone=: (String _) -> String
+
+          def initialize: (phone: String) -> void
+
+          def to_hash: -> { phone: String }
+        end
+
+        type payment_method_data_b2b_sberbank =
+          {
+            payment_purpose: String,
+            vat_data: Yoomoney::Models::PaymentCreateParams::PaymentMethodData::PaymentMethodDataB2bSberbank::vat_data
+          }
+
+        class PaymentMethodDataB2bSberbank < Yoomoney::Models::PaymentMethodData
+          def payment_purpose: -> String
+
+          def payment_purpose=: (String _) -> String
+
+          def vat_data: -> Yoomoney::Models::PaymentCreateParams::PaymentMethodData::PaymentMethodDataB2bSberbank::vat_data
+
+          def vat_data=: (
+            Yoomoney::Models::PaymentCreateParams::PaymentMethodData::PaymentMethodDataB2bSberbank::vat_data _
+          ) -> Yoomoney::Models::PaymentCreateParams::PaymentMethodData::PaymentMethodDataB2bSberbank::vat_data
+
+          def initialize: (
+            payment_purpose: String,
+            vat_data: Yoomoney::Models::PaymentCreateParams::PaymentMethodData::PaymentMethodDataB2bSberbank::vat_data
+          ) -> void
+
+          def to_hash: -> {
+            payment_purpose: String,
+            vat_data: Yoomoney::Models::PaymentCreateParams::PaymentMethodData::PaymentMethodDataB2bSberbank::vat_data
+          }
+
+          type vat_data =
+            Yoomoney::B2bSberbankCalculatedVatData
+            | Yoomoney::B2bSberbankUntaxedVatData
+            | Yoomoney::B2bSberbankMixedVatData
+
+          module VatData
+            extend Yoomoney::Internal::Type::Union
+
+            def self?.variants: -> ::Array[Yoomoney::Models::PaymentCreateParams::PaymentMethodData::PaymentMethodDataB2bSberbank::vat_data]
+          end
+        end
+
+        type payment_method_data_sbp = {  }
+
+        class PaymentMethodDataSbp < Yoomoney::Models::PaymentMethodData
+          def initialize: -> void
+
+          def to_hash: -> {  }
+        end
+
+        type payment_method_data_sber_loan = {  }
+
+        class PaymentMethodDataSberLoan < Yoomoney::Models::PaymentMethodData
+          def initialize: -> void
+
+          def to_hash: -> {  }
+        end
+
+        type payment_method_data_electronic_certificate =
+          {
+            articles: ::Array[Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate::Article],
+            card: Yoomoney::CardRequestDataWithCsc,
+            electronic_certificate: Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate::ElectronicCertificate
+          }
+
+        class PaymentMethodDataElectronicCertificate < Yoomoney::Models::PaymentMethodData
+          def articles: -> ::Array[Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate::Article]?
+
+          def articles=: (
+            ::Array[Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate::Article] _
+          ) -> ::Array[Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate::Article]
+
+          def card: -> Yoomoney::CardRequestDataWithCsc?
+
+          def card=: (
+            Yoomoney::CardRequestDataWithCsc _
+          ) -> Yoomoney::CardRequestDataWithCsc
+
+          def electronic_certificate: -> Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate::ElectronicCertificate?
+
+          def electronic_certificate=: (
+            Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate::ElectronicCertificate _
+          ) -> Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate::ElectronicCertificate
+
+          def initialize: (
+            ?articles: ::Array[Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate::Article],
+            ?card: Yoomoney::CardRequestDataWithCsc,
+            ?electronic_certificate: Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate::ElectronicCertificate
+          ) -> void
+
+          def to_hash: -> {
+            articles: ::Array[Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate::Article],
+            card: Yoomoney::CardRequestDataWithCsc,
+            electronic_certificate: Yoomoney::PaymentCreateParams::PaymentMethodData::PaymentMethodDataElectronicCertificate::ElectronicCertificate
+          }
+
+          type article =
+            {
+              article_name: String,
+              article_number: Integer,
+              price: Yoomoney::MonetaryAmount,
+              quantity: Integer,
+              tru_code: String,
+              article_code: String,
+              metadata: ::Hash[Symbol, String?]
+            }
+
+          class Article < Yoomoney::Internal::Type::BaseModel
+            attr_accessor article_name: String
+
+            attr_accessor article_number: Integer
+
+            attr_accessor price: Yoomoney::MonetaryAmount
+
+            attr_accessor quantity: Integer
+
+            attr_accessor tru_code: String
+
+            attr_reader article_code: String?
+
+            def article_code=: (String) -> String
+
+            attr_reader metadata: ::Hash[Symbol, String?]?
+
+            def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+
+            def initialize: (
+              article_name: String,
+              article_number: Integer,
+              price: Yoomoney::MonetaryAmount,
+              quantity: Integer,
+              tru_code: String,
+              ?article_code: String,
+              ?metadata: ::Hash[Symbol, String?]
+            ) -> void
+
+            def to_hash: -> {
+              article_name: String,
+              article_number: Integer,
+              price: Yoomoney::MonetaryAmount,
+              quantity: Integer,
+              tru_code: String,
+              article_code: String,
+              metadata: ::Hash[Symbol, String?]
+            }
+          end
+
+          type electronic_certificate =
+            { amount: Yoomoney::MonetaryAmount, basket_id: String }
+
+          class ElectronicCertificate < Yoomoney::Internal::Type::BaseModel
+            attr_accessor amount: Yoomoney::MonetaryAmount
+
+            attr_accessor basket_id: String
+
+            def initialize: (
+              amount: Yoomoney::MonetaryAmount,
+              basket_id: String
+            ) -> void
+
+            def to_hash: -> {
+              amount: Yoomoney::MonetaryAmount,
+              basket_id: String
+            }
+          end
+        end
+
+        type payment_method_data_sber_bnpl = { phone: String }
+
+        class PaymentMethodDataSberBnpl < Yoomoney::Models::PaymentMethodData
+          def phone: -> String?
+
+          def phone=: (String _) -> String
+
+          def initialize: (?phone: String) -> void
+
+          def to_hash: -> { phone: String }
+        end
+
+        def self?.variants: -> ::Array[Yoomoney::Models::PaymentCreateParams::payment_method_data]
+      end
+
+      type payment_order =
+        {
+          amount: Yoomoney::MonetaryAmount,
+          payment_purpose: String,
+          recipient: Yoomoney::PaymentCreateParams::PaymentOrder::Recipient,
+          type: Yoomoney::Models::PaymentCreateParams::PaymentOrder::type_,
+          account_number: String,
+          kbk: String,
+          oktmo: String,
+          payment_document_id: String,
+          payment_document_number: String,
+          payment_period: Yoomoney::PaymentCreateParams::PaymentOrder::PaymentPeriod,
+          service_id: String,
+          unified_account_number: String
+        }
+
+      class PaymentOrder < Yoomoney::Internal::Type::BaseModel
+        attr_accessor amount: Yoomoney::MonetaryAmount
+
+        attr_accessor payment_purpose: String
+
+        attr_accessor recipient: Yoomoney::PaymentCreateParams::PaymentOrder::Recipient
+
+        attr_accessor type: Yoomoney::Models::PaymentCreateParams::PaymentOrder::type_
+
+        attr_reader account_number: String?
+
+        def account_number=: (String) -> String
+
+        attr_reader kbk: String?
+
+        def kbk=: (String) -> String
+
+        attr_reader oktmo: String?
+
+        def oktmo=: (String) -> String
+
+        attr_reader payment_document_id: String?
+
+        def payment_document_id=: (String) -> String
+
+        attr_reader payment_document_number: String?
+
+        def payment_document_number=: (String) -> String
+
+        attr_reader payment_period: Yoomoney::PaymentCreateParams::PaymentOrder::PaymentPeriod?
+
+        def payment_period=: (
+          Yoomoney::PaymentCreateParams::PaymentOrder::PaymentPeriod
+        ) -> Yoomoney::PaymentCreateParams::PaymentOrder::PaymentPeriod
+
+        attr_reader service_id: String?
+
+        def service_id=: (String) -> String
+
+        attr_reader unified_account_number: String?
+
+        def unified_account_number=: (String) -> String
+
+        def initialize: (
+          amount: Yoomoney::MonetaryAmount,
+          payment_purpose: String,
+          recipient: Yoomoney::PaymentCreateParams::PaymentOrder::Recipient,
+          type: Yoomoney::Models::PaymentCreateParams::PaymentOrder::type_,
+          ?account_number: String,
+          ?kbk: String,
+          ?oktmo: String,
+          ?payment_document_id: String,
+          ?payment_document_number: String,
+          ?payment_period: Yoomoney::PaymentCreateParams::PaymentOrder::PaymentPeriod,
+          ?service_id: String,
+          ?unified_account_number: String
+        ) -> void
+
+        def to_hash: -> {
+          amount: Yoomoney::MonetaryAmount,
+          payment_purpose: String,
+          recipient: Yoomoney::PaymentCreateParams::PaymentOrder::Recipient,
+          type: Yoomoney::Models::PaymentCreateParams::PaymentOrder::type_,
+          account_number: String,
+          kbk: String,
+          oktmo: String,
+          payment_document_id: String,
+          payment_document_number: String,
+          payment_period: Yoomoney::PaymentCreateParams::PaymentOrder::PaymentPeriod,
+          service_id: String,
+          unified_account_number: String
+        }
+
+        type recipient =
+          {
+            bank: Yoomoney::PaymentCreateParams::PaymentOrder::Recipient::Bank,
+            inn: String,
+            kpp: String,
+            name: String
+          }
+
+        class Recipient < Yoomoney::Internal::Type::BaseModel
+          attr_accessor bank: Yoomoney::PaymentCreateParams::PaymentOrder::Recipient::Bank
+
+          attr_accessor inn: String
+
+          attr_accessor kpp: String
+
+          attr_accessor name: String
+
+          def initialize: (
+            bank: Yoomoney::PaymentCreateParams::PaymentOrder::Recipient::Bank,
+            inn: String,
+            kpp: String,
+            name: String
+          ) -> void
+
+          def to_hash: -> {
+            bank: Yoomoney::PaymentCreateParams::PaymentOrder::Recipient::Bank,
+            inn: String,
+            kpp: String,
+            name: String
+          }
+
+          type bank =
+            {
+              account: String,
+              bic: String,
+              correspondent_account: String,
+              name: String
+            }
+
+          class Bank < Yoomoney::Internal::Type::BaseModel
+            attr_accessor account: String
+
+            attr_accessor bic: String
+
+            attr_accessor correspondent_account: String
+
+            attr_accessor name: String
+
+            def initialize: (
+              account: String,
+              bic: String,
+              correspondent_account: String,
+              name: String
+            ) -> void
+
+            def to_hash: -> {
+              account: String,
+              bic: String,
+              correspondent_account: String,
+              name: String
+            }
+          end
+        end
+
+        type type_ = :utilities
+
+        module Type
+          extend Yoomoney::Internal::Type::Enum
+
+          UTILITIES: :utilities
+
+          def self?.values: -> ::Array[Yoomoney::Models::PaymentCreateParams::PaymentOrder::type_]
+        end
+
+        type payment_period = { month: Integer, year: Integer }
+
+        class PaymentPeriod < Yoomoney::Internal::Type::BaseModel
+          attr_accessor month: Integer
+
+          attr_accessor year: Integer
+
+          def initialize: (month: Integer, year: Integer) -> void
+
+          def to_hash: -> { month: Integer, year: Integer }
+        end
+      end
+
+      type receiver =
+        Yoomoney::PaymentCreateParams::Receiver::ReceiverMobileBalance
+        | Yoomoney::PaymentCreateParams::Receiver::ReceiverDigitalWallet
+        | Yoomoney::PaymentCreateParams::Receiver::ReceiverBankAccount
+
+      module Receiver
+        extend Yoomoney::Internal::Type::Union
+
+        type receiver_mobile_balance =
+          {
+            phone: Yoomoney::PaymentCreateParams::Receiver::ReceiverMobileBalance::Phone
+          }
+
+        class ReceiverMobileBalance < Yoomoney::Models::Receiver
+          def phone: -> Yoomoney::PaymentCreateParams::Receiver::ReceiverMobileBalance::Phone
+
+          def phone=: (
+            Yoomoney::PaymentCreateParams::Receiver::ReceiverMobileBalance::Phone _
+          ) -> Yoomoney::PaymentCreateParams::Receiver::ReceiverMobileBalance::Phone
+
+          def initialize: (
+            phone: Yoomoney::PaymentCreateParams::Receiver::ReceiverMobileBalance::Phone
+          ) -> void
+
+          def to_hash: -> {
+            phone: Yoomoney::PaymentCreateParams::Receiver::ReceiverMobileBalance::Phone
+          }
+
+          type phone = {  }
+
+          class Phone < Yoomoney::Internal::Type::BaseModel
+            def initialize: -> void
+
+            def to_hash: -> {  }
+          end
+        end
+
+        type receiver_digital_wallet = { account_number: String }
+
+        class ReceiverDigitalWallet < Yoomoney::Models::Receiver
+          def account_number: -> String
+
+          def account_number=: (String _) -> String
+
+          def initialize: (account_number: String) -> void
+
+          def to_hash: -> { account_number: String }
+        end
+
+        type receiver_bank_account = { account_number: String, bic: String }
+
+        class ReceiverBankAccount < Yoomoney::Models::Receiver
+          def account_number: -> String
+
+          def account_number=: (String _) -> String
+
+          def bic: -> String
+
+          def bic=: (String _) -> String
+
+          def initialize: (account_number: String, bic: String) -> void
+
+          def to_hash: -> { account_number: String, bic: String }
+        end
+
+        def self?.variants: -> ::Array[Yoomoney::Models::PaymentCreateParams::receiver]
+      end
+
+      type statement =
+        {
+          delivery_method: Yoomoney::PaymentCreateParams::Statement::DeliveryMethod,
+          type: Yoomoney::Models::PaymentCreateParams::Statement::type_
+        }
+
+      class Statement < Yoomoney::Internal::Type::BaseModel
+        attr_accessor delivery_method: Yoomoney::PaymentCreateParams::Statement::DeliveryMethod
+
+        attr_accessor type: Yoomoney::Models::PaymentCreateParams::Statement::type_
+
+        def initialize: (
+          delivery_method: Yoomoney::PaymentCreateParams::Statement::DeliveryMethod,
+          type: Yoomoney::Models::PaymentCreateParams::Statement::type_
+        ) -> void
+
+        def to_hash: -> {
+          delivery_method: Yoomoney::PaymentCreateParams::Statement::DeliveryMethod,
+          type: Yoomoney::Models::PaymentCreateParams::Statement::type_
+        }
+
+        type delivery_method =
+          {
+            email: String,
+            type: Yoomoney::Models::PaymentCreateParams::Statement::DeliveryMethod::type_
+          }
+
+        class DeliveryMethod < Yoomoney::Internal::Type::BaseModel
+          attr_accessor email: String
+
+          attr_accessor type: Yoomoney::Models::PaymentCreateParams::Statement::DeliveryMethod::type_
+
+          def initialize: (
+            email: String,
+            type: Yoomoney::Models::PaymentCreateParams::Statement::DeliveryMethod::type_
+          ) -> void
+
+          def to_hash: -> {
+            email: String,
+            type: Yoomoney::Models::PaymentCreateParams::Statement::DeliveryMethod::type_
+          }
+
+          type type_ = :email
+
+          module Type
+            extend Yoomoney::Internal::Type::Enum
+
+            EMAIL: :email
+
+            def self?.values: -> ::Array[Yoomoney::Models::PaymentCreateParams::Statement::DeliveryMethod::type_]
+          end
+        end
+
+        type type_ = :payment_overview
+
+        module Type
+          extend Yoomoney::Internal::Type::Enum
+
+          PAYMENT_OVERVIEW: :payment_overview
+
+          def self?.values: -> ::Array[Yoomoney::Models::PaymentCreateParams::Statement::type_]
+        end
+      end
+
+      type transfer = { description: String, metadata: ::Hash[Symbol, String?] }
+
+      class Transfer < Yoomoney::Models::TransferData
+        def description: -> String?
+
+        def description=: (String _) -> String
+
+        def metadata: -> ::Hash[Symbol, String?]?
+
+        def metadata=: (::Hash[Symbol, String?] _) -> ::Hash[Symbol, String?]
+
+        def initialize: (
+          ?description: String,
+          ?metadata: ::Hash[Symbol, String?]
+        ) -> void
+
+        def to_hash: -> {
+          description: String,
+          metadata: ::Hash[Symbol, String?]
+        }
+      end
+    end
+  end
+end

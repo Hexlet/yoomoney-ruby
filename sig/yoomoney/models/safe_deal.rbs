@@ -1,0 +1,85 @@
+module Yoomoney
+  module Models
+    type safe_deal =
+      {
+        id: String,
+        balance: Yoomoney::MonetaryAmount,
+        created_at: Time,
+        expires_at: Time,
+        fee_moment: Yoomoney::Models::fee_moment,
+        payout_balance: Yoomoney::MonetaryAmount,
+        status: Yoomoney::Models::SafeDeal::status,
+        test_: bool,
+        type: Yoomoney::Models::deal_type,
+        description: String,
+        metadata: ::Hash[Symbol, String?]
+      }
+
+    class SafeDeal < Yoomoney::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor balance: Yoomoney::MonetaryAmount
+
+      attr_accessor created_at: Time
+
+      attr_accessor expires_at: Time
+
+      attr_accessor fee_moment: Yoomoney::Models::fee_moment
+
+      attr_accessor payout_balance: Yoomoney::MonetaryAmount
+
+      attr_accessor status: Yoomoney::Models::SafeDeal::status
+
+      attr_accessor test_: bool
+
+      attr_accessor type: Yoomoney::Models::deal_type
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      attr_reader metadata: ::Hash[Symbol, String?]?
+
+      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+
+      def initialize: (
+        id: String,
+        balance: Yoomoney::MonetaryAmount,
+        created_at: Time,
+        expires_at: Time,
+        fee_moment: Yoomoney::Models::fee_moment,
+        payout_balance: Yoomoney::MonetaryAmount,
+        status: Yoomoney::Models::SafeDeal::status,
+        test_: bool,
+        type: Yoomoney::Models::deal_type,
+        ?description: String,
+        ?metadata: ::Hash[Symbol, String?]
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        balance: Yoomoney::MonetaryAmount,
+        created_at: Time,
+        expires_at: Time,
+        fee_moment: Yoomoney::Models::fee_moment,
+        payout_balance: Yoomoney::MonetaryAmount,
+        status: Yoomoney::Models::SafeDeal::status,
+        test_: bool,
+        type: Yoomoney::Models::deal_type,
+        description: String,
+        metadata: ::Hash[Symbol, String?]
+      }
+
+      type status = :opened | :closed
+
+      module Status
+        extend Yoomoney::Internal::Type::Enum
+
+        OPENED: :opened
+        CLOSED: :closed
+
+        def self?.values: -> ::Array[Yoomoney::Models::SafeDeal::status]
+      end
+    end
+  end
+end

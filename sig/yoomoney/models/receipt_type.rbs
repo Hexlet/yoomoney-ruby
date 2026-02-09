@@ -1,0 +1,14 @@
+module Yoomoney
+  module Models
+    type receipt_type = :payment | :refund
+
+    module ReceiptType
+      extend Yoomoney::Internal::Type::Enum
+
+      PAYMENT: :payment
+      REFUND: :refund
+
+      def self?.values: -> ::Array[Yoomoney::Models::receipt_type]
+    end
+  end
+end

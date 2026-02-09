@@ -1,0 +1,332 @@
+module Yoomoney
+  module Models
+    type payout =
+      {
+        id: String,
+        amount: Yoomoney::MonetaryAmount,
+        created_at: Time,
+        payout_destination: Yoomoney::Models::Payout::payout_destination,
+        status: Yoomoney::Models::payout_status,
+        test_: bool,
+        cancellation_details: Yoomoney::Payout::CancellationDetails,
+        deal: Yoomoney::Payout::Deal,
+        description: String,
+        metadata: ::Hash[Symbol, String?],
+        receipt: Yoomoney::Payout::Receipt,
+        self_employed: Yoomoney::Payout::SelfEmployed,
+        succeeded_at: Time
+      }
+
+    class Payout < Yoomoney::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor amount: Yoomoney::MonetaryAmount
+
+      attr_accessor created_at: Time
+
+      attr_accessor payout_destination: Yoomoney::Models::Payout::payout_destination
+
+      attr_accessor status: Yoomoney::Models::payout_status
+
+      attr_accessor test_: bool
+
+      attr_reader cancellation_details: Yoomoney::Payout::CancellationDetails?
+
+      def cancellation_details=: (
+        Yoomoney::Payout::CancellationDetails
+      ) -> Yoomoney::Payout::CancellationDetails
+
+      attr_reader deal: Yoomoney::Payout::Deal?
+
+      def deal=: (Yoomoney::Payout::Deal) -> Yoomoney::Payout::Deal
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      attr_reader metadata: ::Hash[Symbol, String?]?
+
+      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+
+      attr_reader receipt: Yoomoney::Payout::Receipt?
+
+      def receipt=: (Yoomoney::Payout::Receipt) -> Yoomoney::Payout::Receipt
+
+      attr_reader self_employed: Yoomoney::Payout::SelfEmployed?
+
+      def self_employed=: (
+        Yoomoney::Payout::SelfEmployed
+      ) -> Yoomoney::Payout::SelfEmployed
+
+      attr_reader succeeded_at: Time?
+
+      def succeeded_at=: (Time) -> Time
+
+      def initialize: (
+        id: String,
+        amount: Yoomoney::MonetaryAmount,
+        created_at: Time,
+        payout_destination: Yoomoney::Models::Payout::payout_destination,
+        status: Yoomoney::Models::payout_status,
+        test_: bool,
+        ?cancellation_details: Yoomoney::Payout::CancellationDetails,
+        ?deal: Yoomoney::Payout::Deal,
+        ?description: String,
+        ?metadata: ::Hash[Symbol, String?],
+        ?receipt: Yoomoney::Payout::Receipt,
+        ?self_employed: Yoomoney::Payout::SelfEmployed,
+        ?succeeded_at: Time
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        amount: Yoomoney::MonetaryAmount,
+        created_at: Time,
+        payout_destination: Yoomoney::Models::Payout::payout_destination,
+        status: Yoomoney::Models::payout_status,
+        test_: bool,
+        cancellation_details: Yoomoney::Payout::CancellationDetails,
+        deal: Yoomoney::Payout::Deal,
+        description: String,
+        metadata: ::Hash[Symbol, String?],
+        receipt: Yoomoney::Payout::Receipt,
+        self_employed: Yoomoney::Payout::SelfEmployed,
+        succeeded_at: Time
+      }
+
+      type payout_destination =
+        Yoomoney::Payout::PayoutDestination::PayoutToCardDestination
+        | Yoomoney::Payout::PayoutDestination::PayoutToYooMoneyDestination
+        | Yoomoney::Payout::PayoutDestination::PayoutToSbpDestination
+
+      module PayoutDestination
+        extend Yoomoney::Internal::Type::Union
+
+        type payout_to_card_destination =
+          {
+            card: Yoomoney::Payout::PayoutDestination::PayoutToCardDestination::Card
+          }
+
+        class PayoutToCardDestination < Yoomoney::Models::PayoutDestination
+          def card: -> Yoomoney::Payout::PayoutDestination::PayoutToCardDestination::Card?
+
+          def card=: (
+            Yoomoney::Payout::PayoutDestination::PayoutToCardDestination::Card _
+          ) -> Yoomoney::Payout::PayoutDestination::PayoutToCardDestination::Card
+
+          def initialize: (
+            ?card: Yoomoney::Payout::PayoutDestination::PayoutToCardDestination::Card
+          ) -> void
+
+          def to_hash: -> {
+            card: Yoomoney::Payout::PayoutDestination::PayoutToCardDestination::Card
+          }
+
+          type card =
+            {
+              card_type: Yoomoney::Models::bank_card_type,
+              :first6 => String,
+              :last4 => String,
+              issuer_country: String,
+              issuer_name: String
+            }
+
+          class Card < Yoomoney::Internal::Type::BaseModel
+            attr_accessor card_type: Yoomoney::Models::bank_card_type
+
+            attr_accessor first6: String
+
+            attr_accessor last4: String
+
+            attr_reader issuer_country: String?
+
+            def issuer_country=: (String) -> String
+
+            attr_reader issuer_name: String?
+
+            def issuer_name=: (String) -> String
+
+            def initialize: (
+              card_type: Yoomoney::Models::bank_card_type,
+              first6: String,
+              last4: String,
+              ?issuer_country: String,
+              ?issuer_name: String
+            ) -> void
+
+            def to_hash: -> {
+              card_type: Yoomoney::Models::bank_card_type,
+              :first6 => String,
+              :last4 => String,
+              issuer_country: String,
+              issuer_name: String
+            }
+          end
+        end
+
+        type payout_to_yoo_money_destination = { account_number: String }
+
+        class PayoutToYooMoneyDestination < Yoomoney::Models::PayoutDestination
+          def account_number: -> String
+
+          def account_number=: (String _) -> String
+
+          def initialize: (account_number: String) -> void
+
+          def to_hash: -> { account_number: String }
+        end
+
+        type payout_to_sbp_destination =
+          { bank_id: String, phone: String, recipient_checked: bool }
+
+        class PayoutToSbpDestination < Yoomoney::Models::PayoutDestination
+          def bank_id: -> String
+
+          def bank_id=: (String _) -> String
+
+          def phone: -> String
+
+          def phone=: (String _) -> String
+
+          def recipient_checked: -> bool
+
+          def recipient_checked=: (bool _) -> bool
+
+          def initialize: (
+            bank_id: String,
+            phone: String,
+            recipient_checked: bool
+          ) -> void
+
+          def to_hash: -> {
+            bank_id: String,
+            phone: String,
+            recipient_checked: bool
+          }
+        end
+
+        def self?.variants: -> ::Array[Yoomoney::Models::Payout::payout_destination]
+      end
+
+      type cancellation_details =
+        {
+          party: Yoomoney::Models::Payout::CancellationDetails::party,
+          reason: Yoomoney::Models::Payout::CancellationDetails::reason
+        }
+
+      class CancellationDetails < Yoomoney::Internal::Type::BaseModel
+        attr_accessor party: Yoomoney::Models::Payout::CancellationDetails::party
+
+        attr_accessor reason: Yoomoney::Models::Payout::CancellationDetails::reason
+
+        def initialize: (
+          party: Yoomoney::Models::Payout::CancellationDetails::party,
+          reason: Yoomoney::Models::Payout::CancellationDetails::reason
+        ) -> void
+
+        def to_hash: -> {
+          party: Yoomoney::Models::Payout::CancellationDetails::party,
+          reason: Yoomoney::Models::Payout::CancellationDetails::reason
+        }
+
+        type party = :yoo_money | :payout_network
+
+        module Party
+          extend Yoomoney::Internal::Type::Enum
+
+          YOO_MONEY: :yoo_money
+          PAYOUT_NETWORK: :payout_network
+
+          def self?.values: -> ::Array[Yoomoney::Models::Payout::CancellationDetails::party]
+        end
+
+        type reason =
+          :insufficient_funds
+          | :fraud_suspected
+          | :one_time_limit_exceeded
+          | :periodic_limit_exceeded
+          | :rejected_by_payee
+          | :general_decline
+          | :issuer_unavailable
+          | :recipient_not_found
+          | :recipient_check_failed
+          | :identification_required
+          | :self_employed_annual_limit_exceeded
+
+        module Reason
+          extend Yoomoney::Internal::Type::Enum
+
+          INSUFFICIENT_FUNDS: :insufficient_funds
+          FRAUD_SUSPECTED: :fraud_suspected
+          ONE_TIME_LIMIT_EXCEEDED: :one_time_limit_exceeded
+          PERIODIC_LIMIT_EXCEEDED: :periodic_limit_exceeded
+          REJECTED_BY_PAYEE: :rejected_by_payee
+          GENERAL_DECLINE: :general_decline
+          ISSUER_UNAVAILABLE: :issuer_unavailable
+          RECIPIENT_NOT_FOUND: :recipient_not_found
+          RECIPIENT_CHECK_FAILED: :recipient_check_failed
+          IDENTIFICATION_REQUIRED: :identification_required
+          SELF_EMPLOYED_ANNUAL_LIMIT_EXCEEDED: :self_employed_annual_limit_exceeded
+
+          def self?.values: -> ::Array[Yoomoney::Models::Payout::CancellationDetails::reason]
+        end
+      end
+
+      type deal = {  }
+
+      class Deal < Yoomoney::Models::PayoutDealInfo
+        def initialize: -> void
+
+        def to_hash: -> {  }
+      end
+
+      type receipt =
+        {
+          service_name: String,
+          amount: Yoomoney::MonetaryAmount,
+          npd_receipt_id: String,
+          url: String
+        }
+
+      class Receipt < Yoomoney::Internal::Type::BaseModel
+        attr_accessor service_name: String
+
+        attr_reader amount: Yoomoney::MonetaryAmount?
+
+        def amount=: (Yoomoney::MonetaryAmount) -> Yoomoney::MonetaryAmount
+
+        attr_reader npd_receipt_id: String?
+
+        def npd_receipt_id=: (String) -> String
+
+        attr_reader url: String?
+
+        def url=: (String) -> String
+
+        def initialize: (
+          service_name: String,
+          ?amount: Yoomoney::MonetaryAmount,
+          ?npd_receipt_id: String,
+          ?url: String
+        ) -> void
+
+        def to_hash: -> {
+          service_name: String,
+          amount: Yoomoney::MonetaryAmount,
+          npd_receipt_id: String,
+          url: String
+        }
+      end
+
+      type self_employed = { id: String }
+
+      class SelfEmployed < Yoomoney::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        def initialize: (id: String) -> void
+
+        def to_hash: -> { id: String }
+      end
+    end
+  end
+end

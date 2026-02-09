@@ -1,0 +1,41 @@
+module Yoomoney
+  module Models
+    type confirmation_data =
+      {
+        type: Yoomoney::Models::ConfirmationData::type_,
+        locale: Yoomoney::Models::locale
+      }
+
+    class ConfirmationData < Yoomoney::Internal::Type::BaseModel
+      attr_accessor type: Yoomoney::Models::ConfirmationData::type_
+
+      attr_reader locale: Yoomoney::Models::locale?
+
+      def locale=: (Yoomoney::Models::locale) -> Yoomoney::Models::locale
+
+      def initialize: (
+        type: Yoomoney::Models::ConfirmationData::type_,
+        ?locale: Yoomoney::Models::locale
+      ) -> void
+
+      def to_hash: -> {
+        type: Yoomoney::Models::ConfirmationData::type_,
+        locale: Yoomoney::Models::locale
+      }
+
+      type type_ = :redirect | :external | :qr | :embedded | :mobile_application
+
+      module Type
+        extend Yoomoney::Internal::Type::Enum
+
+        REDIRECT: :redirect
+        EXTERNAL: :external
+        QR: :qr
+        EMBEDDED: :embedded
+        MOBILE_APPLICATION: :mobile_application
+
+        def self?.values: -> ::Array[Yoomoney::Models::ConfirmationData::type_]
+      end
+    end
+  end
+end

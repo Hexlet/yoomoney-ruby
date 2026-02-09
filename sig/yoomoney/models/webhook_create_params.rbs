@@ -1,0 +1,36 @@
+module Yoomoney
+  module Models
+    type webhook_create_params =
+      {
+        event: Yoomoney::Models::notification_event_type,
+        url: String,
+        idempotence_key: String
+      }
+      & Yoomoney::Internal::Type::request_parameters
+
+    class WebhookCreateParams < Yoomoney::Internal::Type::BaseModel
+      extend Yoomoney::Internal::Type::RequestParameters::Converter
+      include Yoomoney::Internal::Type::RequestParameters
+
+      attr_accessor event: Yoomoney::Models::notification_event_type
+
+      attr_accessor url: String
+
+      attr_accessor idempotence_key: String
+
+      def initialize: (
+        event: Yoomoney::Models::notification_event_type,
+        url: String,
+        idempotence_key: String,
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        event: Yoomoney::Models::notification_event_type,
+        url: String,
+        idempotence_key: String,
+        request_options: Yoomoney::RequestOptions
+      }
+    end
+  end
+end

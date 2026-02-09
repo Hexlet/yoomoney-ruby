@@ -1,0 +1,40 @@
+module Yoomoney
+  module Models
+    type invoicing_bank_card_data =
+      {
+        card_type: Yoomoney::Models::bank_card_type,
+        expiry_month: String,
+        expiry_year: String,
+        :first6 => String,
+        :last4 => String
+      }
+
+    class InvoicingBankCardData < Yoomoney::Internal::Type::BaseModel
+      attr_accessor card_type: Yoomoney::Models::bank_card_type
+
+      attr_accessor expiry_month: String
+
+      attr_accessor expiry_year: String
+
+      attr_accessor first6: String
+
+      attr_accessor last4: String
+
+      def initialize: (
+        card_type: Yoomoney::Models::bank_card_type,
+        expiry_month: String,
+        expiry_year: String,
+        first6: String,
+        last4: String
+      ) -> void
+
+      def to_hash: -> {
+        card_type: Yoomoney::Models::bank_card_type,
+        expiry_month: String,
+        expiry_year: String,
+        :first6 => String,
+        :last4 => String
+      }
+    end
+  end
+end

@@ -1,0 +1,39 @@
+module Yoomoney
+  module Models
+    type line_item =
+      {
+        description: String,
+        price: Yoomoney::MonetaryAmount,
+        quantity: Float,
+        discount_price: Yoomoney::MonetaryAmount
+      }
+
+    class LineItem < Yoomoney::Internal::Type::BaseModel
+      attr_accessor description: String
+
+      attr_accessor price: Yoomoney::MonetaryAmount
+
+      attr_accessor quantity: Float
+
+      attr_reader discount_price: Yoomoney::MonetaryAmount?
+
+      def discount_price=: (
+        Yoomoney::MonetaryAmount
+      ) -> Yoomoney::MonetaryAmount
+
+      def initialize: (
+        description: String,
+        price: Yoomoney::MonetaryAmount,
+        quantity: Float,
+        ?discount_price: Yoomoney::MonetaryAmount
+      ) -> void
+
+      def to_hash: -> {
+        description: String,
+        price: Yoomoney::MonetaryAmount,
+        quantity: Float,
+        discount_price: Yoomoney::MonetaryAmount
+      }
+    end
+  end
+end

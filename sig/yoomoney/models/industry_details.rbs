@@ -1,0 +1,35 @@
+module Yoomoney
+  module Models
+    type industry_details =
+      {
+        document_date: Date,
+        document_number: String,
+        federal_id: String,
+        value: String
+      }
+
+    class IndustryDetails < Yoomoney::Internal::Type::BaseModel
+      attr_accessor document_date: Date
+
+      attr_accessor document_number: String
+
+      attr_accessor federal_id: String
+
+      attr_accessor value: String
+
+      def initialize: (
+        document_date: Date,
+        document_number: String,
+        federal_id: String,
+        value: String
+      ) -> void
+
+      def to_hash: -> {
+        document_date: Date,
+        document_number: String,
+        federal_id: String,
+        value: String
+      }
+    end
+  end
+end

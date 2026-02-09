@@ -1,0 +1,91 @@
+module Yoomoney
+  module Models
+    type receipt_list_params =
+      {
+        created_at: Yoomoney::ReceiptListParams::CreatedAt,
+        cursor: String,
+        limit: Integer,
+        payment_id: String,
+        refund_id: String,
+        status: Yoomoney::Models::receipt_registration_status
+      }
+      & Yoomoney::Internal::Type::request_parameters
+
+    class ReceiptListParams < Yoomoney::Internal::Type::BaseModel
+      extend Yoomoney::Internal::Type::RequestParameters::Converter
+      include Yoomoney::Internal::Type::RequestParameters
+
+      attr_reader created_at: Yoomoney::ReceiptListParams::CreatedAt?
+
+      def created_at=: (
+        Yoomoney::ReceiptListParams::CreatedAt
+      ) -> Yoomoney::ReceiptListParams::CreatedAt
+
+      attr_reader cursor: String?
+
+      def cursor=: (String) -> String
+
+      attr_reader limit: Integer?
+
+      def limit=: (Integer) -> Integer
+
+      attr_reader payment_id: String?
+
+      def payment_id=: (String) -> String
+
+      attr_reader refund_id: String?
+
+      def refund_id=: (String) -> String
+
+      attr_reader status: Yoomoney::Models::receipt_registration_status?
+
+      def status=: (
+        Yoomoney::Models::receipt_registration_status
+      ) -> Yoomoney::Models::receipt_registration_status
+
+      def initialize: (
+        ?created_at: Yoomoney::ReceiptListParams::CreatedAt,
+        ?cursor: String,
+        ?limit: Integer,
+        ?payment_id: String,
+        ?refund_id: String,
+        ?status: Yoomoney::Models::receipt_registration_status,
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        created_at: Yoomoney::ReceiptListParams::CreatedAt,
+        cursor: String,
+        limit: Integer,
+        payment_id: String,
+        refund_id: String,
+        status: Yoomoney::Models::receipt_registration_status,
+        request_options: Yoomoney::RequestOptions
+      }
+
+      type created_at = { gt: Time, gte: Time, lt: Time, lte: Time }
+
+      class CreatedAt < Yoomoney::Internal::Type::BaseModel
+        attr_reader gt: Time?
+
+        def gt=: (Time) -> Time
+
+        attr_reader gte: Time?
+
+        def gte=: (Time) -> Time
+
+        attr_reader lt: Time?
+
+        def lt=: (Time) -> Time
+
+        attr_reader lte: Time?
+
+        def lte=: (Time) -> Time
+
+        def initialize: (?gt: Time, ?gte: Time, ?lt: Time, ?lte: Time) -> void
+
+        def to_hash: -> { gt: Time, gte: Time, lt: Time, lte: Time }
+      end
+    end
+  end
+end

@@ -1,0 +1,14 @@
+module Yoomoney
+  module Models
+    type refund_method_type = :sbp | :electronic_certificate
+
+    module RefundMethodType
+      extend Yoomoney::Internal::Type::Enum
+
+      SBP: :sbp
+      ELECTRONIC_CERTIFICATE: :electronic_certificate
+
+      def self?.values: -> ::Array[Yoomoney::Models::refund_method_type]
+    end
+  end
+end

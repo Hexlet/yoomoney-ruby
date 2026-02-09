@@ -1,0 +1,14 @@
+module Yoomoney
+  module Models
+    type locale = :ru_RU | :en_US
+
+    module Locale
+      extend Yoomoney::Internal::Type::Enum
+
+      RU_RU: :ru_RU
+      EN_US: :en_US
+
+      def self?.values: -> ::Array[Yoomoney::Models::locale]
+    end
+  end
+end

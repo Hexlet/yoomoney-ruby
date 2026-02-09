@@ -1,0 +1,13 @@
+module Yoomoney
+  module Models
+    type recipient = { gateway_id: String }
+
+    class Recipient < Yoomoney::Internal::Type::BaseModel
+      attr_accessor gateway_id: String
+
+      def initialize: (gateway_id: String) -> void
+
+      def to_hash: -> { gateway_id: String }
+    end
+  end
+end

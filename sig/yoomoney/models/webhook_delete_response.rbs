@@ -1,0 +1,5 @@
+module Yoomoney
+  module Models
+    WebhookDeleteResponse: Yoomoney::Internal::Type::Converter
+  end
+end

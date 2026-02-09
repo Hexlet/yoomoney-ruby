@@ -1,0 +1,169 @@
+module Yoomoney
+  module Models
+    type me_retrieve_response =
+      {
+        account_id: String,
+        status: Yoomoney::Models::MeRetrieveResponse::status,
+        test_: bool,
+        fiscalization: Yoomoney::Models::MeRetrieveResponse::Fiscalization,
+        fiscalization_enabled: bool,
+        itn: String,
+        name: String,
+        payment_methods: ::Array[Yoomoney::Models::payment_method_type],
+        payout_balance: Yoomoney::MonetaryAmount,
+        payout_methods: ::Array[Yoomoney::Models::MeRetrieveResponse::payout_method]
+      }
+
+    class MeRetrieveResponse < Yoomoney::Internal::Type::BaseModel
+      attr_accessor account_id: String
+
+      attr_accessor status: Yoomoney::Models::MeRetrieveResponse::status
+
+      attr_accessor test_: bool
+
+      attr_reader fiscalization: Yoomoney::Models::MeRetrieveResponse::Fiscalization?
+
+      def fiscalization=: (
+        Yoomoney::Models::MeRetrieveResponse::Fiscalization
+      ) -> Yoomoney::Models::MeRetrieveResponse::Fiscalization
+
+      attr_reader fiscalization_enabled: bool?
+
+      def fiscalization_enabled=: (bool) -> bool
+
+      attr_reader itn: String?
+
+      def itn=: (String) -> String
+
+      attr_reader name: String?
+
+      def name=: (String) -> String
+
+      attr_reader payment_methods: ::Array[Yoomoney::Models::payment_method_type]?
+
+      def payment_methods=: (
+        ::Array[Yoomoney::Models::payment_method_type]
+      ) -> ::Array[Yoomoney::Models::payment_method_type]
+
+      attr_reader payout_balance: Yoomoney::MonetaryAmount?
+
+      def payout_balance=: (
+        Yoomoney::MonetaryAmount
+      ) -> Yoomoney::MonetaryAmount
+
+      attr_reader payout_methods: ::Array[Yoomoney::Models::MeRetrieveResponse::payout_method]?
+
+      def payout_methods=: (
+        ::Array[Yoomoney::Models::MeRetrieveResponse::payout_method]
+      ) -> ::Array[Yoomoney::Models::MeRetrieveResponse::payout_method]
+
+      def initialize: (
+        account_id: String,
+        status: Yoomoney::Models::MeRetrieveResponse::status,
+        test_: bool,
+        ?fiscalization: Yoomoney::Models::MeRetrieveResponse::Fiscalization,
+        ?fiscalization_enabled: bool,
+        ?itn: String,
+        ?name: String,
+        ?payment_methods: ::Array[Yoomoney::Models::payment_method_type],
+        ?payout_balance: Yoomoney::MonetaryAmount,
+        ?payout_methods: ::Array[Yoomoney::Models::MeRetrieveResponse::payout_method]
+      ) -> void
+
+      def to_hash: -> {
+        account_id: String,
+        status: Yoomoney::Models::MeRetrieveResponse::status,
+        test_: bool,
+        fiscalization: Yoomoney::Models::MeRetrieveResponse::Fiscalization,
+        fiscalization_enabled: bool,
+        itn: String,
+        name: String,
+        payment_methods: ::Array[Yoomoney::Models::payment_method_type],
+        payout_balance: Yoomoney::MonetaryAmount,
+        payout_methods: ::Array[Yoomoney::Models::MeRetrieveResponse::payout_method]
+      }
+
+      type status = :enabled | :disabled
+
+      module Status
+        extend Yoomoney::Internal::Type::Enum
+
+        ENABLED: :enabled
+        DISABLED: :disabled
+
+        def self?.values: -> ::Array[Yoomoney::Models::MeRetrieveResponse::status]
+      end
+
+      type fiscalization =
+        {
+          enabled: bool,
+          provider: Yoomoney::Models::MeRetrieveResponse::Fiscalization::provider
+        }
+
+      class Fiscalization < Yoomoney::Internal::Type::BaseModel
+        attr_accessor enabled: bool
+
+        attr_accessor provider: Yoomoney::Models::MeRetrieveResponse::Fiscalization::provider
+
+        def initialize: (
+          enabled: bool,
+          provider: Yoomoney::Models::MeRetrieveResponse::Fiscalization::provider
+        ) -> void
+
+        def to_hash: -> {
+          enabled: bool,
+          provider: Yoomoney::Models::MeRetrieveResponse::Fiscalization::provider
+        }
+
+        type provider =
+          :atol
+          | :avanpost
+          | :a_qsi
+          | :business_ru
+          | :digital_kassa
+          | :evotor
+          | :first_ofd
+          | :kit_invest
+          | :komtet
+          | :life_pay
+          | :mertrade
+          | :modul_kassa
+          | :rocket
+          | :shtrih_m
+
+        module Provider
+          extend Yoomoney::Internal::Type::Enum
+
+          ATOL: :atol
+          AVANPOST: :avanpost
+          A_QSI: :a_qsi
+          BUSINESS_RU: :business_ru
+          DIGITAL_KASSA: :digital_kassa
+          EVOTOR: :evotor
+          FIRST_OFD: :first_ofd
+          KIT_INVEST: :kit_invest
+          KOMTET: :komtet
+          LIFE_PAY: :life_pay
+          MERTRADE: :mertrade
+          MODUL_KASSA: :modul_kassa
+          ROCKET: :rocket
+          SHTRIH_M: :shtrih_m
+
+          def self?.values: -> ::Array[Yoomoney::Models::MeRetrieveResponse::Fiscalization::provider]
+        end
+      end
+
+      type payout_method = :bank_card | :yoo_money | :sbp
+
+      module PayoutMethod
+        extend Yoomoney::Internal::Type::Enum
+
+        BANK_CARD: :bank_card
+        YOO_MONEY: :yoo_money
+        SBP: :sbp
+
+        def self?.values: -> ::Array[Yoomoney::Models::MeRetrieveResponse::payout_method]
+      end
+    end
+  end
+end

@@ -1,0 +1,44 @@
+module Yoomoney
+  module Models
+    type card_request_data_with_csc =
+      {
+        expiry_month: String,
+        expiry_year: String,
+        number: String,
+        cardholder: String,
+        csc: String
+      }
+
+    class CardRequestDataWithCsc < Yoomoney::Internal::Type::BaseModel
+      attr_accessor expiry_month: String
+
+      attr_accessor expiry_year: String
+
+      attr_accessor number: String
+
+      attr_reader cardholder: String?
+
+      def cardholder=: (String) -> String
+
+      attr_reader csc: String?
+
+      def csc=: (String) -> String
+
+      def initialize: (
+        expiry_month: String,
+        expiry_year: String,
+        number: String,
+        ?cardholder: String,
+        ?csc: String
+      ) -> void
+
+      def to_hash: -> {
+        expiry_month: String,
+        expiry_year: String,
+        number: String,
+        cardholder: String,
+        csc: String
+      }
+    end
+  end
+end

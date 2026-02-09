@@ -1,0 +1,24 @@
+module Yoomoney
+  module Resources
+    class Invoices
+      def create: (
+        cart: ::Array[Yoomoney::LineItem],
+        expires_at: Time,
+        payment_data: Yoomoney::InvoiceCreateParams::PaymentData,
+        idempotence_key: String,
+        ?delivery_method_data: Yoomoney::Models::InvoiceCreateParams::delivery_method_data,
+        ?description: String,
+        ?locale: Yoomoney::Models::locale,
+        ?metadata: ::Hash[Symbol, String?],
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Invoice
+
+      def retrieve: (
+        String invoice_id,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Invoice
+
+      def initialize: (client: Yoomoney::Client) -> void
+    end
+  end
+end

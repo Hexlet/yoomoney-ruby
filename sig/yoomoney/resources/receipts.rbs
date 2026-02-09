@@ -1,0 +1,41 @@
+module Yoomoney
+  module Resources
+    class Receipts
+      def create: (
+        customer: Yoomoney::ReceiptDataCustomer,
+        items: ::Array[Yoomoney::ReceiptCreateParams::Item],
+        send_: bool,
+        settlements: ::Array[Yoomoney::Settlement],
+        type: Yoomoney::Models::receipt_type,
+        idempotence_key: String,
+        ?additional_user_props: Yoomoney::ReceiptCreateParams::AdditionalUserProps,
+        ?internet: bool,
+        ?on_behalf_of: String,
+        ?payment_id: String,
+        ?receipt_industry_details: ::Array[Yoomoney::IndustryDetails],
+        ?receipt_operational_details: Yoomoney::OperationalDetails,
+        ?refund_id: String,
+        ?tax_system_code: Integer,
+        ?timezone: Integer,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Receipt
+
+      def retrieve: (
+        String receipt_id,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Receipt
+
+      def list: (
+        ?created_at: Yoomoney::ReceiptListParams::CreatedAt,
+        ?cursor: String,
+        ?limit: Integer,
+        ?payment_id: String,
+        ?refund_id: String,
+        ?status: Yoomoney::Models::receipt_registration_status,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Models::ReceiptListResponse
+
+      def initialize: (client: Yoomoney::Client) -> void
+    end
+  end
+end

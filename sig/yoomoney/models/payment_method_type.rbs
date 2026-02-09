@@ -1,0 +1,48 @@
+module Yoomoney
+  module Models
+    type payment_method_type =
+      :bank_card
+      | :cash
+      | :alfabank
+      | :webmoney
+      | :wechat
+      | :apple_pay
+      | :google_pay
+      | :qiwi
+      | :installments
+      | :yoo_money
+      | :sberbank
+      | :mobile_balance
+      | :b2b_sberbank
+      | :tinkoff_bank
+      | :sbp
+      | :sber_loan
+      | :electronic_certificate
+      | :sber_bnpl
+
+    module PaymentMethodType
+      extend Yoomoney::Internal::Type::Enum
+
+      BANK_CARD: :bank_card
+      CASH: :cash
+      ALFABANK: :alfabank
+      WEBMONEY: :webmoney
+      WECHAT: :wechat
+      APPLE_PAY: :apple_pay
+      GOOGLE_PAY: :google_pay
+      QIWI: :qiwi
+      INSTALLMENTS: :installments
+      YOO_MONEY: :yoo_money
+      SBERBANK: :sberbank
+      MOBILE_BALANCE: :mobile_balance
+      B2B_SBERBANK: :b2b_sberbank
+      TINKOFF_BANK: :tinkoff_bank
+      SBP: :sbp
+      SBER_LOAN: :sber_loan
+      ELECTRONIC_CERTIFICATE: :electronic_certificate
+      SBER_BNPL: :sber_bnpl
+
+      def self?.values: -> ::Array[Yoomoney::Models::payment_method_type]
+    end
+  end
+end

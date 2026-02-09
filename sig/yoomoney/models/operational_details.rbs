@@ -1,0 +1,22 @@
+module Yoomoney
+  module Models
+    type operational_details =
+      { created_at: Time, operation_id: Integer, value: String }
+
+    class OperationalDetails < Yoomoney::Internal::Type::BaseModel
+      attr_accessor created_at: Time
+
+      attr_accessor operation_id: Integer
+
+      attr_accessor value: String
+
+      def initialize: (
+        created_at: Time,
+        operation_id: Integer,
+        value: String
+      ) -> void
+
+      def to_hash: -> { created_at: Time, operation_id: Integer, value: String }
+    end
+  end
+end

@@ -1,0 +1,181 @@
+module Yoomoney
+  module Models
+    type payout_create_params =
+      {
+        amount: Yoomoney::MonetaryAmount,
+        idempotence_key: String,
+        deal: Yoomoney::PayoutDealInfo,
+        description: String,
+        metadata: ::Hash[Symbol, String?],
+        payment_method_id: String,
+        payout_destination_data: Yoomoney::Models::PayoutCreateParams::payout_destination_data,
+        payout_token: String,
+        personal_data: ::Array[Yoomoney::PayoutCreateParams::PersonalData]
+      }
+      & Yoomoney::Internal::Type::request_parameters
+
+    class PayoutCreateParams < Yoomoney::Internal::Type::BaseModel
+      extend Yoomoney::Internal::Type::RequestParameters::Converter
+      include Yoomoney::Internal::Type::RequestParameters
+
+      attr_accessor amount: Yoomoney::MonetaryAmount
+
+      attr_accessor idempotence_key: String
+
+      attr_reader deal: Yoomoney::PayoutDealInfo?
+
+      def deal=: (Yoomoney::PayoutDealInfo) -> Yoomoney::PayoutDealInfo
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      attr_reader metadata: ::Hash[Symbol, String?]?
+
+      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+
+      attr_reader payment_method_id: String?
+
+      def payment_method_id=: (String) -> String
+
+      attr_reader payout_destination_data: Yoomoney::Models::PayoutCreateParams::payout_destination_data?
+
+      def payout_destination_data=: (
+        Yoomoney::Models::PayoutCreateParams::payout_destination_data
+      ) -> Yoomoney::Models::PayoutCreateParams::payout_destination_data
+
+      attr_reader payout_token: String?
+
+      def payout_token=: (String) -> String
+
+      attr_reader personal_data: ::Array[Yoomoney::PayoutCreateParams::PersonalData]?
+
+      def personal_data=: (
+        ::Array[Yoomoney::PayoutCreateParams::PersonalData]
+      ) -> ::Array[Yoomoney::PayoutCreateParams::PersonalData]
+
+      def initialize: (
+        amount: Yoomoney::MonetaryAmount,
+        idempotence_key: String,
+        ?deal: Yoomoney::PayoutDealInfo,
+        ?description: String,
+        ?metadata: ::Hash[Symbol, String?],
+        ?payment_method_id: String,
+        ?payout_destination_data: Yoomoney::Models::PayoutCreateParams::payout_destination_data,
+        ?payout_token: String,
+        ?personal_data: ::Array[Yoomoney::PayoutCreateParams::PersonalData],
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        amount: Yoomoney::MonetaryAmount,
+        idempotence_key: String,
+        deal: Yoomoney::PayoutDealInfo,
+        description: String,
+        metadata: ::Hash[Symbol, String?],
+        payment_method_id: String,
+        payout_destination_data: Yoomoney::Models::PayoutCreateParams::payout_destination_data,
+        payout_token: String,
+        personal_data: ::Array[Yoomoney::PayoutCreateParams::PersonalData],
+        request_options: Yoomoney::RequestOptions
+      }
+
+      type payout_destination_data =
+        Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToYooMoneyDestinationData
+        | Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToBankCardDestinationData
+        | Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToSbpDestinationData
+
+      module PayoutDestinationData
+        extend Yoomoney::Internal::Type::Union
+
+        type payout_to_yoo_money_destination_data =
+          {
+            account_number: Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToYooMoneyDestinationData::AccountNumber
+          }
+
+        class PayoutToYooMoneyDestinationData < Yoomoney::Models::PayoutDestinationData
+          def account_number: -> Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToYooMoneyDestinationData::AccountNumber
+
+          def account_number=: (
+            Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToYooMoneyDestinationData::AccountNumber _
+          ) -> Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToYooMoneyDestinationData::AccountNumber
+
+          def initialize: (
+            account_number: Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToYooMoneyDestinationData::AccountNumber
+          ) -> void
+
+          def to_hash: -> {
+            account_number: Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToYooMoneyDestinationData::AccountNumber
+          }
+
+          type account_number = {  }
+
+          class AccountNumber < Yoomoney::Internal::Type::BaseModel
+            def initialize: -> void
+
+            def to_hash: -> {  }
+          end
+        end
+
+        type payout_to_bank_card_destination_data =
+          {
+            card: Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToBankCardDestinationData::Card
+          }
+
+        class PayoutToBankCardDestinationData < Yoomoney::Models::PayoutDestinationData
+          def card: -> Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToBankCardDestinationData::Card
+
+          def card=: (
+            Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToBankCardDestinationData::Card _
+          ) -> Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToBankCardDestinationData::Card
+
+          def initialize: (
+            card: Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToBankCardDestinationData::Card
+          ) -> void
+
+          def to_hash: -> {
+            card: Yoomoney::PayoutCreateParams::PayoutDestinationData::PayoutToBankCardDestinationData::Card
+          }
+
+          type card = { number: String }
+
+          class Card < Yoomoney::Internal::Type::BaseModel
+            attr_accessor number: String
+
+            def initialize: (number: String) -> void
+
+            def to_hash: -> { number: String }
+          end
+        end
+
+        type payout_to_sbp_destination_data = { bank_id: String, phone: String }
+
+        class PayoutToSbpDestinationData < Yoomoney::Models::PayoutDestinationData
+          def bank_id: -> String
+
+          def bank_id=: (String _) -> String
+
+          def phone: -> String
+
+          def phone=: (String _) -> String
+
+          def initialize: (bank_id: String, phone: String) -> void
+
+          def to_hash: -> { bank_id: String, phone: String }
+        end
+
+        def self?.variants: -> ::Array[Yoomoney::Models::PayoutCreateParams::payout_destination_data]
+      end
+
+      type personal_data = { id: String }
+
+      class PersonalData < Yoomoney::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        def initialize: (id: String) -> void
+
+        def to_hash: -> { id: String }
+      end
+    end
+  end
+end

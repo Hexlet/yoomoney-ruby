@@ -1,0 +1,25 @@
+module Yoomoney
+  module Models
+    type me_retrieve_params =
+      { on_behalf_of: String } & Yoomoney::Internal::Type::request_parameters
+
+    class MeRetrieveParams < Yoomoney::Internal::Type::BaseModel
+      extend Yoomoney::Internal::Type::RequestParameters::Converter
+      include Yoomoney::Internal::Type::RequestParameters
+
+      attr_reader on_behalf_of: String?
+
+      def on_behalf_of=: (String) -> String
+
+      def initialize: (
+        ?on_behalf_of: String,
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        on_behalf_of: String,
+        request_options: Yoomoney::RequestOptions
+      }
+    end
+  end
+end

@@ -1,0 +1,293 @@
+module Yoomoney
+  module Models
+    type receipt =
+      {
+        id: String,
+        items: ::Array[Yoomoney::Receipt::Item],
+        status: Yoomoney::Models::receipt_registration_status,
+        type: Yoomoney::Models::receipt_type,
+        fiscal_attribute: String,
+        fiscal_document_number: String,
+        fiscal_provider_id: String,
+        fiscal_storage_number: String,
+        internet: bool,
+        on_behalf_of: String,
+        payment_id: String,
+        receipt_industry_details: ::Array[Yoomoney::IndustryDetails],
+        receipt_operational_details: Yoomoney::OperationalDetails,
+        refund_id: String,
+        registered_at: Time,
+        settlements: ::Array[Yoomoney::Settlement],
+        tax_system_code: Integer,
+        timezone: Integer
+      }
+
+    class Receipt < Yoomoney::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor items: ::Array[Yoomoney::Receipt::Item]
+
+      attr_accessor status: Yoomoney::Models::receipt_registration_status
+
+      attr_accessor type: Yoomoney::Models::receipt_type
+
+      attr_reader fiscal_attribute: String?
+
+      def fiscal_attribute=: (String) -> String
+
+      attr_reader fiscal_document_number: String?
+
+      def fiscal_document_number=: (String) -> String
+
+      attr_reader fiscal_provider_id: String?
+
+      def fiscal_provider_id=: (String) -> String
+
+      attr_reader fiscal_storage_number: String?
+
+      def fiscal_storage_number=: (String) -> String
+
+      attr_reader internet: bool?
+
+      def internet=: (bool) -> bool
+
+      attr_reader on_behalf_of: String?
+
+      def on_behalf_of=: (String) -> String
+
+      attr_reader payment_id: String?
+
+      def payment_id=: (String) -> String
+
+      attr_reader receipt_industry_details: ::Array[Yoomoney::IndustryDetails]?
+
+      def receipt_industry_details=: (
+        ::Array[Yoomoney::IndustryDetails]
+      ) -> ::Array[Yoomoney::IndustryDetails]
+
+      attr_reader receipt_operational_details: Yoomoney::OperationalDetails?
+
+      def receipt_operational_details=: (
+        Yoomoney::OperationalDetails
+      ) -> Yoomoney::OperationalDetails
+
+      attr_reader refund_id: String?
+
+      def refund_id=: (String) -> String
+
+      attr_reader registered_at: Time?
+
+      def registered_at=: (Time) -> Time
+
+      attr_reader settlements: ::Array[Yoomoney::Settlement]?
+
+      def settlements=: (
+        ::Array[Yoomoney::Settlement]
+      ) -> ::Array[Yoomoney::Settlement]
+
+      attr_reader tax_system_code: Integer?
+
+      def tax_system_code=: (Integer) -> Integer
+
+      attr_reader timezone: Integer?
+
+      def timezone=: (Integer) -> Integer
+
+      def initialize: (
+        id: String,
+        items: ::Array[Yoomoney::Receipt::Item],
+        status: Yoomoney::Models::receipt_registration_status,
+        type: Yoomoney::Models::receipt_type,
+        ?fiscal_attribute: String,
+        ?fiscal_document_number: String,
+        ?fiscal_provider_id: String,
+        ?fiscal_storage_number: String,
+        ?internet: bool,
+        ?on_behalf_of: String,
+        ?payment_id: String,
+        ?receipt_industry_details: ::Array[Yoomoney::IndustryDetails],
+        ?receipt_operational_details: Yoomoney::OperationalDetails,
+        ?refund_id: String,
+        ?registered_at: Time,
+        ?settlements: ::Array[Yoomoney::Settlement],
+        ?tax_system_code: Integer,
+        ?timezone: Integer
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        items: ::Array[Yoomoney::Receipt::Item],
+        status: Yoomoney::Models::receipt_registration_status,
+        type: Yoomoney::Models::receipt_type,
+        fiscal_attribute: String,
+        fiscal_document_number: String,
+        fiscal_provider_id: String,
+        fiscal_storage_number: String,
+        internet: bool,
+        on_behalf_of: String,
+        payment_id: String,
+        receipt_industry_details: ::Array[Yoomoney::IndustryDetails],
+        receipt_operational_details: Yoomoney::OperationalDetails,
+        refund_id: String,
+        registered_at: Time,
+        settlements: ::Array[Yoomoney::Settlement],
+        tax_system_code: Integer,
+        timezone: Integer
+      }
+
+      type item =
+        {
+          amount: Yoomoney::MonetaryAmount,
+          description: String,
+          quantity: Float,
+          vat_code: Integer,
+          agent_type: Yoomoney::Models::receipt_item_agent_type,
+          country_of_origin_code: String,
+          customs_declaration_number: String,
+          excise: String,
+          mark_code_info: Yoomoney::MarkCodeInfo,
+          mark_mode: String,
+          mark_quantity: Yoomoney::MarkQuantity,
+          measure: Yoomoney::Models::receipt_item_measure,
+          payment_mode: Yoomoney::Models::receipt_item_payment_mode,
+          payment_subject: Yoomoney::Models::receipt_item_payment_subject,
+          payment_subject_industry_details: ::Array[Yoomoney::IndustryDetails],
+          planned_status: Integer,
+          product_code: String,
+          supplier: Yoomoney::Receipt::Item::Supplier
+        }
+
+      class Item < Yoomoney::Internal::Type::BaseModel
+        attr_accessor amount: Yoomoney::MonetaryAmount
+
+        attr_accessor description: String
+
+        attr_accessor quantity: Float
+
+        attr_accessor vat_code: Integer
+
+        attr_reader agent_type: Yoomoney::Models::receipt_item_agent_type?
+
+        def agent_type=: (
+          Yoomoney::Models::receipt_item_agent_type
+        ) -> Yoomoney::Models::receipt_item_agent_type
+
+        attr_reader country_of_origin_code: String?
+
+        def country_of_origin_code=: (String) -> String
+
+        attr_reader customs_declaration_number: String?
+
+        def customs_declaration_number=: (String) -> String
+
+        attr_reader excise: String?
+
+        def excise=: (String) -> String
+
+        attr_reader mark_code_info: Yoomoney::MarkCodeInfo?
+
+        def mark_code_info=: (Yoomoney::MarkCodeInfo) -> Yoomoney::MarkCodeInfo
+
+        attr_reader mark_mode: String?
+
+        def mark_mode=: (String) -> String
+
+        attr_reader mark_quantity: Yoomoney::MarkQuantity?
+
+        def mark_quantity=: (Yoomoney::MarkQuantity) -> Yoomoney::MarkQuantity
+
+        attr_reader measure: Yoomoney::Models::receipt_item_measure?
+
+        def measure=: (
+          Yoomoney::Models::receipt_item_measure
+        ) -> Yoomoney::Models::receipt_item_measure
+
+        attr_reader payment_mode: Yoomoney::Models::receipt_item_payment_mode?
+
+        def payment_mode=: (
+          Yoomoney::Models::receipt_item_payment_mode
+        ) -> Yoomoney::Models::receipt_item_payment_mode
+
+        attr_reader payment_subject: Yoomoney::Models::receipt_item_payment_subject?
+
+        def payment_subject=: (
+          Yoomoney::Models::receipt_item_payment_subject
+        ) -> Yoomoney::Models::receipt_item_payment_subject
+
+        attr_reader payment_subject_industry_details: ::Array[Yoomoney::IndustryDetails]?
+
+        def payment_subject_industry_details=: (
+          ::Array[Yoomoney::IndustryDetails]
+        ) -> ::Array[Yoomoney::IndustryDetails]
+
+        attr_reader planned_status: Integer?
+
+        def planned_status=: (Integer) -> Integer
+
+        attr_reader product_code: String?
+
+        def product_code=: (String) -> String
+
+        attr_reader supplier: Yoomoney::Receipt::Item::Supplier?
+
+        def supplier=: (
+          Yoomoney::Receipt::Item::Supplier
+        ) -> Yoomoney::Receipt::Item::Supplier
+
+        def initialize: (
+          amount: Yoomoney::MonetaryAmount,
+          description: String,
+          quantity: Float,
+          vat_code: Integer,
+          ?agent_type: Yoomoney::Models::receipt_item_agent_type,
+          ?country_of_origin_code: String,
+          ?customs_declaration_number: String,
+          ?excise: String,
+          ?mark_code_info: Yoomoney::MarkCodeInfo,
+          ?mark_mode: String,
+          ?mark_quantity: Yoomoney::MarkQuantity,
+          ?measure: Yoomoney::Models::receipt_item_measure,
+          ?payment_mode: Yoomoney::Models::receipt_item_payment_mode,
+          ?payment_subject: Yoomoney::Models::receipt_item_payment_subject,
+          ?payment_subject_industry_details: ::Array[Yoomoney::IndustryDetails],
+          ?planned_status: Integer,
+          ?product_code: String,
+          ?supplier: Yoomoney::Receipt::Item::Supplier
+        ) -> void
+
+        def to_hash: -> {
+          amount: Yoomoney::MonetaryAmount,
+          description: String,
+          quantity: Float,
+          vat_code: Integer,
+          agent_type: Yoomoney::Models::receipt_item_agent_type,
+          country_of_origin_code: String,
+          customs_declaration_number: String,
+          excise: String,
+          mark_code_info: Yoomoney::MarkCodeInfo,
+          mark_mode: String,
+          mark_quantity: Yoomoney::MarkQuantity,
+          measure: Yoomoney::Models::receipt_item_measure,
+          payment_mode: Yoomoney::Models::receipt_item_payment_mode,
+          payment_subject: Yoomoney::Models::receipt_item_payment_subject,
+          payment_subject_industry_details: ::Array[Yoomoney::IndustryDetails],
+          planned_status: Integer,
+          product_code: String,
+          supplier: Yoomoney::Receipt::Item::Supplier
+        }
+
+        type supplier = { inn: String }
+
+        class Supplier < Yoomoney::Models::ReceiptItemSupplier
+          def inn: -> String?
+
+          def inn=: (String _) -> String
+
+          def initialize: (?inn: String) -> void
+
+          def to_hash: -> { inn: String }
+        end
+      end
+    end
+  end
+end

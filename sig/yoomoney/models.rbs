@@ -1,0 +1,195 @@
+module Yoomoney
+  class Airline = Yoomoney::Models::Airline
+
+  class B2bSberbankCalculatedVatData = Yoomoney::Models::B2bSberbankCalculatedVatData
+
+  class B2bSberbankMixedVatData = Yoomoney::Models::B2bSberbankMixedVatData
+
+  class B2bSberbankUntaxedVatData = Yoomoney::Models::B2bSberbankUntaxedVatData
+
+  class B2bSberbankVatData = Yoomoney::Models::B2bSberbankVatData
+
+  class BankCardData = Yoomoney::Models::BankCardData
+
+  module BankCardType = Yoomoney::Models::BankCardType
+
+  class CardRequestDataWithCsc = Yoomoney::Models::CardRequestDataWithCsc
+
+  class Confirmation = Yoomoney::Models::Confirmation
+
+  class ConfirmationData = Yoomoney::Models::ConfirmationData
+
+  class DealCreateParams = Yoomoney::Models::DealCreateParams
+
+  class DealListParams = Yoomoney::Models::DealListParams
+
+  class DealRetrieveParams = Yoomoney::Models::DealRetrieveParams
+
+  module DealType = Yoomoney::Models::DealType
+
+  class DeliveryMethod = Yoomoney::Models::DeliveryMethod
+
+  class DeliveryMethodData = Yoomoney::Models::DeliveryMethodData
+
+  class ElectronicCertificateRefundArticle = Yoomoney::Models::ElectronicCertificateRefundArticle
+
+  module FeeMoment = Yoomoney::Models::FeeMoment
+
+  class IndustryDetails = Yoomoney::Models::IndustryDetails
+
+  class Invoice = Yoomoney::Models::Invoice
+
+  class InvoiceCreateParams = Yoomoney::Models::InvoiceCreateParams
+
+  class InvoiceRetrieveParams = Yoomoney::Models::InvoiceRetrieveParams
+
+  class InvoicingBankCardData = Yoomoney::Models::InvoicingBankCardData
+
+  class LineItem = Yoomoney::Models::LineItem
+
+  module Locale = Yoomoney::Models::Locale
+
+  class MarkCodeInfo = Yoomoney::Models::MarkCodeInfo
+
+  class MarkQuantity = Yoomoney::Models::MarkQuantity
+
+  class MeRetrieveParams = Yoomoney::Models::MeRetrieveParams
+
+  class MonetaryAmount = Yoomoney::Models::MonetaryAmount
+
+  module NotificationEventType = Yoomoney::Models::NotificationEventType
+
+  class OperationalDetails = Yoomoney::Models::OperationalDetails
+
+  class Payment = Yoomoney::Models::Payment
+
+  class PaymentCancelParams = Yoomoney::Models::PaymentCancelParams
+
+  class PaymentCaptureParams = Yoomoney::Models::PaymentCaptureParams
+
+  class PaymentCreateParams = Yoomoney::Models::PaymentCreateParams
+
+  class PaymentDealInfo = Yoomoney::Models::PaymentDealInfo
+
+  class PaymentListParams = Yoomoney::Models::PaymentListParams
+
+  class PaymentMethod = Yoomoney::Models::PaymentMethod
+
+  class PaymentMethodCreateParams = Yoomoney::Models::PaymentMethodCreateParams
+
+  class PaymentMethodData = Yoomoney::Models::PaymentMethodData
+
+  class PaymentMethodRetrieveParams = Yoomoney::Models::PaymentMethodRetrieveParams
+
+  module PaymentMethodsConfirmationType = Yoomoney::Models::PaymentMethodsConfirmationType
+
+  module PaymentMethodStatus = Yoomoney::Models::PaymentMethodStatus
+
+  module PaymentMethodType = Yoomoney::Models::PaymentMethodType
+
+  class PaymentRetrieveParams = Yoomoney::Models::PaymentRetrieveParams
+
+  module PaymentStatus = Yoomoney::Models::PaymentStatus
+
+  class Payout = Yoomoney::Models::Payout
+
+  class PayoutCreateParams = Yoomoney::Models::PayoutCreateParams
+
+  class PayoutDealInfo = Yoomoney::Models::PayoutDealInfo
+
+  class PayoutDestination = Yoomoney::Models::PayoutDestination
+
+  class PayoutDestinationData = Yoomoney::Models::PayoutDestinationData
+
+  module PayoutDestinationDataType = Yoomoney::Models::PayoutDestinationDataType
+
+  class PayoutListParams = Yoomoney::Models::PayoutListParams
+
+  class PayoutRetrieveParams = Yoomoney::Models::PayoutRetrieveParams
+
+  class PayoutSearchParams = Yoomoney::Models::PayoutSearchParams
+
+  class PayoutsList = Yoomoney::Models::PayoutsList
+
+  module PayoutStatus = Yoomoney::Models::PayoutStatus
+
+  class PersonalDataAPI = Yoomoney::Models::PersonalDataAPI
+
+  class PersonalDataCreateParams = Yoomoney::Models::PersonalDataCreateParams
+
+  class PersonalDataRequest = Yoomoney::Models::PersonalDataRequest
+
+  class PersonalDataRetrieveParams = Yoomoney::Models::PersonalDataRetrieveParams
+
+  module PersonalDataType = Yoomoney::Models::PersonalDataType
+
+  class Receipt = Yoomoney::Models::Receipt
+
+  class ReceiptCreateParams = Yoomoney::Models::ReceiptCreateParams
+
+  class ReceiptData = Yoomoney::Models::ReceiptData
+
+  class ReceiptDataCustomer = Yoomoney::Models::ReceiptDataCustomer
+
+  module ReceiptItemAgentType = Yoomoney::Models::ReceiptItemAgentType
+
+  module ReceiptItemMeasure = Yoomoney::Models::ReceiptItemMeasure
+
+  module ReceiptItemPaymentMode = Yoomoney::Models::ReceiptItemPaymentMode
+
+  module ReceiptItemPaymentSubject = Yoomoney::Models::ReceiptItemPaymentSubject
+
+  class ReceiptItemSupplier = Yoomoney::Models::ReceiptItemSupplier
+
+  class ReceiptListParams = Yoomoney::Models::ReceiptListParams
+
+  module ReceiptRegistrationStatus = Yoomoney::Models::ReceiptRegistrationStatus
+
+  class ReceiptRetrieveParams = Yoomoney::Models::ReceiptRetrieveParams
+
+  module ReceiptType = Yoomoney::Models::ReceiptType
+
+  class Receiver = Yoomoney::Models::Receiver
+
+  class Recipient = Yoomoney::Models::Recipient
+
+  class Refund = Yoomoney::Models::Refund
+
+  class RefundCreateParams = Yoomoney::Models::RefundCreateParams
+
+  class RefundListParams = Yoomoney::Models::RefundListParams
+
+  class RefundMethod = Yoomoney::Models::RefundMethod
+
+  module RefundMethodType = Yoomoney::Models::RefundMethodType
+
+  class RefundRetrieveParams = Yoomoney::Models::RefundRetrieveParams
+
+  class RefundSourcesData = Yoomoney::Models::RefundSourcesData
+
+  module RefundStatus = Yoomoney::Models::RefundStatus
+
+  class SafeDeal = Yoomoney::Models::SafeDeal
+
+  class SavePaymentMethodBankCard = Yoomoney::Models::SavePaymentMethodBankCard
+
+  class SbpBankListParams = Yoomoney::Models::SbpBankListParams
+
+  class Settlement = Yoomoney::Models::Settlement
+
+  module SettlementItemType = Yoomoney::Models::SettlementItemType
+
+  class SettlementPaymentItem = Yoomoney::Models::SettlementPaymentItem
+
+  class SettlementRefundItem = Yoomoney::Models::SettlementRefundItem
+
+  class TransferData = Yoomoney::Models::TransferData
+
+  class Webhook = Yoomoney::Models::Webhook
+
+  class WebhookCreateParams = Yoomoney::Models::WebhookCreateParams
+
+  class WebhookDeleteParams = Yoomoney::Models::WebhookDeleteParams
+
+  class WebhookListParams = Yoomoney::Models::WebhookListParams
+end

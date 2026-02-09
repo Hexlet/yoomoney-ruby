@@ -1,0 +1,31 @@
+module Yoomoney
+  module Resources
+    class Deals
+      def create: (
+        fee_moment: Yoomoney::Models::fee_moment,
+        type: Yoomoney::Models::deal_type,
+        idempotence_key: String,
+        ?description: String,
+        ?metadata: ::Hash[Symbol, String?],
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::SafeDeal
+
+      def retrieve: (
+        String deal_id,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::SafeDeal
+
+      def list: (
+        ?created_at: Yoomoney::DealListParams::CreatedAt,
+        ?cursor: String,
+        ?expires_at: Yoomoney::DealListParams::ExpiresAt,
+        ?full_text_search: String,
+        ?limit: Integer,
+        ?status: Yoomoney::Models::DealListParams::status,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Models::DealListResponse
+
+      def initialize: (client: Yoomoney::Client) -> void
+    end
+  end
+end

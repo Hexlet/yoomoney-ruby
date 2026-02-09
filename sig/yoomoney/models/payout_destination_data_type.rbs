@@ -1,0 +1,15 @@
+module Yoomoney
+  module Models
+    type payout_destination_data_type = :yoo_money | :bank_card | :sbp
+
+    module PayoutDestinationDataType
+      extend Yoomoney::Internal::Type::Enum
+
+      YOO_MONEY: :yoo_money
+      BANK_CARD: :bank_card
+      SBP: :sbp
+
+      def self?.values: -> ::Array[Yoomoney::Models::payout_destination_data_type]
+    end
+  end
+end

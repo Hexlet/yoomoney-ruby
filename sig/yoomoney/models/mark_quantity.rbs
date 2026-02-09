@@ -1,0 +1,15 @@
+module Yoomoney
+  module Models
+    type mark_quantity = { denominator: Integer, numerator: Integer }
+
+    class MarkQuantity < Yoomoney::Internal::Type::BaseModel
+      attr_accessor denominator: Integer
+
+      attr_accessor numerator: Integer
+
+      def initialize: (denominator: Integer, numerator: Integer) -> void
+
+      def to_hash: -> { denominator: Integer, numerator: Integer }
+    end
+  end
+end

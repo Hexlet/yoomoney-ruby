@@ -1,0 +1,100 @@
+module Yoomoney
+  module Models
+    type bank_card_data =
+      {
+        card_type: Yoomoney::Models::bank_card_type,
+        expiry_month: String,
+        expiry_year: String,
+        :last4 => String,
+        card_product: Yoomoney::BankCardData::CardProduct,
+        :first6 => String,
+        issuer_country: String,
+        issuer_name: String,
+        source: Yoomoney::Models::BankCardData::source
+      }
+
+    class BankCardData < Yoomoney::Internal::Type::BaseModel
+      attr_accessor card_type: Yoomoney::Models::bank_card_type
+
+      attr_accessor expiry_month: String
+
+      attr_accessor expiry_year: String
+
+      attr_accessor last4: String
+
+      attr_reader card_product: Yoomoney::BankCardData::CardProduct?
+
+      def card_product=: (
+        Yoomoney::BankCardData::CardProduct
+      ) -> Yoomoney::BankCardData::CardProduct
+
+      attr_reader first6: String?
+
+      def first6=: (String) -> String
+
+      attr_reader issuer_country: String?
+
+      def issuer_country=: (String) -> String
+
+      attr_reader issuer_name: String?
+
+      def issuer_name=: (String) -> String
+
+      attr_reader source: Yoomoney::Models::BankCardData::source?
+
+      def source=: (
+        Yoomoney::Models::BankCardData::source
+      ) -> Yoomoney::Models::BankCardData::source
+
+      def initialize: (
+        card_type: Yoomoney::Models::bank_card_type,
+        expiry_month: String,
+        expiry_year: String,
+        last4: String,
+        ?card_product: Yoomoney::BankCardData::CardProduct,
+        ?first6: String,
+        ?issuer_country: String,
+        ?issuer_name: String,
+        ?source: Yoomoney::Models::BankCardData::source
+      ) -> void
+
+      def to_hash: -> {
+        card_type: Yoomoney::Models::bank_card_type,
+        expiry_month: String,
+        expiry_year: String,
+        :last4 => String,
+        card_product: Yoomoney::BankCardData::CardProduct,
+        :first6 => String,
+        issuer_country: String,
+        issuer_name: String,
+        source: Yoomoney::Models::BankCardData::source
+      }
+
+      type card_product = { code: String, name: String }
+
+      class CardProduct < Yoomoney::Internal::Type::BaseModel
+        attr_accessor code: String
+
+        attr_reader name: String?
+
+        def name=: (String) -> String
+
+        def initialize: (code: String, ?name: String) -> void
+
+        def to_hash: -> { code: String, name: String }
+      end
+
+      type source = :apple_pay | :google_pay | :mir_pay
+
+      module Source
+        extend Yoomoney::Internal::Type::Enum
+
+        APPLE_PAY: :apple_pay
+        GOOGLE_PAY: :google_pay
+        MIR_PAY: :mir_pay
+
+        def self?.values: -> ::Array[Yoomoney::Models::BankCardData::source]
+      end
+    end
+  end
+end
