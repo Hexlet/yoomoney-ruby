@@ -1,0 +1,112 @@
+module Yoomoney
+  module Models
+    type personal_data_api =
+      {
+        id: String,
+        created_at: Time,
+        status: Yoomoney::Models::PersonalDataAPI::status,
+        type: Yoomoney::Models::personal_data_type,
+        cancellation_details: Yoomoney::PersonalDataAPI::CancellationDetails,
+        expires_at: Time,
+        metadata: ::Hash[Symbol, String?]
+      }
+
+    class PersonalDataAPI < Yoomoney::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor created_at: Time
+
+      attr_accessor status: Yoomoney::Models::PersonalDataAPI::status
+
+      attr_accessor type: Yoomoney::Models::personal_data_type
+
+      attr_reader cancellation_details: Yoomoney::PersonalDataAPI::CancellationDetails?
+
+      def cancellation_details=: (
+        Yoomoney::PersonalDataAPI::CancellationDetails
+      ) -> Yoomoney::PersonalDataAPI::CancellationDetails
+
+      attr_reader expires_at: Time?
+
+      def expires_at=: (Time) -> Time
+
+      attr_reader metadata: ::Hash[Symbol, String?]?
+
+      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+
+      def initialize: (
+        id: String,
+        created_at: Time,
+        status: Yoomoney::Models::PersonalDataAPI::status,
+        type: Yoomoney::Models::personal_data_type,
+        ?cancellation_details: Yoomoney::PersonalDataAPI::CancellationDetails,
+        ?expires_at: Time,
+        ?metadata: ::Hash[Symbol, String?]
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        created_at: Time,
+        status: Yoomoney::Models::PersonalDataAPI::status,
+        type: Yoomoney::Models::personal_data_type,
+        cancellation_details: Yoomoney::PersonalDataAPI::CancellationDetails,
+        expires_at: Time,
+        metadata: ::Hash[Symbol, String?]
+      }
+
+      type status = :waiting_for_operation | :active | :canceled
+
+      module Status
+        extend Yoomoney::Internal::Type::Enum
+
+        WAITING_FOR_OPERATION: :waiting_for_operation
+        ACTIVE: :active
+        CANCELED: :canceled
+
+        def self?.values: -> ::Array[Yoomoney::Models::PersonalDataAPI::status]
+      end
+
+      type cancellation_details =
+        {
+          party: Yoomoney::Models::PersonalDataAPI::CancellationDetails::party,
+          reason: Yoomoney::Models::PersonalDataAPI::CancellationDetails::reason
+        }
+
+      class CancellationDetails < Yoomoney::Internal::Type::BaseModel
+        attr_accessor party: Yoomoney::Models::PersonalDataAPI::CancellationDetails::party
+
+        attr_accessor reason: Yoomoney::Models::PersonalDataAPI::CancellationDetails::reason
+
+        def initialize: (
+          party: Yoomoney::Models::PersonalDataAPI::CancellationDetails::party,
+          reason: Yoomoney::Models::PersonalDataAPI::CancellationDetails::reason
+        ) -> void
+
+        def to_hash: -> {
+          party: Yoomoney::Models::PersonalDataAPI::CancellationDetails::party,
+          reason: Yoomoney::Models::PersonalDataAPI::CancellationDetails::reason
+        }
+
+        type party = :yoo_money
+
+        module Party
+          extend Yoomoney::Internal::Type::Enum
+
+          YOO_MONEY: :yoo_money
+
+          def self?.values: -> ::Array[Yoomoney::Models::PersonalDataAPI::CancellationDetails::party]
+        end
+
+        type reason = :expired_by_timeout
+
+        module Reason
+          extend Yoomoney::Internal::Type::Enum
+
+          EXPIRED_BY_TIMEOUT: :expired_by_timeout
+
+          def self?.values: -> ::Array[Yoomoney::Models::PersonalDataAPI::CancellationDetails::reason]
+        end
+      end
+    end
+  end
+end

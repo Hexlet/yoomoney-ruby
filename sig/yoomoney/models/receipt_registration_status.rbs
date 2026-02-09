@@ -1,0 +1,15 @@
+module Yoomoney
+  module Models
+    type receipt_registration_status = :pending | :succeeded | :canceled
+
+    module ReceiptRegistrationStatus
+      extend Yoomoney::Internal::Type::Enum
+
+      PENDING: :pending
+      SUCCEEDED: :succeeded
+      CANCELED: :canceled
+
+      def self?.values: -> ::Array[Yoomoney::Models::receipt_registration_status]
+    end
+  end
+end

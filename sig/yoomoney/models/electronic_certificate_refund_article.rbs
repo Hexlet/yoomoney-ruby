@@ -1,0 +1,35 @@
+module Yoomoney
+  module Models
+    type electronic_certificate_refund_article =
+      {
+        article_number: Integer,
+        payment_article_number: Integer,
+        quantity: Integer,
+        tru_code: String
+      }
+
+    class ElectronicCertificateRefundArticle < Yoomoney::Internal::Type::BaseModel
+      attr_accessor article_number: Integer
+
+      attr_accessor payment_article_number: Integer
+
+      attr_accessor quantity: Integer
+
+      attr_accessor tru_code: String
+
+      def initialize: (
+        article_number: Integer,
+        payment_article_number: Integer,
+        quantity: Integer,
+        tru_code: String
+      ) -> void
+
+      def to_hash: -> {
+        article_number: Integer,
+        payment_article_number: Integer,
+        quantity: Integer,
+        tru_code: String
+      }
+    end
+  end
+end

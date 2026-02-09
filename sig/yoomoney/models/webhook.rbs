@@ -1,0 +1,30 @@
+module Yoomoney
+  module Models
+    type webhook =
+      {
+        id: String,
+        event: Yoomoney::Models::notification_event_type,
+        url: String
+      }
+
+    class Webhook < Yoomoney::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor event: Yoomoney::Models::notification_event_type
+
+      attr_accessor url: String
+
+      def initialize: (
+        id: String,
+        event: Yoomoney::Models::notification_event_type,
+        url: String
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        event: Yoomoney::Models::notification_event_type,
+        url: String
+      }
+    end
+  end
+end

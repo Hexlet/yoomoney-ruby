@@ -1,0 +1,25 @@
+module Yoomoney
+  module Models
+    type receiver = { type: Yoomoney::Models::Receiver::type_ }
+
+    class Receiver < Yoomoney::Internal::Type::BaseModel
+      attr_accessor type: Yoomoney::Models::Receiver::type_
+
+      def initialize: (type: Yoomoney::Models::Receiver::type_) -> void
+
+      def to_hash: -> { type: Yoomoney::Models::Receiver::type_ }
+
+      type type_ = :mobile_balance | :digital_wallet | :bank_account
+
+      module Type
+        extend Yoomoney::Internal::Type::Enum
+
+        MOBILE_BALANCE: :mobile_balance
+        DIGITAL_WALLET: :digital_wallet
+        BANK_ACCOUNT: :bank_account
+
+        def self?.values: -> ::Array[Yoomoney::Models::Receiver::type_]
+      end
+    end
+  end
+end

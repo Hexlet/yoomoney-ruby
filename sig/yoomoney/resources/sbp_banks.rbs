@@ -1,0 +1,11 @@
+module Yoomoney
+  module Resources
+    class SbpBanks
+      def list: (
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Models::SbpBankListResponse
+
+      def initialize: (client: Yoomoney::Client) -> void
+    end
+  end
+end

@@ -1,0 +1,79 @@
+module Yoomoney
+  module Models
+    type payment_capture_params =
+      {
+        idempotence_key: String,
+        airline: Yoomoney::Airline,
+        amount: Yoomoney::MonetaryAmount,
+        deal: Yoomoney::PaymentCaptureParams::Deal,
+        receipt: Yoomoney::ReceiptData,
+        transfers: ::Array[Yoomoney::TransferData]
+      }
+      & Yoomoney::Internal::Type::request_parameters
+
+    class PaymentCaptureParams < Yoomoney::Internal::Type::BaseModel
+      extend Yoomoney::Internal::Type::RequestParameters::Converter
+      include Yoomoney::Internal::Type::RequestParameters
+
+      attr_accessor idempotence_key: String
+
+      attr_reader airline: Yoomoney::Airline?
+
+      def airline=: (Yoomoney::Airline) -> Yoomoney::Airline
+
+      attr_reader amount: Yoomoney::MonetaryAmount?
+
+      def amount=: (Yoomoney::MonetaryAmount) -> Yoomoney::MonetaryAmount
+
+      attr_reader deal: Yoomoney::PaymentCaptureParams::Deal?
+
+      def deal=: (
+        Yoomoney::PaymentCaptureParams::Deal
+      ) -> Yoomoney::PaymentCaptureParams::Deal
+
+      attr_reader receipt: Yoomoney::ReceiptData?
+
+      def receipt=: (Yoomoney::ReceiptData) -> Yoomoney::ReceiptData
+
+      attr_reader transfers: ::Array[Yoomoney::TransferData]?
+
+      def transfers=: (
+        ::Array[Yoomoney::TransferData]
+      ) -> ::Array[Yoomoney::TransferData]
+
+      def initialize: (
+        idempotence_key: String,
+        ?airline: Yoomoney::Airline,
+        ?amount: Yoomoney::MonetaryAmount,
+        ?deal: Yoomoney::PaymentCaptureParams::Deal,
+        ?receipt: Yoomoney::ReceiptData,
+        ?transfers: ::Array[Yoomoney::TransferData],
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        idempotence_key: String,
+        airline: Yoomoney::Airline,
+        amount: Yoomoney::MonetaryAmount,
+        deal: Yoomoney::PaymentCaptureParams::Deal,
+        receipt: Yoomoney::ReceiptData,
+        transfers: ::Array[Yoomoney::TransferData],
+        request_options: Yoomoney::RequestOptions
+      }
+
+      type deal = { settlements: ::Array[Yoomoney::SettlementPaymentItem] }
+
+      class Deal < Yoomoney::Internal::Type::BaseModel
+        attr_accessor settlements: ::Array[Yoomoney::SettlementPaymentItem]
+
+        def initialize: (
+          settlements: ::Array[Yoomoney::SettlementPaymentItem]
+        ) -> void
+
+        def to_hash: -> {
+          settlements: ::Array[Yoomoney::SettlementPaymentItem]
+        }
+      end
+    end
+  end
+end

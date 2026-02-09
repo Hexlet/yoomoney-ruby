@@ -1,0 +1,123 @@
+module Yoomoney
+  module Models
+    type save_payment_method_bank_card =
+      {
+        id: String,
+        holder: Yoomoney::SavePaymentMethodBankCard::Holder,
+        saved: bool,
+        status: Yoomoney::Models::payment_method_status,
+        type: Yoomoney::Models::SavePaymentMethodBankCard::type_,
+        card: Yoomoney::BankCardData,
+        confirmation: Yoomoney::SavePaymentMethodBankCard::Confirmation,
+        title: String
+      }
+
+    class SavePaymentMethodBankCard < Yoomoney::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor holder: Yoomoney::SavePaymentMethodBankCard::Holder
+
+      attr_accessor saved: bool
+
+      attr_accessor status: Yoomoney::Models::payment_method_status
+
+      attr_accessor type: Yoomoney::Models::SavePaymentMethodBankCard::type_
+
+      attr_reader card: Yoomoney::BankCardData?
+
+      def card=: (Yoomoney::BankCardData) -> Yoomoney::BankCardData
+
+      attr_reader confirmation: Yoomoney::SavePaymentMethodBankCard::Confirmation?
+
+      def confirmation=: (
+        Yoomoney::SavePaymentMethodBankCard::Confirmation
+      ) -> Yoomoney::SavePaymentMethodBankCard::Confirmation
+
+      attr_reader title: String?
+
+      def title=: (String) -> String
+
+      def initialize: (
+        id: String,
+        holder: Yoomoney::SavePaymentMethodBankCard::Holder,
+        saved: bool,
+        status: Yoomoney::Models::payment_method_status,
+        type: Yoomoney::Models::SavePaymentMethodBankCard::type_,
+        ?card: Yoomoney::BankCardData,
+        ?confirmation: Yoomoney::SavePaymentMethodBankCard::Confirmation,
+        ?title: String
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        holder: Yoomoney::SavePaymentMethodBankCard::Holder,
+        saved: bool,
+        status: Yoomoney::Models::payment_method_status,
+        type: Yoomoney::Models::SavePaymentMethodBankCard::type_,
+        card: Yoomoney::BankCardData,
+        confirmation: Yoomoney::SavePaymentMethodBankCard::Confirmation,
+        title: String
+      }
+
+      type holder = { account_id: String, gateway_id: String }
+
+      class Holder < Yoomoney::Internal::Type::BaseModel
+        attr_accessor account_id: String
+
+        attr_reader gateway_id: String?
+
+        def gateway_id=: (String) -> String
+
+        def initialize: (account_id: String, ?gateway_id: String) -> void
+
+        def to_hash: -> { account_id: String, gateway_id: String }
+      end
+
+      type type_ = :bank_card
+
+      module Type
+        extend Yoomoney::Internal::Type::Enum
+
+        BANK_CARD: :bank_card
+
+        def self?.values: -> ::Array[Yoomoney::Models::SavePaymentMethodBankCard::type_]
+      end
+
+      type confirmation =
+        {
+          confirmation_url: String,
+          type: Yoomoney::Models::payment_methods_confirmation_type,
+          enforce: bool,
+          return_url: String
+        }
+
+      class Confirmation < Yoomoney::Internal::Type::BaseModel
+        attr_accessor confirmation_url: String
+
+        attr_accessor type: Yoomoney::Models::payment_methods_confirmation_type
+
+        attr_reader enforce: bool?
+
+        def enforce=: (bool) -> bool
+
+        attr_reader return_url: String?
+
+        def return_url=: (String) -> String
+
+        def initialize: (
+          confirmation_url: String,
+          type: Yoomoney::Models::payment_methods_confirmation_type,
+          ?enforce: bool,
+          ?return_url: String
+        ) -> void
+
+        def to_hash: -> {
+          confirmation_url: String,
+          type: Yoomoney::Models::payment_methods_confirmation_type,
+          enforce: bool,
+          return_url: String
+        }
+      end
+    end
+  end
+end

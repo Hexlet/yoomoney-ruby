@@ -1,0 +1,92 @@
+module Yoomoney
+  module Models
+    type mark_code_info =
+      {
+        :ean_13 => String,
+        :ean_8 => String,
+        :egais_20 => String,
+        :egais_30 => String,
+        fur: String,
+        :gs_10 => String,
+        :gs_1m => String,
+        :itf_14 => String,
+        mark_code_raw: String,
+        short: String,
+        unknown: String
+      }
+
+    class MarkCodeInfo < Yoomoney::Internal::Type::BaseModel
+      attr_reader ean_13: String?
+
+      def ean_13=: (String) -> String
+
+      attr_reader ean_8: String?
+
+      def ean_8=: (String) -> String
+
+      attr_reader egais_20: String?
+
+      def egais_20=: (String) -> String
+
+      attr_reader egais_30: String?
+
+      def egais_30=: (String) -> String
+
+      attr_reader fur: String?
+
+      def fur=: (String) -> String
+
+      attr_reader gs_10: String?
+
+      def gs_10=: (String) -> String
+
+      attr_reader gs_1m: String?
+
+      def gs_1m=: (String) -> String
+
+      attr_reader itf_14: String?
+
+      def itf_14=: (String) -> String
+
+      attr_reader mark_code_raw: String?
+
+      def mark_code_raw=: (String) -> String
+
+      attr_reader short: String?
+
+      def short=: (String) -> String
+
+      attr_reader unknown: String?
+
+      def unknown=: (String) -> String
+
+      def initialize: (
+        ?ean_13: String,
+        ?ean_8: String,
+        ?egais_20: String,
+        ?egais_30: String,
+        ?fur: String,
+        ?gs_10: String,
+        ?gs_1m: String,
+        ?itf_14: String,
+        ?mark_code_raw: String,
+        ?short: String,
+        ?unknown: String
+      ) -> void
+
+      def to_hash: -> {
+        :ean_13 => String,
+        :ean_8 => String,
+        :egais_20 => String,
+        :egais_30 => String,
+        fur: String,
+        :gs_10 => String,
+        :gs_1m => String,
+        :itf_14 => String,
+        mark_code_raw: String,
+        short: String,
+        unknown: String
+      }
+    end
+  end
+end

@@ -1,0 +1,27 @@
+module Yoomoney
+  module Models
+    type confirmation = { type: Yoomoney::Models::Confirmation::type_ }
+
+    class Confirmation < Yoomoney::Internal::Type::BaseModel
+      attr_accessor type: Yoomoney::Models::Confirmation::type_
+
+      def initialize: (type: Yoomoney::Models::Confirmation::type_) -> void
+
+      def to_hash: -> { type: Yoomoney::Models::Confirmation::type_ }
+
+      type type_ = :redirect | :external | :qr | :embedded | :mobile_application
+
+      module Type
+        extend Yoomoney::Internal::Type::Enum
+
+        REDIRECT: :redirect
+        EXTERNAL: :external
+        QR: :qr
+        EMBEDDED: :embedded
+        MOBILE_APPLICATION: :mobile_application
+
+        def self?.values: -> ::Array[Yoomoney::Models::Confirmation::type_]
+      end
+    end
+  end
+end

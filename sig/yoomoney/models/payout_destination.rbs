@@ -1,0 +1,26 @@
+module Yoomoney
+  module Models
+    type payout_destination =
+      { type: Yoomoney::Models::PayoutDestination::type_ }
+
+    class PayoutDestination < Yoomoney::Internal::Type::BaseModel
+      attr_accessor type: Yoomoney::Models::PayoutDestination::type_
+
+      def initialize: (type: Yoomoney::Models::PayoutDestination::type_) -> void
+
+      def to_hash: -> { type: Yoomoney::Models::PayoutDestination::type_ }
+
+      type type_ = :bank_card | :yoo_money | :sbp
+
+      module Type
+        extend Yoomoney::Internal::Type::Enum
+
+        BANK_CARD: :bank_card
+        YOO_MONEY: :yoo_money
+        SBP: :sbp
+
+        def self?.values: -> ::Array[Yoomoney::Models::PayoutDestination::type_]
+      end
+    end
+  end
+end

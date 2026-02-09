@@ -1,0 +1,13 @@
+module Yoomoney
+  module Models
+    type payout_deal_info = { id: String }
+
+    class PayoutDealInfo < Yoomoney::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      def initialize: (id: String) -> void
+
+      def to_hash: -> { id: String }
+    end
+  end
+end

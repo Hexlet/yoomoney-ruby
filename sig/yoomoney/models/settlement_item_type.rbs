@@ -1,0 +1,13 @@
+module Yoomoney
+  module Models
+    type settlement_item_type = :payout
+
+    module SettlementItemType
+      extend Yoomoney::Internal::Type::Enum
+
+      PAYOUT: :payout
+
+      def self?.values: -> ::Array[Yoomoney::Models::settlement_item_type]
+    end
+  end
+end

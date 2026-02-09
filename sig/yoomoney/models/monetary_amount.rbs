@@ -1,0 +1,55 @@
+module Yoomoney
+  module Models
+    type monetary_amount =
+      { currency: Yoomoney::Models::MonetaryAmount::currency, value: String }
+
+    class MonetaryAmount < Yoomoney::Internal::Type::BaseModel
+      attr_accessor currency: Yoomoney::Models::MonetaryAmount::currency
+
+      attr_accessor value: String
+
+      def initialize: (
+        currency: Yoomoney::Models::MonetaryAmount::currency,
+        value: String
+      ) -> void
+
+      def to_hash: -> {
+        currency: Yoomoney::Models::MonetaryAmount::currency,
+        value: String
+      }
+
+      type currency =
+        :RUB
+        | :EUR
+        | :USD
+        | :KZT
+        | :BYN
+        | :UAH
+        | :UZS
+        | :TRY
+        | :INR
+        | :MDL
+        | :AZN
+        | :AMD
+
+      module Currency
+        extend Yoomoney::Internal::Type::Enum
+
+        RUB: :RUB
+        EUR: :EUR
+        USD: :USD
+        KZT: :KZT
+        BYN: :BYN
+        UAH: :UAH
+        UZS: :UZS
+        TRY: :TRY
+        INR: :INR
+        MDL: :MDL
+        AZN: :AZN
+        AMD: :AMD
+
+        def self?.values: -> ::Array[Yoomoney::Models::MonetaryAmount::currency]
+      end
+    end
+  end
+end

@@ -1,0 +1,109 @@
+module Yoomoney
+  module Models
+    type payment_method_create_params =
+      {
+        type: Yoomoney::Models::PaymentMethodCreateParams::type_,
+        idempotence_key: String,
+        card: Yoomoney::CardRequestDataWithCsc,
+        client_ip: String,
+        confirmation: Yoomoney::PaymentMethodCreateParams::Confirmation,
+        holder: Yoomoney::Recipient
+      }
+      & Yoomoney::Internal::Type::request_parameters
+
+    class PaymentMethodCreateParams < Yoomoney::Internal::Type::BaseModel
+      extend Yoomoney::Internal::Type::RequestParameters::Converter
+      include Yoomoney::Internal::Type::RequestParameters
+
+      attr_accessor type: Yoomoney::Models::PaymentMethodCreateParams::type_
+
+      attr_accessor idempotence_key: String
+
+      attr_reader card: Yoomoney::CardRequestDataWithCsc?
+
+      def card=: (
+        Yoomoney::CardRequestDataWithCsc
+      ) -> Yoomoney::CardRequestDataWithCsc
+
+      attr_reader client_ip: String?
+
+      def client_ip=: (String) -> String
+
+      attr_reader confirmation: Yoomoney::PaymentMethodCreateParams::Confirmation?
+
+      def confirmation=: (
+        Yoomoney::PaymentMethodCreateParams::Confirmation
+      ) -> Yoomoney::PaymentMethodCreateParams::Confirmation
+
+      attr_reader holder: Yoomoney::Recipient?
+
+      def holder=: (Yoomoney::Recipient) -> Yoomoney::Recipient
+
+      def initialize: (
+        type: Yoomoney::Models::PaymentMethodCreateParams::type_,
+        idempotence_key: String,
+        ?card: Yoomoney::CardRequestDataWithCsc,
+        ?client_ip: String,
+        ?confirmation: Yoomoney::PaymentMethodCreateParams::Confirmation,
+        ?holder: Yoomoney::Recipient,
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        type: Yoomoney::Models::PaymentMethodCreateParams::type_,
+        idempotence_key: String,
+        card: Yoomoney::CardRequestDataWithCsc,
+        client_ip: String,
+        confirmation: Yoomoney::PaymentMethodCreateParams::Confirmation,
+        holder: Yoomoney::Recipient,
+        request_options: Yoomoney::RequestOptions
+      }
+
+      type type_ = :bank_card
+
+      module Type
+        extend Yoomoney::Internal::Type::Enum
+
+        BANK_CARD: :bank_card
+
+        def self?.values: -> ::Array[Yoomoney::Models::PaymentMethodCreateParams::type_]
+      end
+
+      type confirmation =
+        {
+          return_url: String,
+          type: Yoomoney::Models::payment_methods_confirmation_type,
+          enforce: bool,
+          locale: Yoomoney::Models::locale
+        }
+
+      class Confirmation < Yoomoney::Internal::Type::BaseModel
+        attr_accessor return_url: String
+
+        attr_accessor type: Yoomoney::Models::payment_methods_confirmation_type
+
+        attr_reader enforce: bool?
+
+        def enforce=: (bool) -> bool
+
+        attr_reader locale: Yoomoney::Models::locale?
+
+        def locale=: (Yoomoney::Models::locale) -> Yoomoney::Models::locale
+
+        def initialize: (
+          return_url: String,
+          type: Yoomoney::Models::payment_methods_confirmation_type,
+          ?enforce: bool,
+          ?locale: Yoomoney::Models::locale
+        ) -> void
+
+        def to_hash: -> {
+          return_url: String,
+          type: Yoomoney::Models::payment_methods_confirmation_type,
+          enforce: bool,
+          locale: Yoomoney::Models::locale
+        }
+      end
+    end
+  end
+end

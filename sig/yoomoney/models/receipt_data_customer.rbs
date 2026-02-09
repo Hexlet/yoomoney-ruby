@@ -1,0 +1,38 @@
+module Yoomoney
+  module Models
+    type receipt_data_customer =
+      { email: String, full_name: String, inn: String, phone: String }
+
+    class ReceiptDataCustomer < Yoomoney::Internal::Type::BaseModel
+      attr_reader email: String?
+
+      def email=: (String) -> String
+
+      attr_reader full_name: String?
+
+      def full_name=: (String) -> String
+
+      attr_reader inn: String?
+
+      def inn=: (String) -> String
+
+      attr_reader phone: String?
+
+      def phone=: (String) -> String
+
+      def initialize: (
+        ?email: String,
+        ?full_name: String,
+        ?inn: String,
+        ?phone: String
+      ) -> void
+
+      def to_hash: -> {
+        email: String,
+        full_name: String,
+        inn: String,
+        phone: String
+      }
+    end
+  end
+end

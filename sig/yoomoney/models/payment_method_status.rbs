@@ -1,0 +1,15 @@
+module Yoomoney
+  module Models
+    type payment_method_status = :pending | :active | :inactive
+
+    module PaymentMethodStatus
+      extend Yoomoney::Internal::Type::Enum
+
+      PENDING: :pending
+      ACTIVE: :active
+      INACTIVE: :inactive
+
+      def self?.values: -> ::Array[Yoomoney::Models::payment_method_status]
+    end
+  end
+end

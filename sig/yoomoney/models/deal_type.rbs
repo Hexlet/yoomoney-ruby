@@ -1,0 +1,13 @@
+module Yoomoney
+  module Models
+    type deal_type = :safe_deal
+
+    module DealType
+      extend Yoomoney::Internal::Type::Enum
+
+      SAFE_DEAL: :safe_deal
+
+      def self?.values: -> ::Array[Yoomoney::Models::deal_type]
+    end
+  end
+end

@@ -1,0 +1,103 @@
+module Yoomoney
+  module Models
+    type payout_list_params =
+      {
+        created_at: Yoomoney::PayoutListParams::CreatedAt,
+        cursor: String,
+        limit: Integer,
+        payout_destination: Yoomoney::PayoutListParams::PayoutDestination,
+        status: Yoomoney::Models::payout_status
+      }
+      & Yoomoney::Internal::Type::request_parameters
+
+    class PayoutListParams < Yoomoney::Internal::Type::BaseModel
+      extend Yoomoney::Internal::Type::RequestParameters::Converter
+      include Yoomoney::Internal::Type::RequestParameters
+
+      attr_reader created_at: Yoomoney::PayoutListParams::CreatedAt?
+
+      def created_at=: (
+        Yoomoney::PayoutListParams::CreatedAt
+      ) -> Yoomoney::PayoutListParams::CreatedAt
+
+      attr_reader cursor: String?
+
+      def cursor=: (String) -> String
+
+      attr_reader limit: Integer?
+
+      def limit=: (Integer) -> Integer
+
+      attr_reader payout_destination: Yoomoney::PayoutListParams::PayoutDestination?
+
+      def payout_destination=: (
+        Yoomoney::PayoutListParams::PayoutDestination
+      ) -> Yoomoney::PayoutListParams::PayoutDestination
+
+      attr_reader status: Yoomoney::Models::payout_status?
+
+      def status=: (
+        Yoomoney::Models::payout_status
+      ) -> Yoomoney::Models::payout_status
+
+      def initialize: (
+        ?created_at: Yoomoney::PayoutListParams::CreatedAt,
+        ?cursor: String,
+        ?limit: Integer,
+        ?payout_destination: Yoomoney::PayoutListParams::PayoutDestination,
+        ?status: Yoomoney::Models::payout_status,
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        created_at: Yoomoney::PayoutListParams::CreatedAt,
+        cursor: String,
+        limit: Integer,
+        payout_destination: Yoomoney::PayoutListParams::PayoutDestination,
+        status: Yoomoney::Models::payout_status,
+        request_options: Yoomoney::RequestOptions
+      }
+
+      type created_at = { gt: Time, gte: Time, lt: Time, lte: Time }
+
+      class CreatedAt < Yoomoney::Internal::Type::BaseModel
+        attr_reader gt: Time?
+
+        def gt=: (Time) -> Time
+
+        attr_reader gte: Time?
+
+        def gte=: (Time) -> Time
+
+        attr_reader lt: Time?
+
+        def lt=: (Time) -> Time
+
+        attr_reader lte: Time?
+
+        def lte=: (Time) -> Time
+
+        def initialize: (?gt: Time, ?gte: Time, ?lt: Time, ?lte: Time) -> void
+
+        def to_hash: -> { gt: Time, gte: Time, lt: Time, lte: Time }
+      end
+
+      type payout_destination =
+        { type: Yoomoney::Models::payout_destination_data_type }
+
+      class PayoutDestination < Yoomoney::Internal::Type::BaseModel
+        attr_reader type: Yoomoney::Models::payout_destination_data_type?
+
+        def type=: (
+          Yoomoney::Models::payout_destination_data_type
+        ) -> Yoomoney::Models::payout_destination_data_type
+
+        def initialize: (
+          ?type: Yoomoney::Models::payout_destination_data_type
+        ) -> void
+
+        def to_hash: -> { type: Yoomoney::Models::payout_destination_data_type }
+      end
+    end
+  end
+end

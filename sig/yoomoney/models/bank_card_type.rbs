@@ -1,0 +1,42 @@
+module Yoomoney
+  module Models
+    type bank_card_type =
+      :MasterCard
+      | :Visa
+      | :Mir
+      | :UnionPay
+      | :JCB
+      | :AmericanExpress
+      | :DinersClub
+      | :DiscoverCard
+      | :InstaPayment
+      | :InstaPaymentTM
+      | :Laser
+      | :Dankort
+      | :Solo
+      | :Switch
+      | :Unknown
+
+    module BankCardType
+      extend Yoomoney::Internal::Type::Enum
+
+      MASTER_CARD: :MasterCard
+      VISA: :Visa
+      MIR: :Mir
+      UNION_PAY: :UnionPay
+      JCB: :JCB
+      AMERICAN_EXPRESS: :AmericanExpress
+      DINERS_CLUB: :DinersClub
+      DISCOVER_CARD: :DiscoverCard
+      INSTA_PAYMENT: :InstaPayment
+      INSTA_PAYMENT_TM: :InstaPaymentTM
+      LASER: :Laser
+      DANKORT: :Dankort
+      SOLO: :Solo
+      SWITCH: :Switch
+      UNKNOWN: :Unknown
+
+      def self?.values: -> ::Array[Yoomoney::Models::bank_card_type]
+    end
+  end
+end

@@ -1,0 +1,42 @@
+module Yoomoney
+  module Models
+    type receipt_list_response =
+      {
+        items: ::Array[Yoomoney::Receipt],
+        type: Yoomoney::Models::ReceiptListResponse::type_,
+        next_cursor: String
+      }
+
+    class ReceiptListResponse < Yoomoney::Internal::Type::BaseModel
+      attr_accessor items: ::Array[Yoomoney::Receipt]
+
+      attr_accessor type: Yoomoney::Models::ReceiptListResponse::type_
+
+      attr_reader next_cursor: String?
+
+      def next_cursor=: (String) -> String
+
+      def initialize: (
+        items: ::Array[Yoomoney::Receipt],
+        type: Yoomoney::Models::ReceiptListResponse::type_,
+        ?next_cursor: String
+      ) -> void
+
+      def to_hash: -> {
+        items: ::Array[Yoomoney::Receipt],
+        type: Yoomoney::Models::ReceiptListResponse::type_,
+        next_cursor: String
+      }
+
+      type type_ = :list
+
+      module Type
+        extend Yoomoney::Internal::Type::Enum
+
+        LIST: :list
+
+        def self?.values: -> ::Array[Yoomoney::Models::ReceiptListResponse::type_]
+      end
+    end
+  end
+end

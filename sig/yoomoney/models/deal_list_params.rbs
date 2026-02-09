@@ -1,0 +1,128 @@
+module Yoomoney
+  module Models
+    type deal_list_params =
+      {
+        created_at: Yoomoney::DealListParams::CreatedAt,
+        cursor: String,
+        expires_at: Yoomoney::DealListParams::ExpiresAt,
+        full_text_search: String,
+        limit: Integer,
+        status: Yoomoney::Models::DealListParams::status
+      }
+      & Yoomoney::Internal::Type::request_parameters
+
+    class DealListParams < Yoomoney::Internal::Type::BaseModel
+      extend Yoomoney::Internal::Type::RequestParameters::Converter
+      include Yoomoney::Internal::Type::RequestParameters
+
+      attr_reader created_at: Yoomoney::DealListParams::CreatedAt?
+
+      def created_at=: (
+        Yoomoney::DealListParams::CreatedAt
+      ) -> Yoomoney::DealListParams::CreatedAt
+
+      attr_reader cursor: String?
+
+      def cursor=: (String) -> String
+
+      attr_reader expires_at: Yoomoney::DealListParams::ExpiresAt?
+
+      def expires_at=: (
+        Yoomoney::DealListParams::ExpiresAt
+      ) -> Yoomoney::DealListParams::ExpiresAt
+
+      attr_reader full_text_search: String?
+
+      def full_text_search=: (String) -> String
+
+      attr_reader limit: Integer?
+
+      def limit=: (Integer) -> Integer
+
+      attr_reader status: Yoomoney::Models::DealListParams::status?
+
+      def status=: (
+        Yoomoney::Models::DealListParams::status
+      ) -> Yoomoney::Models::DealListParams::status
+
+      def initialize: (
+        ?created_at: Yoomoney::DealListParams::CreatedAt,
+        ?cursor: String,
+        ?expires_at: Yoomoney::DealListParams::ExpiresAt,
+        ?full_text_search: String,
+        ?limit: Integer,
+        ?status: Yoomoney::Models::DealListParams::status,
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        created_at: Yoomoney::DealListParams::CreatedAt,
+        cursor: String,
+        expires_at: Yoomoney::DealListParams::ExpiresAt,
+        full_text_search: String,
+        limit: Integer,
+        status: Yoomoney::Models::DealListParams::status,
+        request_options: Yoomoney::RequestOptions
+      }
+
+      type created_at = { gt: Time, gte: Time, lt: Time, lte: Time }
+
+      class CreatedAt < Yoomoney::Internal::Type::BaseModel
+        attr_reader gt: Time?
+
+        def gt=: (Time) -> Time
+
+        attr_reader gte: Time?
+
+        def gte=: (Time) -> Time
+
+        attr_reader lt: Time?
+
+        def lt=: (Time) -> Time
+
+        attr_reader lte: Time?
+
+        def lte=: (Time) -> Time
+
+        def initialize: (?gt: Time, ?gte: Time, ?lt: Time, ?lte: Time) -> void
+
+        def to_hash: -> { gt: Time, gte: Time, lt: Time, lte: Time }
+      end
+
+      type expires_at = { gt: Time, gte: Time, lt: Time, lte: Time }
+
+      class ExpiresAt < Yoomoney::Internal::Type::BaseModel
+        attr_reader gt: Time?
+
+        def gt=: (Time) -> Time
+
+        attr_reader gte: Time?
+
+        def gte=: (Time) -> Time
+
+        attr_reader lt: Time?
+
+        def lt=: (Time) -> Time
+
+        attr_reader lte: Time?
+
+        def lte=: (Time) -> Time
+
+        def initialize: (?gt: Time, ?gte: Time, ?lt: Time, ?lte: Time) -> void
+
+        def to_hash: -> { gt: Time, gte: Time, lt: Time, lte: Time }
+      end
+
+      type status = :opened | :closed
+
+      module Status
+        extend Yoomoney::Internal::Type::Enum
+
+        OPENED: :opened
+        CLOSED: :closed
+
+        def self?.values: -> ::Array[Yoomoney::Models::DealListParams::status]
+      end
+    end
+  end
+end

@@ -1,0 +1,42 @@
+module Yoomoney
+  module Resources
+    class Payouts
+      def create: (
+        amount: Yoomoney::MonetaryAmount,
+        idempotence_key: String,
+        ?deal: Yoomoney::PayoutDealInfo,
+        ?description: String,
+        ?metadata: ::Hash[Symbol, String?],
+        ?payment_method_id: String,
+        ?payout_destination_data: Yoomoney::Models::PayoutCreateParams::payout_destination_data,
+        ?payout_token: String,
+        ?personal_data: ::Array[Yoomoney::PayoutCreateParams::PersonalData],
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Payout
+
+      def retrieve: (
+        String payout_id,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Payout
+
+      def list: (
+        ?created_at: Yoomoney::PayoutListParams::CreatedAt,
+        ?cursor: String,
+        ?limit: Integer,
+        ?payout_destination: Yoomoney::PayoutListParams::PayoutDestination,
+        ?status: Yoomoney::Models::payout_status,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::PayoutsList
+
+      def search: (
+        ?created_at: Yoomoney::PayoutSearchParams::CreatedAt,
+        ?cursor: String,
+        ?limit: Integer,
+        ?metadata: ::Hash[Symbol, String],
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::PayoutsList
+
+      def initialize: (client: Yoomoney::Client) -> void
+    end
+  end
+end

@@ -1,0 +1,13 @@
+module Yoomoney
+  module Models
+    type payment_methods_confirmation_type = :redirect
+
+    module PaymentMethodsConfirmationType
+      extend Yoomoney::Internal::Type::Enum
+
+      REDIRECT: :redirect
+
+      def self?.values: -> ::Array[Yoomoney::Models::payment_methods_confirmation_type]
+    end
+  end
+end

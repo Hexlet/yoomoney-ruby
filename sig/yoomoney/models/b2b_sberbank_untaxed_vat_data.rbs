@@ -1,0 +1,11 @@
+module Yoomoney
+  module Models
+    type b2b_sberbank_untaxed_vat_data = {  }
+
+    class B2bSberbankUntaxedVatData < Yoomoney::Models::B2bSberbankVatData
+      def initialize: -> void
+
+      def to_hash: -> {  }
+    end
+  end
+end

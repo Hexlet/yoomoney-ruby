@@ -1,0 +1,75 @@
+module Yoomoney
+  module Models
+    type payout_search_params =
+      {
+        created_at: Yoomoney::PayoutSearchParams::CreatedAt,
+        cursor: String,
+        limit: Integer,
+        metadata: ::Hash[Symbol, String]
+      }
+      & Yoomoney::Internal::Type::request_parameters
+
+    class PayoutSearchParams < Yoomoney::Internal::Type::BaseModel
+      extend Yoomoney::Internal::Type::RequestParameters::Converter
+      include Yoomoney::Internal::Type::RequestParameters
+
+      attr_reader created_at: Yoomoney::PayoutSearchParams::CreatedAt?
+
+      def created_at=: (
+        Yoomoney::PayoutSearchParams::CreatedAt
+      ) -> Yoomoney::PayoutSearchParams::CreatedAt
+
+      attr_reader cursor: String?
+
+      def cursor=: (String) -> String
+
+      attr_reader limit: Integer?
+
+      def limit=: (Integer) -> Integer
+
+      attr_reader metadata: ::Hash[Symbol, String]?
+
+      def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
+
+      def initialize: (
+        ?created_at: Yoomoney::PayoutSearchParams::CreatedAt,
+        ?cursor: String,
+        ?limit: Integer,
+        ?metadata: ::Hash[Symbol, String],
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        created_at: Yoomoney::PayoutSearchParams::CreatedAt,
+        cursor: String,
+        limit: Integer,
+        metadata: ::Hash[Symbol, String],
+        request_options: Yoomoney::RequestOptions
+      }
+
+      type created_at = { gt: Time, gte: Time, lt: Time, lte: Time }
+
+      class CreatedAt < Yoomoney::Internal::Type::BaseModel
+        attr_reader gt: Time?
+
+        def gt=: (Time) -> Time
+
+        attr_reader gte: Time?
+
+        def gte=: (Time) -> Time
+
+        attr_reader lt: Time?
+
+        def lt=: (Time) -> Time
+
+        attr_reader lte: Time?
+
+        def lte=: (Time) -> Time
+
+        def initialize: (?gt: Time, ?gte: Time, ?lt: Time, ?lte: Time) -> void
+
+        def to_hash: -> { gt: Time, gte: Time, lt: Time, lte: Time }
+      end
+    end
+  end
+end

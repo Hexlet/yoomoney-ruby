@@ -1,0 +1,78 @@
+module Yoomoney
+  module Models
+    type receipt_item_payment_subject =
+      :commodity
+      | :excise
+      | :job
+      | :service
+      | :gambling_bet
+      | :gambling_prize
+      | :lottery
+      | :lottery_prize
+      | :intellectual_activity
+      | :payment
+      | :agent_commission
+      | :property_right
+      | :non_operating_gain
+      | :insurance_premium
+      | :sales_tax
+      | :resort_fee
+      | :composite
+      | :another
+      | :fine
+      | :tax
+      | :lien
+      | :cost
+      | :pension_insurance_without_payouts
+      | :pension_insurance_with_payouts
+      | :health_insurance_without_payouts
+      | :health_insurance_with_payouts
+      | :health_insurance
+      | :casino
+      | :agent_withdrawals
+      | :non_marked_excise
+      | :marked_excise
+      | :marked
+      | :non_marked
+
+    module ReceiptItemPaymentSubject
+      extend Yoomoney::Internal::Type::Enum
+
+      COMMODITY: :commodity
+      EXCISE: :excise
+      JOB: :job
+      SERVICE: :service
+      GAMBLING_BET: :gambling_bet
+      GAMBLING_PRIZE: :gambling_prize
+      LOTTERY: :lottery
+      LOTTERY_PRIZE: :lottery_prize
+      INTELLECTUAL_ACTIVITY: :intellectual_activity
+      PAYMENT: :payment
+      AGENT_COMMISSION: :agent_commission
+      PROPERTY_RIGHT: :property_right
+      NON_OPERATING_GAIN: :non_operating_gain
+      INSURANCE_PREMIUM: :insurance_premium
+      SALES_TAX: :sales_tax
+      RESORT_FEE: :resort_fee
+      COMPOSITE: :composite
+      ANOTHER: :another
+      FINE: :fine
+      TAX: :tax
+      LIEN: :lien
+      COST: :cost
+      PENSION_INSURANCE_WITHOUT_PAYOUTS: :pension_insurance_without_payouts
+      PENSION_INSURANCE_WITH_PAYOUTS: :pension_insurance_with_payouts
+      HEALTH_INSURANCE_WITHOUT_PAYOUTS: :health_insurance_without_payouts
+      HEALTH_INSURANCE_WITH_PAYOUTS: :health_insurance_with_payouts
+      HEALTH_INSURANCE: :health_insurance
+      CASINO: :casino
+      AGENT_WITHDRAWALS: :agent_withdrawals
+      NON_MARKED_EXCISE: :non_marked_excise
+      MARKED_EXCISE: :marked_excise
+      MARKED: :marked
+      NON_MARKED: :non_marked
+
+      def self?.values: -> ::Array[Yoomoney::Models::receipt_item_payment_subject]
+    end
+  end
+end

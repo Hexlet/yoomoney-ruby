@@ -1,0 +1,17 @@
+module Yoomoney
+  module Models
+    type payment_status =
+      :pending | :waiting_for_capture | :succeeded | :canceled
+
+    module PaymentStatus
+      extend Yoomoney::Internal::Type::Enum
+
+      PENDING: :pending
+      WAITING_FOR_CAPTURE: :waiting_for_capture
+      SUCCEEDED: :succeeded
+      CANCELED: :canceled
+
+      def self?.values: -> ::Array[Yoomoney::Models::payment_status]
+    end
+  end
+end

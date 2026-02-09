@@ -1,0 +1,35 @@
+module Yoomoney
+  module Models
+    type webhook_list_response =
+      {
+        items: ::Array[Yoomoney::Webhook],
+        type: Yoomoney::Models::WebhookListResponse::type_
+      }
+
+    class WebhookListResponse < Yoomoney::Internal::Type::BaseModel
+      attr_accessor items: ::Array[Yoomoney::Webhook]
+
+      attr_accessor type: Yoomoney::Models::WebhookListResponse::type_
+
+      def initialize: (
+        items: ::Array[Yoomoney::Webhook],
+        type: Yoomoney::Models::WebhookListResponse::type_
+      ) -> void
+
+      def to_hash: -> {
+        items: ::Array[Yoomoney::Webhook],
+        type: Yoomoney::Models::WebhookListResponse::type_
+      }
+
+      type type_ = :list
+
+      module Type
+        extend Yoomoney::Internal::Type::Enum
+
+        LIST: :list
+
+        def self?.values: -> ::Array[Yoomoney::Models::WebhookListResponse::type_]
+      end
+    end
+  end
+end

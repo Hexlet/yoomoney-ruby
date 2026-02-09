@@ -1,0 +1,49 @@
+module Yoomoney
+  class Client < Yoomoney::Internal::Transport::BaseClient
+    DEFAULT_MAX_RETRIES: 2
+
+    DEFAULT_TIMEOUT_IN_SECONDS: Float
+
+    DEFAULT_INITIAL_RETRY_DELAY: Float
+
+    DEFAULT_MAX_RETRY_DELAY: Float
+
+    attr_reader username: String?
+
+    attr_reader password: String?
+
+    attr_reader payments: Yoomoney::Resources::Payments
+
+    attr_reader payment_methods: Yoomoney::Resources::PaymentMethods
+
+    attr_reader invoices: Yoomoney::Resources::Invoices
+
+    attr_reader refunds: Yoomoney::Resources::Refunds
+
+    attr_reader receipts: Yoomoney::Resources::Receipts
+
+    attr_reader deals: Yoomoney::Resources::Deals
+
+    attr_reader payouts: Yoomoney::Resources::Payouts
+
+    attr_reader sbp_banks: Yoomoney::Resources::SbpBanks
+
+    attr_reader personal_data: Yoomoney::Resources::PersonalData
+
+    attr_reader webhooks: Yoomoney::Resources::Webhooks
+
+    attr_reader me: Yoomoney::Resources::Me
+
+    private def auth_headers: -> ::Hash[String, String]
+
+    def initialize: (
+      ?username: String?,
+      ?password: String?,
+      ?base_url: String?,
+      ?max_retries: Integer,
+      ?timeout: Float,
+      ?initial_retry_delay: Float,
+      ?max_retry_delay: Float
+    ) -> void
+  end
+end

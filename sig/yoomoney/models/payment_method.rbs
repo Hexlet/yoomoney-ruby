@@ -1,0 +1,42 @@
+module Yoomoney
+  module Models
+    type payment_method =
+      {
+        id: String,
+        saved: bool,
+        status: Yoomoney::Models::payment_method_status,
+        type: Yoomoney::Models::payment_method_type,
+        title: String
+      }
+
+    class PaymentMethod < Yoomoney::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor saved: bool
+
+      attr_accessor status: Yoomoney::Models::payment_method_status
+
+      attr_accessor type: Yoomoney::Models::payment_method_type
+
+      attr_reader title: String?
+
+      def title=: (String) -> String
+
+      def initialize: (
+        id: String,
+        saved: bool,
+        status: Yoomoney::Models::payment_method_status,
+        type: Yoomoney::Models::payment_method_type,
+        ?title: String
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        saved: bool,
+        status: Yoomoney::Models::payment_method_status,
+        type: Yoomoney::Models::payment_method_type,
+        title: String
+      }
+    end
+  end
+end

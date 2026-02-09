@@ -1,0 +1,13 @@
+module Yoomoney
+  module Models
+    type refund_method = { type: Yoomoney::Models::refund_method_type }
+
+    class RefundMethod < Yoomoney::Internal::Type::BaseModel
+      attr_accessor type: Yoomoney::Models::refund_method_type
+
+      def initialize: (type: Yoomoney::Models::refund_method_type) -> void
+
+      def to_hash: -> { type: Yoomoney::Models::refund_method_type }
+    end
+  end
+end

@@ -1,0 +1,14 @@
+module Yoomoney
+  module Models
+    type fee_moment = :payment_succeeded | :deal_closed
+
+    module FeeMoment
+      extend Yoomoney::Internal::Type::Enum
+
+      PAYMENT_SUCCEEDED: :payment_succeeded
+      DEAL_CLOSED: :deal_closed
+
+      def self?.values: -> ::Array[Yoomoney::Models::fee_moment]
+    end
+  end
+end

@@ -1,0 +1,26 @@
+module Yoomoney
+  module Models
+    type receipt_item_payment_mode =
+      :full_prepayment
+      | :partial_prepayment
+      | :advance
+      | :full_payment
+      | :partial_payment
+      | :credit
+      | :credit_payment
+
+    module ReceiptItemPaymentMode
+      extend Yoomoney::Internal::Type::Enum
+
+      FULL_PREPAYMENT: :full_prepayment
+      PARTIAL_PREPAYMENT: :partial_prepayment
+      ADVANCE: :advance
+      FULL_PAYMENT: :full_payment
+      PARTIAL_PAYMENT: :partial_payment
+      CREDIT: :credit
+      CREDIT_PAYMENT: :credit_payment
+
+      def self?.values: -> ::Array[Yoomoney::Models::receipt_item_payment_mode]
+    end
+  end
+end

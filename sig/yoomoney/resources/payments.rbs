@@ -1,0 +1,63 @@
+module Yoomoney
+  module Resources
+    class Payments
+      def create: (
+        amount: Yoomoney::MonetaryAmount,
+        idempotence_key: String,
+        ?airline: Yoomoney::Airline,
+        ?capture: bool,
+        ?client_ip: String,
+        ?confirmation: Yoomoney::Models::PaymentCreateParams::confirmation,
+        ?deal: Yoomoney::PaymentDealInfo,
+        ?description: String,
+        ?merchant_customer_id: String,
+        ?metadata: ::Hash[Symbol, String?],
+        ?payment_method_data: Yoomoney::Models::PaymentCreateParams::payment_method_data,
+        ?payment_method_id: String,
+        ?payment_order: Yoomoney::PaymentCreateParams::PaymentOrder,
+        ?payment_token: String,
+        ?receipt: Yoomoney::ReceiptData,
+        ?receiver: Yoomoney::Models::PaymentCreateParams::receiver,
+        ?recipient: Yoomoney::Recipient,
+        ?save_payment_method: bool,
+        ?statements: ::Array[Yoomoney::PaymentCreateParams::Statement],
+        ?transfers: ::Array[Yoomoney::PaymentCreateParams::Transfer],
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Payment
+
+      def retrieve: (
+        String payment_id,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Payment
+
+      def list: (
+        ?captured_at: Yoomoney::PaymentListParams::CapturedAt,
+        ?created_at: Yoomoney::PaymentListParams::CreatedAt,
+        ?cursor: String,
+        ?limit: Integer,
+        ?payment_method: Yoomoney::Models::payment_method_type,
+        ?status: Yoomoney::Models::payment_status,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Models::PaymentListResponse
+
+      def cancel: (
+        String payment_id,
+        idempotence_key: String,
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Payment
+
+      def capture: (
+        String payment_id,
+        idempotence_key: String,
+        ?airline: Yoomoney::Airline,
+        ?amount: Yoomoney::MonetaryAmount,
+        ?deal: Yoomoney::PaymentCaptureParams::Deal,
+        ?receipt: Yoomoney::ReceiptData,
+        ?transfers: ::Array[Yoomoney::TransferData],
+        ?request_options: Yoomoney::request_opts
+      ) -> Yoomoney::Payment
+
+      def initialize: (client: Yoomoney::Client) -> void
+    end
+  end
+end

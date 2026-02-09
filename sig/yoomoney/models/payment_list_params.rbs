@@ -1,0 +1,119 @@
+module Yoomoney
+  module Models
+    type payment_list_params =
+      {
+        captured_at: Yoomoney::PaymentListParams::CapturedAt,
+        created_at: Yoomoney::PaymentListParams::CreatedAt,
+        cursor: String,
+        limit: Integer,
+        payment_method: Yoomoney::Models::payment_method_type,
+        status: Yoomoney::Models::payment_status
+      }
+      & Yoomoney::Internal::Type::request_parameters
+
+    class PaymentListParams < Yoomoney::Internal::Type::BaseModel
+      extend Yoomoney::Internal::Type::RequestParameters::Converter
+      include Yoomoney::Internal::Type::RequestParameters
+
+      attr_reader captured_at: Yoomoney::PaymentListParams::CapturedAt?
+
+      def captured_at=: (
+        Yoomoney::PaymentListParams::CapturedAt
+      ) -> Yoomoney::PaymentListParams::CapturedAt
+
+      attr_reader created_at: Yoomoney::PaymentListParams::CreatedAt?
+
+      def created_at=: (
+        Yoomoney::PaymentListParams::CreatedAt
+      ) -> Yoomoney::PaymentListParams::CreatedAt
+
+      attr_reader cursor: String?
+
+      def cursor=: (String) -> String
+
+      attr_reader limit: Integer?
+
+      def limit=: (Integer) -> Integer
+
+      attr_reader payment_method: Yoomoney::Models::payment_method_type?
+
+      def payment_method=: (
+        Yoomoney::Models::payment_method_type
+      ) -> Yoomoney::Models::payment_method_type
+
+      attr_reader status: Yoomoney::Models::payment_status?
+
+      def status=: (
+        Yoomoney::Models::payment_status
+      ) -> Yoomoney::Models::payment_status
+
+      def initialize: (
+        ?captured_at: Yoomoney::PaymentListParams::CapturedAt,
+        ?created_at: Yoomoney::PaymentListParams::CreatedAt,
+        ?cursor: String,
+        ?limit: Integer,
+        ?payment_method: Yoomoney::Models::payment_method_type,
+        ?status: Yoomoney::Models::payment_status,
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        captured_at: Yoomoney::PaymentListParams::CapturedAt,
+        created_at: Yoomoney::PaymentListParams::CreatedAt,
+        cursor: String,
+        limit: Integer,
+        payment_method: Yoomoney::Models::payment_method_type,
+        status: Yoomoney::Models::payment_status,
+        request_options: Yoomoney::RequestOptions
+      }
+
+      type captured_at = { gt: Time, gte: Time, lt: Time, lte: Time }
+
+      class CapturedAt < Yoomoney::Internal::Type::BaseModel
+        attr_reader gt: Time?
+
+        def gt=: (Time) -> Time
+
+        attr_reader gte: Time?
+
+        def gte=: (Time) -> Time
+
+        attr_reader lt: Time?
+
+        def lt=: (Time) -> Time
+
+        attr_reader lte: Time?
+
+        def lte=: (Time) -> Time
+
+        def initialize: (?gt: Time, ?gte: Time, ?lt: Time, ?lte: Time) -> void
+
+        def to_hash: -> { gt: Time, gte: Time, lt: Time, lte: Time }
+      end
+
+      type created_at = { gt: Time, gte: Time, lt: Time, lte: Time }
+
+      class CreatedAt < Yoomoney::Internal::Type::BaseModel
+        attr_reader gt: Time?
+
+        def gt=: (Time) -> Time
+
+        attr_reader gte: Time?
+
+        def gte=: (Time) -> Time
+
+        attr_reader lt: Time?
+
+        def lt=: (Time) -> Time
+
+        attr_reader lte: Time?
+
+        def lte=: (Time) -> Time
+
+        def initialize: (?gt: Time, ?gte: Time, ?lt: Time, ?lte: Time) -> void
+
+        def to_hash: -> { gt: Time, gte: Time, lt: Time, lte: Time }
+      end
+    end
+  end
+end

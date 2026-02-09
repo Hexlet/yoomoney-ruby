@@ -1,0 +1,26 @@
+module Yoomoney
+  module Models
+    type receipt_item_agent_type =
+      :banking_payment_agent
+      | :banking_payment_subagent
+      | :payment_agent
+      | :payment_subagent
+      | :attorney
+      | :commissioner
+      | :agent
+
+    module ReceiptItemAgentType
+      extend Yoomoney::Internal::Type::Enum
+
+      BANKING_PAYMENT_AGENT: :banking_payment_agent
+      BANKING_PAYMENT_SUBAGENT: :banking_payment_subagent
+      PAYMENT_AGENT: :payment_agent
+      PAYMENT_SUBAGENT: :payment_subagent
+      ATTORNEY: :attorney
+      COMMISSIONER: :commissioner
+      AGENT: :agent
+
+      def self?.values: -> ::Array[Yoomoney::Models::receipt_item_agent_type]
+    end
+  end
+end

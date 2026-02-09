@@ -1,0 +1,15 @@
+module Yoomoney
+  module Models
+    type personal_data_type =
+      :payout_statement_recipient | :sbp_payout_recipient
+
+    module PersonalDataType
+      extend Yoomoney::Internal::Type::Enum
+
+      PAYOUT_STATEMENT_RECIPIENT: :payout_statement_recipient
+      SBP_PAYOUT_RECIPIENT: :sbp_payout_recipient
+
+      def self?.values: -> ::Array[Yoomoney::Models::personal_data_type]
+    end
+  end
+end
