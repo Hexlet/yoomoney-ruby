@@ -8,28 +8,18 @@ module Yoomoney
           T.any(Yoomoney::BankCardData, Yoomoney::Internal::AnyHash)
         end
 
-      # Тип банковской карты. Возможные значения: MasterCard (для карт Mastercard и
-      # Maestro), Visa (для карт Visa и Visa Electron), Mir, UnionPay, JCB,
-      # AmericanExpress, DinersClub, DiscoverCard, InstaPayment, InstaPaymentTM, Laser,
-      # Dankort, Solo, Switch и Unknown.
       sig { returns(Yoomoney::BankCardType::TaggedSymbol) }
       attr_accessor :card_type
 
-      # Срок действия, месяц, MM.
       sig { returns(String) }
       attr_accessor :expiry_month
 
-      # Срок действия, год, YYYY.
       sig { returns(String) }
       attr_accessor :expiry_year
 
-      # Последние 4 цифры номера карты.
       sig { returns(String) }
       attr_accessor :last4
 
-      # Карточный продукт платежной системы, с которым ассоциирована банковская карта.
-      # Например, карточные продукты платежной системы Мир: Mir Classic, Mir Classic
-      # Credit, MIR Privilege Plus и другие.
       sig { returns(T.nilable(Yoomoney::BankCardData::CardProduct)) }
       attr_reader :card_product
 
@@ -38,41 +28,30 @@ module Yoomoney
       end
       attr_writer :card_product
 
-      # Первые 6 цифр номера карты (BIN). При оплате картой, сохраненной в ЮKassa:
-      # https://yookassa.ru/developers/payment-acceptance/scenario-extensions/recurring-payments/basics
-      # и других сервисах, переданный BIN может не соответствовать значениям last4,
-      # expiry_year, expiry_month.
       sig { returns(T.nilable(String)) }
       attr_reader :first6
 
       sig { params(first6: String).void }
       attr_writer :first6
 
-      # Код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2:
-      # https://www.iso.org/obp/ui/#iso:pub:PUB500001:en. Пример: RU.
       sig { returns(T.nilable(String)) }
       attr_reader :issuer_country
 
       sig { params(issuer_country: String).void }
       attr_writer :issuer_country
 
-      # Наименование банка, выпустившего карту.
       sig { returns(T.nilable(String)) }
       attr_reader :issuer_name
 
       sig { params(issuer_name: String).void }
       attr_writer :issuer_name
 
-      # Источник данных банковской карты. Возможные значения: mir_pay, apple_pay,
-      # google_pay. Присутствует, если пользователь при оплате выбрал карту, сохраненную
-      # в Mir Pay, Apple Pay или Google Pay.
       sig { returns(T.nilable(Yoomoney::BankCardData::Source::TaggedSymbol)) }
       attr_reader :source
 
       sig { params(source: Yoomoney::BankCardData::Source::OrSymbol).void }
       attr_writer :source
 
-      # Данные банковской карты.
       sig do
         params(
           card_type: Yoomoney::BankCardType::OrSymbol,
@@ -87,34 +66,14 @@ module Yoomoney
         ).returns(T.attached_class)
       end
       def self.new(
-        # Тип банковской карты. Возможные значения: MasterCard (для карт Mastercard и
-        # Maestro), Visa (для карт Visa и Visa Electron), Mir, UnionPay, JCB,
-        # AmericanExpress, DinersClub, DiscoverCard, InstaPayment, InstaPaymentTM, Laser,
-        # Dankort, Solo, Switch и Unknown.
         card_type:,
-        # Срок действия, месяц, MM.
         expiry_month:,
-        # Срок действия, год, YYYY.
         expiry_year:,
-        # Последние 4 цифры номера карты.
         last4:,
-        # Карточный продукт платежной системы, с которым ассоциирована банковская карта.
-        # Например, карточные продукты платежной системы Мир: Mir Classic, Mir Classic
-        # Credit, MIR Privilege Plus и другие.
         card_product: nil,
-        # Первые 6 цифр номера карты (BIN). При оплате картой, сохраненной в ЮKassa:
-        # https://yookassa.ru/developers/payment-acceptance/scenario-extensions/recurring-payments/basics
-        # и других сервисах, переданный BIN может не соответствовать значениям last4,
-        # expiry_year, expiry_month.
         first6: nil,
-        # Код страны, в которой выпущена карта. Передается в формате ISO-3166 alpha-2:
-        # https://www.iso.org/obp/ui/#iso:pub:PUB500001:en. Пример: RU.
         issuer_country: nil,
-        # Наименование банка, выпустившего карту.
         issuer_name: nil,
-        # Источник данных банковской карты. Возможные значения: mir_pay, apple_pay,
-        # google_pay. Присутствует, если пользователь при оплате выбрал карту, сохраненную
-        # в Mir Pay, Apple Pay или Google Pay.
         source: nil
       )
       end
@@ -146,25 +105,22 @@ module Yoomoney
             )
           end
 
-        # Код карточного продукта. Пример: MCP
+        # Код продукта.
         sig { returns(String) }
         attr_accessor :code
 
-        # Название карточного продукта. Пример: MIR Privilege
+        # Название продукта.
         sig { returns(T.nilable(String)) }
         attr_reader :name
 
         sig { params(name: String).void }
         attr_writer :name
 
-        # Карточный продукт платежной системы, с которым ассоциирована банковская карта.
-        # Например, карточные продукты платежной системы Мир: Mir Classic, Mir Classic
-        # Credit, MIR Privilege Plus и другие.
         sig { params(code: String, name: String).returns(T.attached_class) }
         def self.new(
-          # Код карточного продукта. Пример: MCP
+          # Код продукта.
           code:,
-          # Название карточного продукта. Пример: MIR Privilege
+          # Название продукта.
           name: nil
         )
         end
@@ -174,9 +130,6 @@ module Yoomoney
         end
       end
 
-      # Источник данных банковской карты. Возможные значения: mir_pay, apple_pay,
-      # google_pay. Присутствует, если пользователь при оплате выбрал карту, сохраненную
-      # в Mir Pay, Apple Pay или Google Pay.
       module Source
         extend Yoomoney::Internal::Type::Enum
 

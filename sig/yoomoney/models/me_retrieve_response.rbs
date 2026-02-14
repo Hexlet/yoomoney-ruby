@@ -3,7 +3,7 @@ module Yoomoney
     type me_retrieve_response =
       {
         account_id: String,
-        status: Yoomoney::Models::MeRetrieveResponse::status,
+        status: String,
         test_: bool,
         fiscalization: Yoomoney::Models::MeRetrieveResponse::Fiscalization,
         fiscalization_enabled: bool,
@@ -17,7 +17,7 @@ module Yoomoney
     class MeRetrieveResponse < Yoomoney::Internal::Type::BaseModel
       attr_accessor account_id: String
 
-      attr_accessor status: Yoomoney::Models::MeRetrieveResponse::status
+      attr_accessor status: String
 
       attr_accessor test_: bool
 
@@ -59,7 +59,7 @@ module Yoomoney
 
       def initialize: (
         account_id: String,
-        status: Yoomoney::Models::MeRetrieveResponse::status,
+        status: String,
         test_: bool,
         ?fiscalization: Yoomoney::Models::MeRetrieveResponse::Fiscalization,
         ?fiscalization_enabled: bool,
@@ -72,7 +72,7 @@ module Yoomoney
 
       def to_hash: -> {
         account_id: String,
-        status: Yoomoney::Models::MeRetrieveResponse::status,
+        status: String,
         test_: bool,
         fiscalization: Yoomoney::Models::MeRetrieveResponse::Fiscalization,
         fiscalization_enabled: bool,
@@ -82,17 +82,6 @@ module Yoomoney
         payout_balance: Yoomoney::MonetaryAmount,
         payout_methods: ::Array[Yoomoney::Models::MeRetrieveResponse::payout_method]
       }
-
-      type status = :enabled | :disabled
-
-      module Status
-        extend Yoomoney::Internal::Type::Enum
-
-        ENABLED: :enabled
-        DISABLED: :disabled
-
-        def self?.values: -> ::Array[Yoomoney::Models::MeRetrieveResponse::status]
-      end
 
       type fiscalization =
         {

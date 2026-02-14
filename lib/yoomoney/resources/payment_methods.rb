@@ -6,29 +6,19 @@ module Yoomoney
       # Some parameter documentations has been truncated, see
       # {Yoomoney::Models::PaymentMethodCreateParams} for more details.
       #
-      # Используйте этот запрос, чтобы создать в ЮKassa объект способа оплаты:
-      # https://yookassa.ru/developers/api#payment_method_object. В запросе необходимо
-      # передать код способа оплаты, который вы хотите сохранить, и при необходимости
-      # дополнительные параметры, связанные с той функциональностью, которую вы хотите
-      # использовать. Идентификатор созданного способа оплаты вы можете использовать при
-      # проведении автоплатежей:
-      # https://yookassa.ru/developers/payment-acceptance/scenario-extensions/recurring-payments/create-recurring
-      # или выплат:
-      # https://yookassa.ru/developers/payouts/scenario-extensions/multipurpose-token.
+      # Создание способа оплаты
       #
-      # @overload create(type:, idempotence_key:, card: nil, client_ip: nil, confirmation: nil, holder: nil, request_options: {})
+      # @overload create(payment_method_data:, type:, idempotence_key:, payment_data: nil, receipt: nil, request_options: {})
       #
-      # @param type [Symbol, Yoomoney::Models::PaymentMethodCreateParams::Type] Body param
+      # @param payment_method_data [Yoomoney::Models::PaymentMethodCreateParams::PaymentMethodData] Body param: Данные для проверки и сохранения способа оплаты.
+      #
+      # @param type [Symbol, Yoomoney::Models::PaymentMethodCreateParams::Type] Body param: Тип способа оплаты.
       #
       # @param idempotence_key [String] Header param
       #
-      # @param card [Yoomoney::Models::CardRequestDataWithCsc] Body param
+      # @param payment_data [Yoomoney::Models::PaymentMethodCreateParams::PaymentData] Body param: Данные платежа, который будет создан после сохранения способа оплаты
       #
-      # @param client_ip [String] Body param: IPv4 или IPv6-адрес пользователя. Если не указан, используется IP-ад
-      #
-      # @param confirmation [Yoomoney::Models::PaymentMethodCreateParams::Confirmation] Body param: Перенаправление пользователя на сайт ЮKassa для подтверждения привяз
-      #
-      # @param holder [Yoomoney::Models::Recipient] Body param: Получатель платежа. Нужен, если вы разделяете потоки платежей в рамк
+      # @param receipt [Yoomoney::Models::ReceiptData] Body param: Данные для формирования чека.
       #
       # @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -48,16 +38,11 @@ module Yoomoney
         )
       end
 
-      # Some parameter documentations has been truncated, see
-      # {Yoomoney::Models::PaymentMethodRetrieveParams} for more details.
-      #
-      # Используйте этот запрос, чтобы получить информацию о текущем состоянии способа
-      # оплаты по его уникальному идентификатору.
+      # Информация о способе оплаты
       #
       # @overload retrieve(payment_method_id, request_options: {})
       #
-      # @param payment_method_id [String] Идентификатор сохраненного способа оплаты: https://yookassa.ru/developers/paymen
-      #
+      # @param payment_method_id [String]
       # @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}, nil]
       #
       # @return [Yoomoney::Models::SavePaymentMethodBankCard]

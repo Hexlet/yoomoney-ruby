@@ -6,37 +6,30 @@ module Yoomoney
       OrHash =
         T.type_alias { T.any(Yoomoney::Refund, Yoomoney::Internal::AnyHash) }
 
-      # Идентификатор возврата платежа в ЮKassa.
+      # Идентификатор возврата.
       sig { returns(String) }
       attr_accessor :id
 
-      # Сумма в выбранной валюте.
+      # Сумма возврата.
       sig { returns(Yoomoney::MonetaryAmount) }
       attr_reader :amount
 
       sig { params(amount: Yoomoney::MonetaryAmount::OrHash).void }
       attr_writer :amount
 
-      # Время создания возврата. Указывается по UTC:
-      # https://ru.wikipedia.org/wiki/%D0%92%D1%81%D0%B5%D0%BC%D0%B8%D1%80%D0%BD%D0%BE%D0%B5_%D0%BA%D0%BE%D0%BE%D1%80%D0%B4%D0%B8%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5_%D0%B2%D1%80%D0%B5%D0%BC%D1%8F
-      # и передается в формате ISO 8601: https://en.wikipedia.org/wiki/ISO_8601,
-      # например 2017-11-03T11:52:31.827Z
+      # Время создания возврата.
       sig { returns(Time) }
       attr_accessor :created_at
 
-      # Идентификатор платежа в ЮKassa.
+      # Идентификатор платежа.
       sig { returns(String) }
       attr_accessor :payment_id
 
-      # Статус возврата платежа. Возможные значения: pending — возврат создан, но пока
-      # еще обрабатывается; succeeded — возврат успешно завершен, указанная в запросе
-      # сумма переведена на платежное средство пользователя (финальный и неизменяемый
-      # статус); canceled — возврат отменен, инициатор и причина отмены указаны в
-      # объекте cancellation_details (финальный и неизменяемый статус).
+      # Статус возврата.
       sig { returns(Yoomoney::RefundStatus::TaggedSymbol) }
       attr_accessor :status
 
-      # Комментарий к статусу canceled: кто отменил возврат и по какой причине.
+      # Комментарий к статусу canceled.
       sig { returns(T.nilable(Yoomoney::Refund::CancellationDetails)) }
       attr_reader :cancellation_details
 
@@ -47,40 +40,31 @@ module Yoomoney
       end
       attr_writer :cancellation_details
 
-      # Данные о сделке, в составе которой проходит возврат. Присутствует, если вы
-      # проводите Безопасную сделку:
-      # https://yookassa.ru/developers/solutions-for-platforms/safe-deal/basics.
+      # Данные о сделке.
       sig { returns(T.nilable(Yoomoney::Refund::Deal)) }
       attr_reader :deal
 
       sig { params(deal: Yoomoney::Refund::Deal::OrHash).void }
       attr_writer :deal
 
-      # Основание для возврата денег пользователю.
+      # Описание возврата.
       sig { returns(T.nilable(String)) }
       attr_reader :description
 
       sig { params(description: String).void }
       attr_writer :description
 
-      # Любые дополнительные данные, которые нужны вам для работы (например, ваш
-      # внутренний идентификатор заказа). Передаются в виде набора пар «ключ-значение» и
-      # возвращаются в ответе от ЮKassa. Ограничения: максимум 16 ключей, имя ключа не
-      # больше 32 символов, значение ключа не больше 512 символов, тип данных — строка в
-      # формате UTF-8.
-      sig { returns(T.nilable(T::Hash[Symbol, T.nilable(String)])) }
+      # Любые дополнительные данные, которые нужны вам для работы (например, номер
+      # заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от
+      # ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов,
+      # значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
+      sig { returns(T.nilable(T::Hash[Symbol, String])) }
       attr_reader :metadata
 
-      sig { params(metadata: T::Hash[Symbol, T.nilable(String)]).void }
+      sig { params(metadata: T::Hash[Symbol, String]).void }
       attr_writer :metadata
 
-      # Статус регистрации чека. Возможные значения: pending — данные в обработке;
-      # succeeded — чек успешно зарегистрирован; canceled — чек зарегистрировать не
-      # удалось; если используете Чеки от ЮKassa:
-      # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/yoomoney/basics,
-      # обратитесь в техническую поддержку, в остальных случаях сформируйте чек вручную.
-      # Присутствует, если вы используете решения ЮKassa для отправки чеков в налоговую:
-      # https://yookassa.ru/developers/payment-acceptance/receipts/basics.
+      # Статус регистрации чека.
       sig do
         returns(T.nilable(Yoomoney::ReceiptRegistrationStatus::TaggedSymbol))
       end
@@ -93,8 +77,7 @@ module Yoomoney
       end
       attr_writer :receipt_registration
 
-      # Данные об авторизации возврата. Присутствуют только для возвратов платежей,
-      # совершенных этими способами оплаты: банковская карта, Mir Pay.
+      # Данные об авторизации возврата.
       sig { returns(T.nilable(Yoomoney::Refund::RefundAuthorizationDetails)) }
       attr_reader :refund_authorization_details
 
@@ -106,7 +89,7 @@ module Yoomoney
       end
       attr_writer :refund_authorization_details
 
-      # Данные для возврата платежа через СБП (НСПК).
+      # Способ возврата.
       sig { returns(T.nilable(Yoomoney::Refund::RefundMethod::Variants)) }
       attr_reader :refund_method
 
@@ -121,9 +104,7 @@ module Yoomoney
       end
       attr_writer :refund_method
 
-      # Данные о том, с какого магазина и какую сумму нужно удержать для проведения
-      # возврата. Присутствует, если вы используете Сплитование платежей:
-      # https://yookassa.ru/developers/solutions-for-platforms/split-payments/basics.
+      # Источники средств для возврата.
       sig { returns(T.nilable(T::Array[Yoomoney::RefundSourcesData])) }
       attr_reader :sources
 
@@ -132,7 +113,6 @@ module Yoomoney
       end
       attr_writer :sources
 
-      # Объект возврата (Refund) — актуальная информация о возврате платежа.
       sig do
         params(
           id: String,
@@ -143,7 +123,7 @@ module Yoomoney
           cancellation_details: Yoomoney::Refund::CancellationDetails::OrHash,
           deal: Yoomoney::Refund::Deal::OrHash,
           description: String,
-          metadata: T::Hash[Symbol, T.nilable(String)],
+          metadata: T::Hash[Symbol, String],
           receipt_registration: Yoomoney::ReceiptRegistrationStatus::OrSymbol,
           refund_authorization_details:
             Yoomoney::Refund::RefundAuthorizationDetails::OrHash,
@@ -156,53 +136,34 @@ module Yoomoney
         ).returns(T.attached_class)
       end
       def self.new(
-        # Идентификатор возврата платежа в ЮKassa.
+        # Идентификатор возврата.
         id:,
-        # Сумма в выбранной валюте.
+        # Сумма возврата.
         amount:,
-        # Время создания возврата. Указывается по UTC:
-        # https://ru.wikipedia.org/wiki/%D0%92%D1%81%D0%B5%D0%BC%D0%B8%D1%80%D0%BD%D0%BE%D0%B5_%D0%BA%D0%BE%D0%BE%D1%80%D0%B4%D0%B8%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5_%D0%B2%D1%80%D0%B5%D0%BC%D1%8F
-        # и передается в формате ISO 8601: https://en.wikipedia.org/wiki/ISO_8601,
-        # например 2017-11-03T11:52:31.827Z
+        # Время создания возврата.
         created_at:,
-        # Идентификатор платежа в ЮKassa.
+        # Идентификатор платежа.
         payment_id:,
-        # Статус возврата платежа. Возможные значения: pending — возврат создан, но пока
-        # еще обрабатывается; succeeded — возврат успешно завершен, указанная в запросе
-        # сумма переведена на платежное средство пользователя (финальный и неизменяемый
-        # статус); canceled — возврат отменен, инициатор и причина отмены указаны в
-        # объекте cancellation_details (финальный и неизменяемый статус).
+        # Статус возврата.
         status:,
-        # Комментарий к статусу canceled: кто отменил возврат и по какой причине.
+        # Комментарий к статусу canceled.
         cancellation_details: nil,
-        # Данные о сделке, в составе которой проходит возврат. Присутствует, если вы
-        # проводите Безопасную сделку:
-        # https://yookassa.ru/developers/solutions-for-platforms/safe-deal/basics.
+        # Данные о сделке.
         deal: nil,
-        # Основание для возврата денег пользователю.
+        # Описание возврата.
         description: nil,
-        # Любые дополнительные данные, которые нужны вам для работы (например, ваш
-        # внутренний идентификатор заказа). Передаются в виде набора пар «ключ-значение» и
-        # возвращаются в ответе от ЮKassa. Ограничения: максимум 16 ключей, имя ключа не
-        # больше 32 символов, значение ключа не больше 512 символов, тип данных — строка в
-        # формате UTF-8.
+        # Любые дополнительные данные, которые нужны вам для работы (например, номер
+        # заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от
+        # ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов,
+        # значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
         metadata: nil,
-        # Статус регистрации чека. Возможные значения: pending — данные в обработке;
-        # succeeded — чек успешно зарегистрирован; canceled — чек зарегистрировать не
-        # удалось; если используете Чеки от ЮKassa:
-        # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/yoomoney/basics,
-        # обратитесь в техническую поддержку, в остальных случаях сформируйте чек вручную.
-        # Присутствует, если вы используете решения ЮKassa для отправки чеков в налоговую:
-        # https://yookassa.ru/developers/payment-acceptance/receipts/basics.
+        # Статус регистрации чека.
         receipt_registration: nil,
-        # Данные об авторизации возврата. Присутствуют только для возвратов платежей,
-        # совершенных этими способами оплаты: банковская карта, Mir Pay.
+        # Данные об авторизации возврата.
         refund_authorization_details: nil,
-        # Данные для возврата платежа через СБП (НСПК).
+        # Способ возврата.
         refund_method: nil,
-        # Данные о том, с какого магазина и какую сумму нужно удержать для проведения
-        # возврата. Присутствует, если вы используете Сплитование платежей:
-        # https://yookassa.ru/developers/solutions-for-platforms/split-payments/basics.
+        # Источники средств для возврата.
         sources: nil
       )
       end
@@ -218,7 +179,7 @@ module Yoomoney
             cancellation_details: Yoomoney::Refund::CancellationDetails,
             deal: Yoomoney::Refund::Deal,
             description: String,
-            metadata: T::Hash[Symbol, T.nilable(String)],
+            metadata: T::Hash[Symbol, String],
             receipt_registration:
               Yoomoney::ReceiptRegistrationStatus::TaggedSymbol,
             refund_authorization_details:
@@ -240,156 +201,19 @@ module Yoomoney
             )
           end
 
-        # Участник процесса возврата, который принял решение отменить транзакцию. Перечень
-        # и описание возможных значений:
-        # https://yookassa.ru/developers/payment-acceptance/after-the-payment/refunds#declined-refunds-cancellation-details-party
-        sig do
-          returns(Yoomoney::Refund::CancellationDetails::Party::TaggedSymbol)
-        end
+        sig { returns(String) }
         attr_accessor :party
 
-        # Причина отмены возврата. Перечень и описание возможных значений:
-        # https://yookassa.ru/developers/payment-acceptance/after-the-payment/refunds#declined-refunds-cancellation-details-reason
-        sig do
-          returns(Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol)
-        end
+        sig { returns(String) }
         attr_accessor :reason
 
-        # Комментарий к статусу canceled: кто отменил возврат и по какой причине.
-        sig do
-          params(
-            party: Yoomoney::Refund::CancellationDetails::Party::OrSymbol,
-            reason: Yoomoney::Refund::CancellationDetails::Reason::OrSymbol
-          ).returns(T.attached_class)
-        end
-        def self.new(
-          # Участник процесса возврата, который принял решение отменить транзакцию. Перечень
-          # и описание возможных значений:
-          # https://yookassa.ru/developers/payment-acceptance/after-the-payment/refunds#declined-refunds-cancellation-details-party
-          party:,
-          # Причина отмены возврата. Перечень и описание возможных значений:
-          # https://yookassa.ru/developers/payment-acceptance/after-the-payment/refunds#declined-refunds-cancellation-details-reason
-          reason:
-        )
+        # Комментарий к статусу canceled.
+        sig { params(party: String, reason: String).returns(T.attached_class) }
+        def self.new(party:, reason:)
         end
 
-        sig do
-          override.returns(
-            {
-              party: Yoomoney::Refund::CancellationDetails::Party::TaggedSymbol,
-              reason:
-                Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol
-            }
-          )
-        end
+        sig { override.returns({ party: String, reason: String }) }
         def to_hash
-        end
-
-        # Участник процесса возврата, который принял решение отменить транзакцию. Перечень
-        # и описание возможных значений:
-        # https://yookassa.ru/developers/payment-acceptance/after-the-payment/refunds#declined-refunds-cancellation-details-party
-        module Party
-          extend Yoomoney::Internal::Type::Enum
-
-          TaggedSymbol =
-            T.type_alias do
-              T.all(Symbol, Yoomoney::Refund::CancellationDetails::Party)
-            end
-          OrSymbol = T.type_alias { T.any(Symbol, String) }
-
-          YOO_MONEY =
-            T.let(
-              :yoo_money,
-              Yoomoney::Refund::CancellationDetails::Party::TaggedSymbol
-            )
-          REFUND_NETWORK =
-            T.let(
-              :refund_network,
-              Yoomoney::Refund::CancellationDetails::Party::TaggedSymbol
-            )
-
-          sig do
-            override.returns(
-              T::Array[
-                Yoomoney::Refund::CancellationDetails::Party::TaggedSymbol
-              ]
-            )
-          end
-          def self.values
-          end
-        end
-
-        # Причина отмены возврата. Перечень и описание возможных значений:
-        # https://yookassa.ru/developers/payment-acceptance/after-the-payment/refunds#declined-refunds-cancellation-details-reason
-        module Reason
-          extend Yoomoney::Internal::Type::Enum
-
-          TaggedSymbol =
-            T.type_alias do
-              T.all(Symbol, Yoomoney::Refund::CancellationDetails::Reason)
-            end
-          OrSymbol = T.type_alias { T.any(Symbol, String) }
-
-          YOO_MONEY_ACCOUNT_CLOSED =
-            T.let(
-              :yoo_money_account_closed,
-              Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol
-            )
-          INSUFFICIENT_FUNDS =
-            T.let(
-              :insufficient_funds,
-              Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol
-            )
-          GENERAL_DECLINE =
-            T.let(
-              :general_decline,
-              Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol
-            )
-          REJECTED_BY_PAYEE =
-            T.let(
-              :rejected_by_payee,
-              Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol
-            )
-          REJECTED_BY_TIMEOUT =
-            T.let(
-              :rejected_by_timeout,
-              Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol
-            )
-          PAYMENT_BASKET_ID_NOT_FOUND =
-            T.let(
-              :payment_basket_id_not_found,
-              Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol
-            )
-          PAYMENT_ARTICLE_NUMBER_NOT_FOUND =
-            T.let(
-              :payment_article_number_not_found,
-              Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol
-            )
-          PAYMENT_TRU_CODE_NOT_FOUND =
-            T.let(
-              :payment_tru_code_not_found,
-              Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol
-            )
-          TOO_MANY_REFUNDING_ARTICLES =
-            T.let(
-              :too_many_refunding_articles,
-              Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol
-            )
-          SOME_ARTICLES_ALREADY_REFUNDED =
-            T.let(
-              :some_articles_already_refunded,
-              Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol
-            )
-
-          sig do
-            override.returns(
-              T::Array[
-                Yoomoney::Refund::CancellationDetails::Reason::TaggedSymbol
-              ]
-            )
-          end
-          def self.values
-          end
         end
       end
 
@@ -404,16 +228,15 @@ module Yoomoney
         attr_accessor :id
 
         # Данные о распределении денег.
-        sig { returns(T::Array[Yoomoney::SettlementRefundItem]) }
+        sig { returns(T::Array[Yoomoney::Refund::Deal::RefundSettlement]) }
         attr_accessor :refund_settlements
 
-        # Данные о сделке, в составе которой проходит возврат. Присутствует, если вы
-        # проводите Безопасную сделку:
-        # https://yookassa.ru/developers/solutions-for-platforms/safe-deal/basics.
+        # Данные о сделке.
         sig do
           params(
             id: String,
-            refund_settlements: T::Array[Yoomoney::SettlementRefundItem::OrHash]
+            refund_settlements:
+              T::Array[Yoomoney::Refund::Deal::RefundSettlement::OrHash]
           ).returns(T.attached_class)
         end
         def self.new(
@@ -428,11 +251,51 @@ module Yoomoney
           override.returns(
             {
               id: String,
-              refund_settlements: T::Array[Yoomoney::SettlementRefundItem]
+              refund_settlements:
+                T::Array[Yoomoney::Refund::Deal::RefundSettlement]
             }
           )
         end
         def to_hash
+        end
+
+        class RefundSettlement < Yoomoney::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Yoomoney::Refund::Deal::RefundSettlement,
+                Yoomoney::Internal::AnyHash
+              )
+            end
+
+          sig { returns(Yoomoney::MonetaryAmount) }
+          attr_reader :amount
+
+          sig { params(amount: Yoomoney::MonetaryAmount::OrHash).void }
+          attr_writer :amount
+
+          sig { returns(Yoomoney::SettlementItemType::TaggedSymbol) }
+          attr_accessor :type
+
+          sig do
+            params(
+              amount: Yoomoney::MonetaryAmount::OrHash,
+              type: Yoomoney::SettlementItemType::OrSymbol
+            ).returns(T.attached_class)
+          end
+          def self.new(amount:, type:)
+          end
+
+          sig do
+            override.returns(
+              {
+                amount: Yoomoney::MonetaryAmount,
+                type: Yoomoney::SettlementItemType::TaggedSymbol
+              }
+            )
+          end
+          def to_hash
+          end
         end
       end
 
@@ -445,20 +308,15 @@ module Yoomoney
             )
           end
 
-        # Retrieval Reference Number — идентификатор банковской транзакции.
         sig { returns(T.nilable(String)) }
         attr_reader :rrn
 
         sig { params(rrn: String).void }
         attr_writer :rrn
 
-        # Данные об авторизации возврата. Присутствуют только для возвратов платежей,
-        # совершенных этими способами оплаты: банковская карта, Mir Pay.
+        # Данные об авторизации возврата.
         sig { params(rrn: String).returns(T.attached_class) }
-        def self.new(
-          # Retrieval Reference Number — идентификатор банковской транзакции.
-          rrn: nil
-        )
+        def self.new(rrn: nil)
         end
 
         sig { override.returns({ rrn: String }) }
@@ -466,7 +324,7 @@ module Yoomoney
         end
       end
 
-      # Данные для возврата платежа через СБП (НСПК).
+      # Способ возврата.
       module RefundMethod
         extend Yoomoney::Internal::Type::Union
 
@@ -487,21 +345,16 @@ module Yoomoney
               )
             end
 
-          # Идентификатор операции в СБП (НСПК). Пример: 1027088AE4CB48CB81287833347A8777.
-          # Обязательный параметр для возвратов в статусе succeeded. В остальных случаях
-          # может отсутствовать.
+          # Идентификатор операции в СБП (НСПК).
           sig { returns(T.nilable(String)) }
           attr_reader :sbp_operation_id
 
           sig { params(sbp_operation_id: String).void }
           attr_writer :sbp_operation_id
 
-          # Данные для возврата платежа через СБП (НСПК).
           sig { params(sbp_operation_id: String).returns(T.attached_class) }
           def self.new(
-            # Идентификатор операции в СБП (НСПК). Пример: 1027088AE4CB48CB81287833347A8777.
-            # Обязательный параметр для возвратов в статусе succeeded. В остальных случаях
-            # может отсутствовать.
+            # Идентификатор операции в СБП (НСПК).
             sbp_operation_id: nil
           )
           end
@@ -520,10 +373,6 @@ module Yoomoney
               )
             end
 
-          # Корзина возврата — список возвращаемых товаров, для оплаты которых использовался
-          # электронный сертификат. Присутствует, если оплата была на готовой странице
-          # ЮKassa:
-          # https://yookassa.ru/developers/payment-acceptance/integration-scenarios/manual-integration/other/electronic-certificate/ready-made-payment-form.
           sig do
             returns(
               T.nilable(T::Array[Yoomoney::ElectronicCertificateRefundArticle])
@@ -539,7 +388,6 @@ module Yoomoney
           end
           attr_writer :articles
 
-          # Данные от ФЭС НСПК для возврата на электронный сертификат.
           sig do
             returns(
               T.nilable(
@@ -557,7 +405,6 @@ module Yoomoney
           end
           attr_writer :electronic_certificate
 
-          # Возврат платежа по электронному сертификату.
           sig do
             params(
               articles:
@@ -566,15 +413,7 @@ module Yoomoney
                 Yoomoney::Refund::RefundMethod::ElectronicCertificateRefundMethod::ElectronicCertificate::OrHash
             ).returns(T.attached_class)
           end
-          def self.new(
-            # Корзина возврата — список возвращаемых товаров, для оплаты которых использовался
-            # электронный сертификат. Присутствует, если оплата была на готовой странице
-            # ЮKassa:
-            # https://yookassa.ru/developers/payment-acceptance/integration-scenarios/manual-integration/other/electronic-certificate/ready-made-payment-form.
-            articles: nil,
-            # Данные от ФЭС НСПК для возврата на электронный сертификат.
-            electronic_certificate: nil
-          )
+          def self.new(articles: nil, electronic_certificate: nil)
           end
 
           sig do
@@ -599,30 +438,22 @@ module Yoomoney
                 )
               end
 
-            # Сумма в выбранной валюте.
             sig { returns(Yoomoney::MonetaryAmount) }
             attr_reader :amount
 
             sig { params(amount: Yoomoney::MonetaryAmount::OrHash).void }
             attr_writer :amount
 
-            # Идентификатор корзины, сформированной в НСПК.
             sig { returns(String) }
             attr_accessor :basket_id
 
-            # Данные от ФЭС НСПК для возврата на электронный сертификат.
             sig do
               params(
                 amount: Yoomoney::MonetaryAmount::OrHash,
                 basket_id: String
               ).returns(T.attached_class)
             end
-            def self.new(
-              # Сумма в выбранной валюте.
-              amount:,
-              # Идентификатор корзины, сформированной в НСПК.
-              basket_id:
-            )
+            def self.new(amount:, basket_id:)
             end
 
             sig do

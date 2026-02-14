@@ -2,9 +2,6 @@
 
 module Yoomoney
   module Models
-    # Статус платежа. Возможные значения: pending, waiting_for_capture, succeeded и
-    # canceled. Подробнее про жизненный цикл платежа:
-    # https://yookassa.ru/developers/payment-acceptance/getting-started/payment-process#lifecycle
     module PaymentStatus
       extend Yoomoney::Internal::Type::Enum
 

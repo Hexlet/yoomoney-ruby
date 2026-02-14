@@ -4,45 +4,33 @@ module Yoomoney
   module Models
     class TransferData < Yoomoney::Internal::Type::BaseModel
       # @!attribute account_id
-      #   Идентификатор магазина в ЮKassa.
+      #   Идентификатор магазина, в пользу которого вы принимаете оплату.
       #
       #   @return [String]
       required :account_id, String
 
       # @!attribute amount
-      #   Сумма в выбранной валюте.
+      #   Сумма, которую необходимо перевести магазину.
       #
-      #   @return [Yoomoney::Models::TransferData::Amount]
-      required :amount, -> { Yoomoney::TransferData::Amount }
+      #   @return [Yoomoney::Models::MonetaryAmount]
+      required :amount, -> { Yoomoney::MonetaryAmount }
 
       # @!attribute platform_fee_amount
-      #   Сумма в выбранной валюте.
+      #   Комиссия за проданные товары и оказанные услуги, которую вы удерживаете при
+      #   оплате.
       #
-      #   @return [Yoomoney::Models::TransferData::PlatformFeeAmount, nil]
-      optional :platform_fee_amount, -> { Yoomoney::TransferData::PlatformFeeAmount }
+      #   @return [Yoomoney::Models::MonetaryAmount, nil]
+      optional :platform_fee_amount, -> { Yoomoney::MonetaryAmount }
 
       # @!method initialize(account_id:, amount:, platform_fee_amount: nil)
-      #   Данные о распределении денег — сколько и в какой магазин нужно перевести.
-      #   Необходимо передавать, если вы используете Сплитование платежей:
-      #   https://yookassa.ru/developers/solutions-for-platforms/split-payments/basics.
+      #   Some parameter documentations has been truncated, see
+      #   {Yoomoney::Models::TransferData} for more details.
       #
-      #   @param account_id [String] Идентификатор магазина в ЮKassa.
+      #   @param account_id [String] Идентификатор магазина, в пользу которого вы принимаете оплату.
       #
-      #   @param amount [Yoomoney::Models::TransferData::Amount] Сумма в выбранной валюте.
+      #   @param amount [Yoomoney::Models::MonetaryAmount] Сумма, которую необходимо перевести магазину.
       #
-      #   @param platform_fee_amount [Yoomoney::Models::TransferData::PlatformFeeAmount] Сумма в выбранной валюте.
-
-      # @see Yoomoney::Models::TransferData#amount
-      class Amount < Yoomoney::Models::MonetaryAmount
-        # @!method initialize
-        #   Сумма в выбранной валюте.
-      end
-
-      # @see Yoomoney::Models::TransferData#platform_fee_amount
-      class PlatformFeeAmount < Yoomoney::Models::MonetaryAmount
-        # @!method initialize
-        #   Сумма в выбранной валюте.
-      end
+      #   @param platform_fee_amount [Yoomoney::Models::MonetaryAmount] Комиссия за проданные товары и оказанные услуги, которую вы удерживаете при опла
     end
   end
 end

@@ -11,27 +11,19 @@ module Yoomoney
           )
         end
 
-      # Идентификатор магазина в ЮKassa.
+      # Идентификатор аккаунта.
       sig { returns(String) }
       attr_accessor :account_id
 
-      # Статус магазина или шлюза. Возможные значения: enabled — подключен к ЮKassa,
-      # может проводить платежи или выплаты; disabled — не может проводить платежи или
-      # выплаты (еще не подключен, закрыт или временно не работает).
-      sig do
-        returns(Yoomoney::Models::MeRetrieveResponse::Status::TaggedSymbol)
-      end
+      # Статус аккаунта.
+      sig { returns(String) }
       attr_accessor :status
 
-      # Это тестовый магазин или шлюз.
+      # Признак тестового аккаунта.
       sig { returns(T::Boolean) }
       attr_accessor :test_
 
-      # Настройки магазина для отправки чеков в налоговую:
-      # https://yookassa.ru/developers/payment-acceptance/receipts/basics. Присутствует,
-      # если вы запрашивали настройки магазина и этот магазин использует решения ЮKassa
-      # для отправки чеков. Отсутствует, если магазин еще не включал отправку чеков
-      # через ЮKassa.
+      # Данные о фискализации.
       sig do
         returns(T.nilable(Yoomoney::Models::MeRetrieveResponse::Fiscalization))
       end
@@ -45,34 +37,28 @@ module Yoomoney
       end
       attr_writer :fiscalization
 
-      # Устаревший параметр, который раньше использовался для определения настроек
-      # отправки чеков в налоговую. Сохранен для поддержки обратной совместимости, в
-      # новых версиях API может быть удален. Используйте объект fiscalization, чтобы
-      # определить, какие у магазина настройки отправки чеков.
+      # Признак подключенной фискализации.
       sig { returns(T.nilable(T::Boolean)) }
       attr_reader :fiscalization_enabled
 
       sig { params(fiscalization_enabled: T::Boolean).void }
       attr_writer :fiscalization_enabled
 
-      # ИНН пользователя (от 1 до 20 цифр).
+      # ИНН.
       sig { returns(T.nilable(String)) }
       attr_reader :itn
 
       sig { params(itn: String).void }
       attr_writer :itn
 
-      # Название шлюза, которое отображается в личном кабинете ЮKassa. Присутствует,
-      # если вы запрашивали настройки шлюза.
+      # Название магазина.
       sig { returns(T.nilable(String)) }
       attr_reader :name
 
       sig { params(name: String).void }
       attr_writer :name
 
-      # Список способов оплаты:
-      # https://yookassa.ru/developers/payment-acceptance/getting-started/payment-methods#all,
-      # доступных магазину. Присутствует, если вы запрашивали настройки магазина.
+      # Доступные способы оплаты.
       sig do
         returns(T.nilable(T::Array[Yoomoney::PaymentMethodType::TaggedSymbol]))
       end
@@ -85,16 +71,14 @@ module Yoomoney
       end
       attr_writer :payment_methods
 
-      # Сумма в выбранной валюте.
+      # Баланс для выплат.
       sig { returns(T.nilable(Yoomoney::MonetaryAmount)) }
       attr_reader :payout_balance
 
       sig { params(payout_balance: Yoomoney::MonetaryAmount::OrHash).void }
       attr_writer :payout_balance
 
-      # Список способов получения выплат, доступных шлюзу. Возможные значения: bank_card
-      # — выплаты на банковские карты; yoo_money — выплаты на кошельки ЮMoney; sbp —
-      # выплаты через СБП. Присутствует, если вы запрашивали настройки шлюза.
+      # Способы выплат.
       sig do
         returns(
           T.nilable(
@@ -116,12 +100,10 @@ module Yoomoney
       end
       attr_writer :payout_methods
 
-      # Объект настроек магазина или шлюза (Me) — актуальная информация о настройках
-      # магазина или шлюза.
       sig do
         params(
           account_id: String,
-          status: Yoomoney::Models::MeRetrieveResponse::Status::OrSymbol,
+          status: String,
           test_: T::Boolean,
           fiscalization:
             Yoomoney::Models::MeRetrieveResponse::Fiscalization::OrHash,
@@ -137,39 +119,25 @@ module Yoomoney
         ).returns(T.attached_class)
       end
       def self.new(
-        # Идентификатор магазина в ЮKassa.
+        # Идентификатор аккаунта.
         account_id:,
-        # Статус магазина или шлюза. Возможные значения: enabled — подключен к ЮKassa,
-        # может проводить платежи или выплаты; disabled — не может проводить платежи или
-        # выплаты (еще не подключен, закрыт или временно не работает).
+        # Статус аккаунта.
         status:,
-        # Это тестовый магазин или шлюз.
+        # Признак тестового аккаунта.
         test_:,
-        # Настройки магазина для отправки чеков в налоговую:
-        # https://yookassa.ru/developers/payment-acceptance/receipts/basics. Присутствует,
-        # если вы запрашивали настройки магазина и этот магазин использует решения ЮKassa
-        # для отправки чеков. Отсутствует, если магазин еще не включал отправку чеков
-        # через ЮKassa.
+        # Данные о фискализации.
         fiscalization: nil,
-        # Устаревший параметр, который раньше использовался для определения настроек
-        # отправки чеков в налоговую. Сохранен для поддержки обратной совместимости, в
-        # новых версиях API может быть удален. Используйте объект fiscalization, чтобы
-        # определить, какие у магазина настройки отправки чеков.
+        # Признак подключенной фискализации.
         fiscalization_enabled: nil,
-        # ИНН пользователя (от 1 до 20 цифр).
+        # ИНН.
         itn: nil,
-        # Название шлюза, которое отображается в личном кабинете ЮKassa. Присутствует,
-        # если вы запрашивали настройки шлюза.
+        # Название магазина.
         name: nil,
-        # Список способов оплаты:
-        # https://yookassa.ru/developers/payment-acceptance/getting-started/payment-methods#all,
-        # доступных магазину. Присутствует, если вы запрашивали настройки магазина.
+        # Доступные способы оплаты.
         payment_methods: nil,
-        # Сумма в выбранной валюте.
+        # Баланс для выплат.
         payout_balance: nil,
-        # Список способов получения выплат, доступных шлюзу. Возможные значения: bank_card
-        # — выплаты на банковские карты; yoo_money — выплаты на кошельки ЮMoney; sbp —
-        # выплаты через СБП. Присутствует, если вы запрашивали настройки шлюза.
+        # Способы выплат.
         payout_methods: nil
       )
       end
@@ -178,7 +146,7 @@ module Yoomoney
         override.returns(
           {
             account_id: String,
-            status: Yoomoney::Models::MeRetrieveResponse::Status::TaggedSymbol,
+            status: String,
             test_: T::Boolean,
             fiscalization: Yoomoney::Models::MeRetrieveResponse::Fiscalization,
             fiscalization_enabled: T::Boolean,
@@ -197,38 +165,6 @@ module Yoomoney
       def to_hash
       end
 
-      # Статус магазина или шлюза. Возможные значения: enabled — подключен к ЮKassa,
-      # может проводить платежи или выплаты; disabled — не может проводить платежи или
-      # выплаты (еще не подключен, закрыт или временно не работает).
-      module Status
-        extend Yoomoney::Internal::Type::Enum
-
-        TaggedSymbol =
-          T.type_alias do
-            T.all(Symbol, Yoomoney::Models::MeRetrieveResponse::Status)
-          end
-        OrSymbol = T.type_alias { T.any(Symbol, String) }
-
-        ENABLED =
-          T.let(
-            :enabled,
-            Yoomoney::Models::MeRetrieveResponse::Status::TaggedSymbol
-          )
-        DISABLED =
-          T.let(
-            :disabled,
-            Yoomoney::Models::MeRetrieveResponse::Status::TaggedSymbol
-          )
-
-        sig do
-          override.returns(
-            T::Array[Yoomoney::Models::MeRetrieveResponse::Status::TaggedSymbol]
-          )
-        end
-        def self.values
-        end
-      end
-
       class Fiscalization < Yoomoney::Internal::Type::BaseModel
         OrHash =
           T.type_alias do
@@ -238,22 +174,9 @@ module Yoomoney
             )
           end
 
-        # В настройках магазина включена отправка чеков. Возможные значения: true —
-        # магазин отправляет данные для чеков через ЮKassa; false — магазин выключил
-        # отправку чеков через ЮKassa.
         sig { returns(T::Boolean) }
         attr_accessor :enabled
 
-        # Решение ЮKassa, которое магазин использует для отправки чеков. Возможные
-        # значения: 54-ФЗ: Чеки от ЮKassa:
-        # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/yoomoney/basics
-        # — avanpost; 54-ФЗ: сторонняя онлайн-касса:
-        # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/other-services/basics
-        # (наименование онлайн-кассы) — a_qsi (aQsi online), atol (АТОЛ Онлайн),
-        # business_ru (Бизнес.ру), digital_kassa (digitalkassa), evotor (Эвотор),
-        # first_ofd (Первый ОФД), kit_invest (Кит Инвест), komtet (КОМТЕТ Касса), life_pay
-        # (LIFE PAY), mertrade (Mertrade), modul_kassa (МодульКасса), rocket (RocketR),
-        # shtrih_m (Orange Data).
         sig do
           returns(
             Yoomoney::Models::MeRetrieveResponse::Fiscalization::Provider::TaggedSymbol
@@ -261,11 +184,7 @@ module Yoomoney
         end
         attr_accessor :provider
 
-        # Настройки магазина для отправки чеков в налоговую:
-        # https://yookassa.ru/developers/payment-acceptance/receipts/basics. Присутствует,
-        # если вы запрашивали настройки магазина и этот магазин использует решения ЮKassa
-        # для отправки чеков. Отсутствует, если магазин еще не включал отправку чеков
-        # через ЮKassa.
+        # Данные о фискализации.
         sig do
           params(
             enabled: T::Boolean,
@@ -273,23 +192,7 @@ module Yoomoney
               Yoomoney::Models::MeRetrieveResponse::Fiscalization::Provider::OrSymbol
           ).returns(T.attached_class)
         end
-        def self.new(
-          # В настройках магазина включена отправка чеков. Возможные значения: true —
-          # магазин отправляет данные для чеков через ЮKassa; false — магазин выключил
-          # отправку чеков через ЮKassa.
-          enabled:,
-          # Решение ЮKassa, которое магазин использует для отправки чеков. Возможные
-          # значения: 54-ФЗ: Чеки от ЮKassa:
-          # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/yoomoney/basics
-          # — avanpost; 54-ФЗ: сторонняя онлайн-касса:
-          # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/other-services/basics
-          # (наименование онлайн-кассы) — a_qsi (aQsi online), atol (АТОЛ Онлайн),
-          # business_ru (Бизнес.ру), digital_kassa (digitalkassa), evotor (Эвотор),
-          # first_ofd (Первый ОФД), kit_invest (Кит Инвест), komtet (КОМТЕТ Касса), life_pay
-          # (LIFE PAY), mertrade (Mertrade), modul_kassa (МодульКасса), rocket (RocketR),
-          # shtrih_m (Orange Data).
-          provider:
-        )
+        def self.new(enabled:, provider:)
         end
 
         sig do
@@ -304,16 +207,6 @@ module Yoomoney
         def to_hash
         end
 
-        # Решение ЮKassa, которое магазин использует для отправки чеков. Возможные
-        # значения: 54-ФЗ: Чеки от ЮKassa:
-        # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/yoomoney/basics
-        # — avanpost; 54-ФЗ: сторонняя онлайн-касса:
-        # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/other-services/basics
-        # (наименование онлайн-кассы) — a_qsi (aQsi online), atol (АТОЛ Онлайн),
-        # business_ru (Бизнес.ру), digital_kassa (digitalkassa), evotor (Эвотор),
-        # first_ofd (Первый ОФД), kit_invest (Кит Инвест), komtet (КОМТЕТ Касса), life_pay
-        # (LIFE PAY), mertrade (Mertrade), modul_kassa (МодульКасса), rocket (RocketR),
-        # shtrih_m (Orange Data).
         module Provider
           extend Yoomoney::Internal::Type::Enum
 
@@ -409,7 +302,6 @@ module Yoomoney
         end
       end
 
-      # Способ получения выплаты.
       module PayoutMethod
         extend Yoomoney::Internal::Type::Enum
 

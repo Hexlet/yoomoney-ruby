@@ -11,7 +11,7 @@ module Yoomoney
         ?deal: Yoomoney::PaymentDealInfo,
         ?description: String,
         ?merchant_customer_id: String,
-        ?metadata: ::Hash[Symbol, String?],
+        ?metadata: ::Hash[Symbol, String],
         ?payment_method_data: Yoomoney::Models::PaymentCreateParams::payment_method_data,
         ?payment_method_id: String,
         ?payment_order: Yoomoney::PaymentCreateParams::PaymentOrder,
@@ -51,7 +51,7 @@ module Yoomoney
         idempotence_key: String,
         ?airline: Yoomoney::Airline,
         ?amount: Yoomoney::MonetaryAmount,
-        ?deal: Yoomoney::PaymentCaptureParams::Deal,
+        ?deal: Yoomoney::PaymentDealInfo,
         ?receipt: Yoomoney::ReceiptData,
         ?transfers: ::Array[Yoomoney::TransferData],
         ?request_options: Yoomoney::request_opts

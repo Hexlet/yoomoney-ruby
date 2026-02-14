@@ -8,15 +8,13 @@ module Yoomoney
       include Yoomoney::Internal::Type::RequestParameters
 
       # @!attribute fee_moment
-      #   Момент перечисления вам вознаграждения платформы. Возможные значения:
-      #   payment_succeeded — после успешной оплаты; deal_closed — при закрытии сделки
-      #   после успешной выплаты.
+      #   Момент удержания вознаграждения.
       #
       #   @return [Symbol, Yoomoney::Models::FeeMoment]
       required :fee_moment, enum: -> { Yoomoney::FeeMoment }
 
       # @!attribute type
-      #   Тип сделки. Фиксированное значение: safe_deal — Безопасная сделка.
+      #   Тип сделки.
       #
       #   @return [Symbol, Yoomoney::Models::DealType]
       required :type, enum: -> { Yoomoney::DealType }
@@ -27,35 +25,33 @@ module Yoomoney
       required :idempotence_key, String
 
       # @!attribute description
-      #   Поле, в котором пользователь может передать описание создаваемого объекта (не
-      #   более 128 символов). Например: «Оплата заказа № 72».
+      #   Описание сделки.
       #
       #   @return [String, nil]
       optional :description, String
 
       # @!attribute metadata
-      #   Любые дополнительные данные, которые нужны вам для работы (например, ваш
-      #   внутренний идентификатор заказа). Передаются в виде набора пар «ключ-значение» и
-      #   возвращаются в ответе от ЮKassa. Ограничения: максимум 16 ключей, имя ключа не
-      #   больше 32 символов, значение ключа не больше 512 символов, тип данных — строка в
-      #   формате UTF-8.
+      #   Любые дополнительные данные, которые нужны вам для работы (например, номер
+      #   заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от
+      #   ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов,
+      #   значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
       #
-      #   @return [Hash{Symbol=>String, nil}, nil]
-      optional :metadata, Yoomoney::Internal::Type::HashOf[String, nil?: true]
+      #   @return [Hash{Symbol=>String}, nil]
+      optional :metadata, Yoomoney::Internal::Type::HashOf[String]
 
       # @!method initialize(fee_moment:, type:, idempotence_key:, description: nil, metadata: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Yoomoney::Models::DealCreateParams} for more details.
       #
-      #   @param fee_moment [Symbol, Yoomoney::Models::FeeMoment] Момент перечисления вам вознаграждения платформы. Возможные значения: payment_su
+      #   @param fee_moment [Symbol, Yoomoney::Models::FeeMoment] Момент удержания вознаграждения.
       #
-      #   @param type [Symbol, Yoomoney::Models::DealType] Тип сделки. Фиксированное значение: safe_deal — Безопасная сделка.
+      #   @param type [Symbol, Yoomoney::Models::DealType] Тип сделки.
       #
       #   @param idempotence_key [String]
       #
-      #   @param description [String] Поле, в котором пользователь может передать описание создаваемого объекта (не бо
+      #   @param description [String] Описание сделки.
       #
-      #   @param metadata [Hash{Symbol=>String, nil}] Любые дополнительные данные, которые нужны вам для работы (например, ваш внутрен
+      #   @param metadata [Hash{Symbol=>String}] Любые дополнительные данные, которые нужны вам для работы (например, номер заказ
       #
       #   @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}]
     end

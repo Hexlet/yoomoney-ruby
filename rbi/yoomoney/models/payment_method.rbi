@@ -12,25 +12,15 @@ module Yoomoney
       sig { returns(String) }
       attr_accessor :id
 
-      # Признак сохранения способа оплаты для автоплатежей:
-      # https://yookassa.ru/developers/payment-acceptance/scenario-extensions/recurring-payments/pay-with-saved.
-      # Возможные значения: true — способ оплаты сохранен для автоплатежей и выплат;
-      # false — способ оплаты не сохранен.
+      # Признак сохранения платежных данных.
       sig { returns(T::Boolean) }
       attr_accessor :saved
 
-      # Статус проверки и сохранения способа оплаты. Возможные значения: pending —
-      # ожидает действий от пользователя; active — способ оплаты сохранен, его можно
-      # использовать для автоплатежей или выплат; inactive — способ оплаты не сохранен:
-      # пользователь не подтвердил привязку платежного средства или при сохранении
-      # способа оплаты возникла ошибка. Чтобы узнать подробности, обратитесь в
-      # техническую поддержку ЮKassa.
+      # Статус способа оплаты.
       sig { returns(Yoomoney::PaymentMethodStatus::TaggedSymbol) }
       attr_accessor :status
 
-      # Код способа оплаты — тип платежного средства, которое используется для оплаты.
-      # Подробнее о способах оплаты:
-      # https://yookassa.ru/developers/payment-acceptance/getting-started/payment-methods
+      # Код способа оплаты.
       sig { returns(Yoomoney::PaymentMethodType::TaggedSymbol) }
       attr_accessor :type
 
@@ -41,9 +31,6 @@ module Yoomoney
       sig { params(title: String).void }
       attr_writer :title
 
-      # Способ оплаты:
-      # https://yookassa.ru/developers/payment-acceptance/getting-started/payment-methods#all,
-      # который был использован для этого платежа.
       sig do
         params(
           id: String,
@@ -56,21 +43,11 @@ module Yoomoney
       def self.new(
         # Идентификатор способа оплаты.
         id:,
-        # Признак сохранения способа оплаты для автоплатежей:
-        # https://yookassa.ru/developers/payment-acceptance/scenario-extensions/recurring-payments/pay-with-saved.
-        # Возможные значения: true — способ оплаты сохранен для автоплатежей и выплат;
-        # false — способ оплаты не сохранен.
+        # Признак сохранения платежных данных.
         saved:,
-        # Статус проверки и сохранения способа оплаты. Возможные значения: pending —
-        # ожидает действий от пользователя; active — способ оплаты сохранен, его можно
-        # использовать для автоплатежей или выплат; inactive — способ оплаты не сохранен:
-        # пользователь не подтвердил привязку платежного средства или при сохранении
-        # способа оплаты возникла ошибка. Чтобы узнать подробности, обратитесь в
-        # техническую поддержку ЮKassa.
+        # Статус способа оплаты.
         status:,
-        # Код способа оплаты — тип платежного средства, которое используется для оплаты.
-        # Подробнее о способах оплаты:
-        # https://yookassa.ru/developers/payment-acceptance/getting-started/payment-methods
+        # Код способа оплаты.
         type:,
         # Название способа оплаты.
         title: nil

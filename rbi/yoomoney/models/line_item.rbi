@@ -6,51 +6,44 @@ module Yoomoney
       OrHash =
         T.type_alias { T.any(Yoomoney::LineItem, Yoomoney::Internal::AnyHash) }
 
-      # Название товара или услуги (от 1 до 128 символов). Пользователь увидит его на
-      # странице счета перед оплатой.
+      # Описание товара или услуги.
       sig { returns(String) }
       attr_accessor :description
 
-      # Сумма в выбранной валюте.
+      # Цена товара или услуги.
       sig { returns(Yoomoney::MonetaryAmount) }
       attr_reader :price
 
       sig { params(price: Yoomoney::MonetaryAmount::OrHash).void }
       attr_writer :price
 
-      # Количество товара. Можно передать целое или дробное число. Разделитель дробной
-      # части — точка, разделитель тысяч отсутствует, максимум три знака после точки.
-      # Пример: 5.000
-      sig { returns(Float) }
+      # Количество.
+      sig { returns(Integer) }
       attr_accessor :quantity
 
-      # Сумма в выбранной валюте.
+      # Цена со скидкой.
       sig { returns(T.nilable(Yoomoney::MonetaryAmount)) }
       attr_reader :discount_price
 
       sig { params(discount_price: Yoomoney::MonetaryAmount::OrHash).void }
       attr_writer :discount_price
 
-      # Данные о товаре или услуге в корзине.
       sig do
         params(
           description: String,
           price: Yoomoney::MonetaryAmount::OrHash,
-          quantity: Float,
+          quantity: Integer,
           discount_price: Yoomoney::MonetaryAmount::OrHash
         ).returns(T.attached_class)
       end
       def self.new(
-        # Название товара или услуги (от 1 до 128 символов). Пользователь увидит его на
-        # странице счета перед оплатой.
+        # Описание товара или услуги.
         description:,
-        # Сумма в выбранной валюте.
+        # Цена товара или услуги.
         price:,
-        # Количество товара. Можно передать целое или дробное число. Разделитель дробной
-        # части — точка, разделитель тысяч отсутствует, максимум три знака после точки.
-        # Пример: 5.000
+        # Количество.
         quantity:,
-        # Сумма в выбранной валюте.
+        # Цена со скидкой.
         discount_price: nil
       )
       end
@@ -60,7 +53,7 @@ module Yoomoney
           {
             description: String,
             price: Yoomoney::MonetaryAmount,
-            quantity: Float,
+            quantity: Integer,
             discount_price: Yoomoney::MonetaryAmount
           }
         )

@@ -4,27 +4,13 @@ module Yoomoney
   module Models
     class DeliveryMethod < Yoomoney::Internal::Type::BaseModel
       # @!attribute type
+      #   Тип способа доставки.
       #
-      #   @return [Symbol, Yoomoney::Models::DeliveryMethod::Type]
-      required :type, enum: -> { Yoomoney::DeliveryMethod::Type }
+      #   @return [String]
+      required :type, String
 
       # @!method initialize(type:)
-      #   Данные о выбранном способе доставки счета. Присутствует только для счетов в
-      #   статусе pending.
-      #
-      #   @param type [Symbol, Yoomoney::Models::DeliveryMethod::Type]
-
-      # @see Yoomoney::Models::DeliveryMethod#type
-      module Type
-        extend Yoomoney::Internal::Type::Enum
-
-        SELF = :self
-        SMS = :sms
-        EMAIL = :email
-
-        # @!method self.values
-        #   @return [Array<Symbol>]
-      end
+      #   @param type [String] Тип способа доставки.
     end
   end
 end

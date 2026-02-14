@@ -8,29 +8,17 @@ module Yoomoney
           T.any(Yoomoney::ConfirmationData, Yoomoney::Internal::AnyHash)
         end
 
-      # Тип сценария подтверждения платежа пользователем. Возможные значения: redirect -
-      # перенаправление пользователя на готовую страницу ЮKassa или на страницу
-      # партнера; external - ожидание самостоятельного подтверждения платежа
-      # пользователем; qr - формирование QR-кода и его отображение на странице оплаты,
-      # чтобы пользователь смог подтвердить платеж; embedded - отображение платежного
-      # виджета ЮKassa; mobile_application - перенаправление пользователя в приложение
-      # партнера для оплаты.
+      # Код сценария подтверждения.
       sig { returns(Yoomoney::ConfirmationData::Type::OrSymbol) }
       attr_accessor :type
 
-      # Язык интерфейса, писем и смс, которые будет видеть или получать пользователь.
-      # Формат соответствует ISO/IEC 15897:
-      # https://en.wikipedia.org/wiki/Locale_(computer_software). Возможные значения:
-      # ru_RU, en_US. Регистр важен.
+      # Язык интерфейса, писем и смс.
       sig { returns(T.nilable(Yoomoney::Locale::OrSymbol)) }
       attr_reader :locale
 
       sig { params(locale: Yoomoney::Locale::OrSymbol).void }
       attr_writer :locale
 
-      # Данные, необходимые для инициирования выбранного сценария подтверждения платежа
-      # пользователем. Подробнее о сценариях подтверждения:
-      # https://yookassa.ru/developers/payment-acceptance/getting-started/payment-process#user-confirmation
       sig do
         params(
           type: Yoomoney::ConfirmationData::Type::OrSymbol,
@@ -38,18 +26,9 @@ module Yoomoney
         ).returns(T.attached_class)
       end
       def self.new(
-        # Тип сценария подтверждения платежа пользователем. Возможные значения: redirect -
-        # перенаправление пользователя на готовую страницу ЮKassa или на страницу
-        # партнера; external - ожидание самостоятельного подтверждения платежа
-        # пользователем; qr - формирование QR-кода и его отображение на странице оплаты,
-        # чтобы пользователь смог подтвердить платеж; embedded - отображение платежного
-        # виджета ЮKassa; mobile_application - перенаправление пользователя в приложение
-        # партнера для оплаты.
+        # Код сценария подтверждения.
         type:,
-        # Язык интерфейса, писем и смс, которые будет видеть или получать пользователь.
-        # Формат соответствует ISO/IEC 15897:
-        # https://en.wikipedia.org/wiki/Locale_(computer_software). Возможные значения:
-        # ru_RU, en_US. Регистр важен.
+        # Язык интерфейса, писем и смс.
         locale: nil
       )
       end
@@ -65,13 +44,7 @@ module Yoomoney
       def to_hash
       end
 
-      # Тип сценария подтверждения платежа пользователем. Возможные значения: redirect -
-      # перенаправление пользователя на готовую страницу ЮKassa или на страницу
-      # партнера; external - ожидание самостоятельного подтверждения платежа
-      # пользователем; qr - формирование QR-кода и его отображение на странице оплаты,
-      # чтобы пользователь смог подтвердить платеж; embedded - отображение платежного
-      # виджета ЮKassa; mobile_application - перенаправление пользователя в приложение
-      # партнера для оплаты.
+      # Код сценария подтверждения.
       module Type
         extend Yoomoney::Internal::Type::Enum
 

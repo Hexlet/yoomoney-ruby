@@ -11,48 +11,37 @@ module Yoomoney
           T.any(Yoomoney::PersonalDataCreateParams, Yoomoney::Internal::AnyHash)
         end
 
-      # Имя пользователя.
+      # Имя.
       sig { returns(String) }
       attr_accessor :first_name
 
-      # Фамилия пользователя.
+      # Фамилия.
       sig { returns(String) }
       attr_accessor :last_name
 
-      # Тип персональных данных — цель, для которой вы будете использовать данные.
-      # Возможные значение: sbp_payout_recipient — выплаты с проверкой получателя:
-      # https://yookassa.ru/developers/payouts/scenario-extensions/recipient-check(только
-      # для выплат через СБП); payout_statement_recipient — выплаты с передачей данных
-      # получателя выплаты для выписок из реестра:
-      # https://yookassa.ru/developers/payouts/scenario-extensions/recipient-data-send.
+      # Тип персональных данных.
       sig { returns(Yoomoney::PersonalDataType::OrSymbol) }
       attr_accessor :type
 
       sig { returns(String) }
       attr_accessor :idempotence_key
 
-      # Любые дополнительные данные, которые нужны вам для работы (например, ваш
-      # внутренний идентификатор заказа). Передаются в виде набора пар «ключ-значение» и
-      # возвращаются в ответе от ЮKassa. Ограничения: максимум 16 ключей, имя ключа не
-      # больше 32 символов, значение ключа не больше 512 символов, тип данных — строка в
-      # формате UTF-8.
-      sig { returns(T.nilable(T::Hash[Symbol, T.nilable(String)])) }
+      # Любые дополнительные данные, которые нужны вам для работы (например, номер
+      # заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от
+      # ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов,
+      # значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
+      sig { returns(T.nilable(T::Hash[Symbol, String])) }
       attr_reader :metadata
 
-      sig { params(metadata: T::Hash[Symbol, T.nilable(String)]).void }
+      sig { params(metadata: T::Hash[Symbol, String]).void }
       attr_writer :metadata
 
-      # Отчество пользователя. Обязательный параметр, если есть в паспорте.
+      # Отчество.
       sig { returns(T.nilable(String)) }
       attr_reader :middle_name
 
       sig { params(middle_name: String).void }
       attr_writer :middle_name
-
-      # Дата рождения. Передается в формате ISO 8601:
-      # https://en.wikipedia.org/wiki/ISO_8601
-      sig { returns(Date) }
-      attr_accessor :birthdate
 
       sig do
         params(
@@ -60,35 +49,25 @@ module Yoomoney
           last_name: String,
           type: Yoomoney::PersonalDataType::OrSymbol,
           idempotence_key: String,
-          birthdate: Date,
-          metadata: T::Hash[Symbol, T.nilable(String)],
+          metadata: T::Hash[Symbol, String],
           middle_name: String,
           request_options: Yoomoney::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
       def self.new(
-        # Имя пользователя.
+        # Имя.
         first_name:,
-        # Фамилия пользователя.
+        # Фамилия.
         last_name:,
-        # Тип персональных данных — цель, для которой вы будете использовать данные.
-        # Возможные значение: sbp_payout_recipient — выплаты с проверкой получателя:
-        # https://yookassa.ru/developers/payouts/scenario-extensions/recipient-check(только
-        # для выплат через СБП); payout_statement_recipient — выплаты с передачей данных
-        # получателя выплаты для выписок из реестра:
-        # https://yookassa.ru/developers/payouts/scenario-extensions/recipient-data-send.
+        # Тип персональных данных.
         type:,
         idempotence_key:,
-        # Дата рождения. Передается в формате ISO 8601:
-        # https://en.wikipedia.org/wiki/ISO_8601
-        birthdate:,
-        # Любые дополнительные данные, которые нужны вам для работы (например, ваш
-        # внутренний идентификатор заказа). Передаются в виде набора пар «ключ-значение» и
-        # возвращаются в ответе от ЮKassa. Ограничения: максимум 16 ключей, имя ключа не
-        # больше 32 символов, значение ключа не больше 512 символов, тип данных — строка в
-        # формате UTF-8.
+        # Любые дополнительные данные, которые нужны вам для работы (например, номер
+        # заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от
+        # ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов,
+        # значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
         metadata: nil,
-        # Отчество пользователя. Обязательный параметр, если есть в паспорте.
+        # Отчество.
         middle_name: nil,
         request_options: {}
       )
@@ -101,9 +80,8 @@ module Yoomoney
             last_name: String,
             type: Yoomoney::PersonalDataType::OrSymbol,
             idempotence_key: String,
-            metadata: T::Hash[Symbol, T.nilable(String)],
+            metadata: T::Hash[Symbol, String],
             middle_name: String,
-            birthdate: Date,
             request_options: Yoomoney::RequestOptions
           }
         )

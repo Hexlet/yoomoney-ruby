@@ -11,8 +11,6 @@ module Yoomoney
       sig { returns(String) }
       attr_accessor :gateway_id
 
-      # Получатель платежа. Нужен, если вы разделяете потоки платежей в рамках одного
-      # аккаунта или создаете платеж в адрес другого аккаунта.
       sig { params(gateway_id: String).returns(T.attached_class) }
       def self.new(
         # Идентификатор субаккаунта. Используется для разделения потоков платежей в рамках

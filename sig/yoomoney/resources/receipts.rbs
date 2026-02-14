@@ -16,7 +16,7 @@ module Yoomoney
         ?receipt_operational_details: Yoomoney::OperationalDetails,
         ?refund_id: String,
         ?tax_system_code: Integer,
-        ?timezone: Integer,
+        ?timezone: String,
         ?request_options: Yoomoney::request_opts
       ) -> Yoomoney::Receipt
 

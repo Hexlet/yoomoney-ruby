@@ -1,28 +1,13 @@
 module Yoomoney
   module Models
-    type delivery_method_data =
-      { type: Yoomoney::Models::DeliveryMethodData::type_ }
+    type delivery_method_data = { type: String }
 
     class DeliveryMethodData < Yoomoney::Internal::Type::BaseModel
-      attr_accessor type: Yoomoney::Models::DeliveryMethodData::type_
+      attr_accessor type: String
 
-      def initialize: (
-        type: Yoomoney::Models::DeliveryMethodData::type_
-      ) -> void
+      def initialize: (type: String) -> void
 
-      def to_hash: -> { type: Yoomoney::Models::DeliveryMethodData::type_ }
-
-      type type_ = :self | :sms | :email
-
-      module Type
-        extend Yoomoney::Internal::Type::Enum
-
-        SELF: :self
-        SMS: :sms
-        EMAIL: :email
-
-        def self?.values: -> ::Array[Yoomoney::Models::DeliveryMethodData::type_]
-      end
+      def to_hash: -> { type: String }
     end
   end
 end

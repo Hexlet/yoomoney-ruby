@@ -8,21 +8,15 @@ module Yoomoney
           T.any(Yoomoney::RefundMethod, Yoomoney::Internal::AnyHash)
         end
 
-      # Код способа оплаты, который использовался при проведении платежа.
       sig { returns(Yoomoney::RefundMethodType::TaggedSymbol) }
       attr_accessor :type
 
-      # Детали возврата. Зависят от способа оплаты, который использовался при проведении
-      # платежа.
       sig do
         params(type: Yoomoney::RefundMethodType::OrSymbol).returns(
           T.attached_class
         )
       end
-      def self.new(
-        # Код способа оплаты, который использовался при проведении платежа.
-        type:
-      )
+      def self.new(type:)
       end
 
       sig do

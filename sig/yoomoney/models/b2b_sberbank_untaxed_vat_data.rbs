@@ -1,11 +1,30 @@
 module Yoomoney
   module Models
-    type b2b_sberbank_untaxed_vat_data = {  }
+    type b2b_sberbank_untaxed_vat_data =
+      { type: Yoomoney::Models::B2bSberbankUntaxedVatData::type_ }
 
-    class B2bSberbankUntaxedVatData < Yoomoney::Models::B2bSberbankVatData
-      def initialize: -> void
+    class B2bSberbankUntaxedVatData < Yoomoney::Internal::Type::BaseModel
+      attr_accessor type: Yoomoney::Models::B2bSberbankUntaxedVatData::type_
 
-      def to_hash: -> {  }
+      def initialize: (
+        type: Yoomoney::Models::B2bSberbankUntaxedVatData::type_
+      ) -> void
+
+      def to_hash: -> {
+        type: Yoomoney::Models::B2bSberbankUntaxedVatData::type_
+      }
+
+      type type_ = :calculated | :untaxed | :mixed
+
+      module Type
+        extend Yoomoney::Internal::Type::Enum
+
+        CALCULATED: :calculated
+        UNTAXED: :untaxed
+        MIXED: :mixed
+
+        def self?.values: -> ::Array[Yoomoney::Models::B2bSberbankUntaxedVatData::type_]
+      end
     end
   end
 end

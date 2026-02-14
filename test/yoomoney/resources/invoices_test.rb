@@ -8,9 +8,8 @@ class Yoomoney::Test::Resources::InvoicesTest < Yoomoney::Test::ResourceTest
 
     response =
       @yoomoney.invoices.create(
-        cart: [{description: "description", price: {currency: :RUB, value: "1000.00"}, quantity: 1}],
-        expires_at: "2024-10-18T10:51:18.139Z",
-        payment_data: {amount: {currency: :RUB, value: "1000.00"}},
+        cart: [{description: "description", price: {currency: :RUB, value: "value"}, quantity: 0}],
+        delivery_method: {type: "type"},
         idempotence_key: "Idempotence-Key"
       )
 
@@ -28,7 +27,7 @@ class Yoomoney::Test::Resources::InvoicesTest < Yoomoney::Test::ResourceTest
         delivery_method: Yoomoney::Invoice::DeliveryMethod | nil,
         description: String | nil,
         expires_at: Time | nil,
-        metadata: ^(Yoomoney::Internal::Type::HashOf[String, nil?: true]) | nil,
+        metadata: ^(Yoomoney::Internal::Type::HashOf[String]) | nil,
         payment_details: Yoomoney::Invoice::PaymentDetails | nil
       }
     end
@@ -37,7 +36,7 @@ class Yoomoney::Test::Resources::InvoicesTest < Yoomoney::Test::ResourceTest
   def test_retrieve
     skip("Prism tests are disabled")
 
-    response = @yoomoney.invoices.retrieve("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    response = @yoomoney.invoices.retrieve("invoice_id")
 
     assert_pattern do
       response => Yoomoney::Invoice
@@ -53,7 +52,7 @@ class Yoomoney::Test::Resources::InvoicesTest < Yoomoney::Test::ResourceTest
         delivery_method: Yoomoney::Invoice::DeliveryMethod | nil,
         description: String | nil,
         expires_at: Time | nil,
-        metadata: ^(Yoomoney::Internal::Type::HashOf[String, nil?: true]) | nil,
+        metadata: ^(Yoomoney::Internal::Type::HashOf[String]) | nil,
         payment_details: Yoomoney::Invoice::PaymentDetails | nil
       }
     end

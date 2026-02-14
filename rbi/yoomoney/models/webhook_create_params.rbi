@@ -11,12 +11,11 @@ module Yoomoney
           T.any(Yoomoney::WebhookCreateParams, Yoomoney::Internal::AnyHash)
         end
 
-      # Событие: https://yookassa.ru/developers/using-api/webhooks#events, которое вы
-      # хотите отслеживать.
+      # Событие, о котором нужно уведомить.
       sig { returns(Yoomoney::NotificationEventType::OrSymbol) }
       attr_accessor :event
 
-      # URL, на который ЮKassa будет отправлять уведомления.
+      # URL для уведомлений.
       sig { returns(String) }
       attr_accessor :url
 
@@ -32,10 +31,9 @@ module Yoomoney
         ).returns(T.attached_class)
       end
       def self.new(
-        # Событие: https://yookassa.ru/developers/using-api/webhooks#events, которое вы
-        # хотите отслеживать.
+        # Событие, о котором нужно уведомить.
         event:,
-        # URL, на который ЮKassa будет отправлять уведомления.
+        # URL для уведомлений.
         url:,
         idempotence_key:,
         request_options: {}

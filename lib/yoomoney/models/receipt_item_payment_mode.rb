@@ -2,13 +2,6 @@
 
 module Yoomoney
   module Models
-    # Признак способа расчета (тег в 54 ФЗ — 1214) — отражает тип оплаты и факт
-    # передачи товара. Пример: покупатель полностью оплачивает товар и сразу получает
-    # его. В этом случае нужно передать значение full_payment (полный расчет).
-    # Перечень возможных значений: для Чеков от ЮKassa:
-    # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/yoomoney/parameters-values#payment-mode;
-    # для сторонних онлайн-касс:
-    # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/other-services/parameters-values#payment-mode.
     module ReceiptItemPaymentMode
       extend Yoomoney::Internal::Type::Enum
 

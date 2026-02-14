@@ -8,11 +8,11 @@ module Yoomoney
           T.any(Yoomoney::CardRequestDataWithCsc, Yoomoney::Internal::AnyHash)
         end
 
-      # Срок действия, месяц, MM.
+      # Срок действия, месяц. Формат: MM.
       sig { returns(String) }
       attr_accessor :expiry_month
 
-      # Срок действия, год, YYYY.
+      # Срок действия, год. Формат: YYYY.
       sig { returns(String) }
       attr_accessor :expiry_year
 
@@ -44,9 +44,9 @@ module Yoomoney
         ).returns(T.attached_class)
       end
       def self.new(
-        # Срок действия, месяц, MM.
+        # Срок действия, месяц. Формат: MM.
         expiry_month:,
-        # Срок действия, год, YYYY.
+        # Срок действия, год. Формат: YYYY.
         expiry_year:,
         # Номер банковской карты.
         number:,

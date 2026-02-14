@@ -8,8 +8,8 @@ class Yoomoney::Test::Resources::WebhooksTest < Yoomoney::Test::ResourceTest
 
     response =
       @yoomoney.webhooks.create(
-        event: :"payment.succeeded",
-        url: "https://www.example.com/notification_url",
+        event: :"payment.waiting_for_capture",
+        url: "url",
         idempotence_key: "Idempotence-Key"
       )
 
@@ -38,7 +38,7 @@ class Yoomoney::Test::Resources::WebhooksTest < Yoomoney::Test::ResourceTest
     assert_pattern do
       response => {
         items: ^(Yoomoney::Internal::Type::ArrayOf[Yoomoney::Webhook]),
-        type: Yoomoney::Models::WebhookListResponse::Type
+        type: String
       }
     end
   end
@@ -46,7 +46,7 @@ class Yoomoney::Test::Resources::WebhooksTest < Yoomoney::Test::ResourceTest
   def test_delete
     skip("Prism tests are disabled")
 
-    response = @yoomoney.webhooks.delete("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    response = @yoomoney.webhooks.delete("webhook_id")
 
     assert_pattern do
       response => Yoomoney::Internal::Type::Unknown

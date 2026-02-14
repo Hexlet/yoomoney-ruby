@@ -3,61 +3,43 @@
 module Yoomoney
   module Resources
     class PaymentMethods
-      # Используйте этот запрос, чтобы создать в ЮKassa объект способа оплаты:
-      # https://yookassa.ru/developers/api#payment_method_object. В запросе необходимо
-      # передать код способа оплаты, который вы хотите сохранить, и при необходимости
-      # дополнительные параметры, связанные с той функциональностью, которую вы хотите
-      # использовать. Идентификатор созданного способа оплаты вы можете использовать при
-      # проведении автоплатежей:
-      # https://yookassa.ru/developers/payment-acceptance/scenario-extensions/recurring-payments/create-recurring
-      # или выплат:
-      # https://yookassa.ru/developers/payouts/scenario-extensions/multipurpose-token.
+      # Создание способа оплаты
       sig do
         params(
+          payment_method_data:
+            Yoomoney::PaymentMethodCreateParams::PaymentMethodData::OrHash,
           type: Yoomoney::PaymentMethodCreateParams::Type::OrSymbol,
           idempotence_key: String,
-          card: Yoomoney::CardRequestDataWithCsc::OrHash,
-          client_ip: String,
-          confirmation:
-            Yoomoney::PaymentMethodCreateParams::Confirmation::OrHash,
-          holder: Yoomoney::Recipient::OrHash,
+          payment_data:
+            Yoomoney::PaymentMethodCreateParams::PaymentData::OrHash,
+          receipt: Yoomoney::ReceiptData::OrHash,
           request_options: Yoomoney::RequestOptions::OrHash
         ).returns(Yoomoney::SavePaymentMethodBankCard)
       end
       def create(
-        # Body param
+        # Body param: Данные для проверки и сохранения способа оплаты.
+        payment_method_data:,
+        # Body param: Тип способа оплаты.
         type:,
         # Header param
         idempotence_key:,
-        # Body param
-        card: nil,
-        # Body param: IPv4 или IPv6-адрес пользователя. Если не указан, используется
-        # IP-адрес TCP-подключения.
-        client_ip: nil,
-        # Body param: Перенаправление пользователя на сайт ЮKassa для подтверждения
-        # привязки или страницу банка-эмитента для аутентификации по 3-D Secure.
-        confirmation: nil,
-        # Body param: Получатель платежа. Нужен, если вы разделяете потоки платежей в
-        # рамках одного аккаунта или создаете платеж в адрес другого аккаунта.
-        holder: nil,
+        # Body param: Данные платежа, который будет создан после сохранения способа
+        # оплаты.
+        payment_data: nil,
+        # Body param: Данные для формирования чека.
+        receipt: nil,
         request_options: {}
       )
       end
 
-      # Используйте этот запрос, чтобы получить информацию о текущем состоянии способа
-      # оплаты по его уникальному идентификатору.
+      # Информация о способе оплаты
       sig do
         params(
           payment_method_id: String,
           request_options: Yoomoney::RequestOptions::OrHash
         ).returns(Yoomoney::SavePaymentMethodBankCard)
       end
-      def retrieve(
-        # Идентификатор сохраненного способа оплаты:
-        # https://yookassa.ru/developers/payment-acceptance/scenario-extensions/recurring-payments/basics.
-        payment_method_id,
-        request_options: {}
-      )
+      def retrieve(payment_method_id, request_options: {})
       end
 
       # @api private

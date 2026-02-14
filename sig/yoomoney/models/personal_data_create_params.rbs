@@ -6,9 +6,8 @@ module Yoomoney
         last_name: String,
         type: Yoomoney::Models::personal_data_type,
         idempotence_key: String,
-        metadata: ::Hash[Symbol, String?],
-        middle_name: String,
-        birthdate: Date
+        metadata: ::Hash[Symbol, String],
+        middle_name: String
       }
       & Yoomoney::Internal::Type::request_parameters
 
@@ -24,23 +23,20 @@ module Yoomoney
 
       attr_accessor idempotence_key: String
 
-      attr_reader metadata: ::Hash[Symbol, String?]?
+      attr_reader metadata: ::Hash[Symbol, String]?
 
-      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+      def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
 
       attr_reader middle_name: String?
 
       def middle_name=: (String) -> String
-
-      attr_accessor birthdate: Date
 
       def initialize: (
         first_name: String,
         last_name: String,
         type: Yoomoney::Models::personal_data_type,
         idempotence_key: String,
-        birthdate: Date,
-        ?metadata: ::Hash[Symbol, String?],
+        ?metadata: ::Hash[Symbol, String],
         ?middle_name: String,
         ?request_options: Yoomoney::request_opts
       ) -> void
@@ -50,9 +46,8 @@ module Yoomoney
         last_name: String,
         type: Yoomoney::Models::personal_data_type,
         idempotence_key: String,
-        metadata: ::Hash[Symbol, String?],
+        metadata: ::Hash[Symbol, String],
         middle_name: String,
-        birthdate: Date,
         request_options: Yoomoney::RequestOptions
       }
     end

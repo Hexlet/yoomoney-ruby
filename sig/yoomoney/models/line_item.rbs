@@ -4,7 +4,7 @@ module Yoomoney
       {
         description: String,
         price: Yoomoney::MonetaryAmount,
-        quantity: Float,
+        quantity: Integer,
         discount_price: Yoomoney::MonetaryAmount
       }
 
@@ -13,7 +13,7 @@ module Yoomoney
 
       attr_accessor price: Yoomoney::MonetaryAmount
 
-      attr_accessor quantity: Float
+      attr_accessor quantity: Integer
 
       attr_reader discount_price: Yoomoney::MonetaryAmount?
 
@@ -24,14 +24,14 @@ module Yoomoney
       def initialize: (
         description: String,
         price: Yoomoney::MonetaryAmount,
-        quantity: Float,
+        quantity: Integer,
         ?discount_price: Yoomoney::MonetaryAmount
       ) -> void
 
       def to_hash: -> {
         description: String,
         price: Yoomoney::MonetaryAmount,
-        quantity: Float,
+        quantity: Integer,
         discount_price: Yoomoney::MonetaryAmount
       }
     end

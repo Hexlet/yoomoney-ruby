@@ -7,7 +7,7 @@ module Yoomoney
         idempotence_key: String,
         ?deal: Yoomoney::RefundCreateParams::Deal,
         ?description: String,
-        ?metadata: ::Hash[Symbol, String?],
+        ?metadata: ::Hash[Symbol, String],
         ?receipt: Yoomoney::ReceiptData,
         ?refund_method_data: Yoomoney::RefundCreateParams::RefundMethodData,
         ?sources: ::Array[Yoomoney::RefundSourcesData],

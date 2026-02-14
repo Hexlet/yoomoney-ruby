@@ -8,22 +8,20 @@ module Yoomoney
           T.any(Yoomoney::B2bSberbankMixedVatData, Yoomoney::Internal::AnyHash)
         end
 
-      # Сумма в выбранной валюте.
+      # Сумма НДС.
       sig { returns(Yoomoney::MonetaryAmount) }
       attr_reader :amount
 
       sig { params(amount: Yoomoney::MonetaryAmount::OrHash).void }
       attr_writer :amount
 
-      # Данные об НДС, если создается платеж на несколько товаров или услуг с разными
-      # ставками НДС (в параметре type передано значение mixed).
       sig do
         params(amount: Yoomoney::MonetaryAmount::OrHash).returns(
           T.attached_class
         )
       end
       def self.new(
-        # Сумма в выбранной валюте.
+        # Сумма НДС.
         amount:
       )
       end

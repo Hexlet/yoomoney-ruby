@@ -11,10 +11,6 @@ module Yoomoney
           T.any(Yoomoney::MeRetrieveParams, Yoomoney::Internal::AnyHash)
         end
 
-      # Только для тех, кто использует Сплитование платежей:
-      # https://yookassa.ru/developers/solutions-for-platforms/split-payments/basics.
-      # Идентификатор магазина продавца, подключенного к вашей платформе, информацию о
-      # котором вы хотите узнать.
       sig { returns(T.nilable(String)) }
       attr_reader :on_behalf_of
 
@@ -27,14 +23,7 @@ module Yoomoney
           request_options: Yoomoney::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
-      def self.new(
-        # Только для тех, кто использует Сплитование платежей:
-        # https://yookassa.ru/developers/solutions-for-platforms/split-payments/basics.
-        # Идентификатор магазина продавца, подключенного к вашей платформе, информацию о
-        # котором вы хотите узнать.
-        on_behalf_of: nil,
-        request_options: {}
-      )
+      def self.new(on_behalf_of: nil, request_options: {})
       end
 
       sig do

@@ -8,14 +8,13 @@ module Yoomoney
       include Yoomoney::Internal::Type::RequestParameters
 
       # @!attribute event
-      #   Событие: https://yookassa.ru/developers/using-api/webhooks#events, которое вы
-      #   хотите отслеживать.
+      #   Событие, о котором нужно уведомить.
       #
       #   @return [Symbol, Yoomoney::Models::NotificationEventType]
       required :event, enum: -> { Yoomoney::NotificationEventType }
 
       # @!attribute url
-      #   URL, на который ЮKassa будет отправлять уведомления.
+      #   URL для уведомлений.
       #
       #   @return [String]
       required :url, String
@@ -26,12 +25,9 @@ module Yoomoney
       required :idempotence_key, String
 
       # @!method initialize(event:, url:, idempotence_key:, request_options: {})
-      #   Some parameter documentations has been truncated, see
-      #   {Yoomoney::Models::WebhookCreateParams} for more details.
+      #   @param event [Symbol, Yoomoney::Models::NotificationEventType] Событие, о котором нужно уведомить.
       #
-      #   @param event [Symbol, Yoomoney::Models::NotificationEventType] Событие: https://yookassa.ru/developers/using-api/webhooks#events, которое вы хо
-      #
-      #   @param url [String] URL, на который ЮKassa будет отправлять уведомления.
+      #   @param url [String] URL для уведомлений.
       #
       #   @param idempotence_key [String]
       #

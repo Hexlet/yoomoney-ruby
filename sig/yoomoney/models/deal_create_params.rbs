@@ -6,7 +6,7 @@ module Yoomoney
         type: Yoomoney::Models::deal_type,
         idempotence_key: String,
         description: String,
-        metadata: ::Hash[Symbol, String?]
+        metadata: ::Hash[Symbol, String]
       }
       & Yoomoney::Internal::Type::request_parameters
 
@@ -24,16 +24,16 @@ module Yoomoney
 
       def description=: (String) -> String
 
-      attr_reader metadata: ::Hash[Symbol, String?]?
+      attr_reader metadata: ::Hash[Symbol, String]?
 
-      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+      def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
 
       def initialize: (
         fee_moment: Yoomoney::Models::fee_moment,
         type: Yoomoney::Models::deal_type,
         idempotence_key: String,
         ?description: String,
-        ?metadata: ::Hash[Symbol, String?],
+        ?metadata: ::Hash[Symbol, String],
         ?request_options: Yoomoney::request_opts
       ) -> void
 
@@ -42,7 +42,7 @@ module Yoomoney
         type: Yoomoney::Models::deal_type,
         idempotence_key: String,
         description: String,
-        metadata: ::Hash[Symbol, String?],
+        metadata: ::Hash[Symbol, String],
         request_options: Yoomoney::RequestOptions
       }
     end
