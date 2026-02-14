@@ -10,11 +10,11 @@ module Yoomoney
 
     DEFAULT_MAX_RETRY_DELAY = T.let(8.0, Float)
 
-    # HTTP Basic аутентификация клиента ЮKassa
+    # HTTP Basic аутентификация клиента ЮKassa (shopId)
     sig { returns(T.nilable(String)) }
     attr_reader :username
 
-    # HTTP Basic аутентификация клиента ЮKassa
+    # HTTP Basic аутентификация клиента ЮKassa (секретный ключ)
     sig { returns(T.nilable(String)) }
     attr_reader :password
 
@@ -64,9 +64,11 @@ module Yoomoney
       ).returns(T.attached_class)
     end
     def self.new(
-      # HTTP Basic аутентификация клиента ЮKassa Defaults to `ENV["YOOMONEY_USERNAME"]`
+      # HTTP Basic аутентификация клиента ЮKassa (shopId) Defaults to
+      # `ENV["YOOMONEY_USERNAME"]`
       username: ENV["YOOMONEY_USERNAME"],
-      # HTTP Basic аутентификация клиента ЮKassa Defaults to `ENV["YOOMONEY_PASSWORD"]`
+      # HTTP Basic аутентификация клиента ЮKassa (секретный ключ) Defaults to
+      # `ENV["YOOMONEY_PASSWORD"]`
       password: ENV["YOOMONEY_PASSWORD"],
       # Override the default base URL for the API, e.g.,
       # `"https://api.example.com/v2/"`. Defaults to `ENV["YOOMONEY_BASE_URL"]`
