@@ -1,16 +1,12 @@
 module Yoomoney
   module Models
     type deal_list_response =
-      {
-        items: ::Array[Yoomoney::SafeDeal],
-        type: Yoomoney::Models::DealListResponse::type_,
-        next_cursor: String
-      }
+      { items: ::Array[Yoomoney::SafeDeal], type: String, next_cursor: String }
 
     class DealListResponse < Yoomoney::Internal::Type::BaseModel
       attr_accessor items: ::Array[Yoomoney::SafeDeal]
 
-      attr_accessor type: Yoomoney::Models::DealListResponse::type_
+      attr_accessor type: String
 
       attr_reader next_cursor: String?
 
@@ -18,25 +14,15 @@ module Yoomoney
 
       def initialize: (
         items: ::Array[Yoomoney::SafeDeal],
-        type: Yoomoney::Models::DealListResponse::type_,
+        type: String,
         ?next_cursor: String
       ) -> void
 
       def to_hash: -> {
         items: ::Array[Yoomoney::SafeDeal],
-        type: Yoomoney::Models::DealListResponse::type_,
+        type: String,
         next_cursor: String
       }
-
-      type type_ = :list
-
-      module Type
-        extend Yoomoney::Internal::Type::Enum
-
-        LIST: :list
-
-        def self?.values: -> ::Array[Yoomoney::Models::DealListResponse::type_]
-      end
     end
   end
 end

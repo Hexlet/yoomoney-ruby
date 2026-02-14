@@ -6,28 +6,23 @@ module Yoomoney
       # Some parameter documentations has been truncated, see
       # {Yoomoney::Models::InvoiceCreateParams} for more details.
       #
-      # Используйте этот запрос, чтобы создать в ЮKassa объект счета:
-      # https://yookassa.ru/developers/api#invoice_object. В запросе необходимо передать
-      # данные о заказе, которые отобразятся на странице счета, и данные для проведения
-      # платежа.
+      # Создание счета
       #
-      # @overload create(cart:, expires_at:, payment_data:, idempotence_key:, delivery_method_data: nil, description: nil, locale: nil, metadata: nil, request_options: {})
+      # @overload create(cart:, delivery_method:, idempotence_key:, description: nil, expires_at: nil, metadata: nil, payment_data: nil, request_options: {})
       #
-      # @param cart [Array<Yoomoney::Models::LineItem>] Body param: Корзина заказа — список товаров или услуг, который отобразится на ст
+      # @param cart [Array<Yoomoney::Models::LineItem>] Body param: Корзина заказа — список товаров или услуг.
       #
-      # @param expires_at [Time] Body param: Срок действия счета — дата и время, до которых можно оплатить выстав
-      #
-      # @param payment_data [Yoomoney::Models::InvoiceCreateParams::PaymentData] Body param: Данные для проведения платежа по выставленному счету.
+      # @param delivery_method [Yoomoney::Models::DeliveryMethodData, Yoomoney::Models::InvoiceCreateParams::DeliveryMethod::DeliveryMethodDataSMS, Yoomoney::Models::InvoiceCreateParams::DeliveryMethod::DeliveryMethodDataEmail] Body param: Способ доставки ссылки на счет.
       #
       # @param idempotence_key [String] Header param
       #
-      # @param delivery_method_data [Yoomoney::Models::InvoiceCreateParams::DeliveryMethodData::DeliveryMethodDataSelf, Yoomoney::Models::InvoiceCreateParams::DeliveryMethodData::DeliveryMethodDataSMS, Yoomoney::Models::InvoiceCreateParams::DeliveryMethodData::DeliveryMethodDataEmail] Body param: Данные для выставления счета с самостоятельной доставкой ссылки на с
+      # @param description [String] Body param: Описание заказа.
       #
-      # @param description [String] Body param: Поле, в котором пользователь может передать описание создаваемого об
+      # @param expires_at [Time] Body param: Срок действия счета.
       #
-      # @param locale [Symbol, Yoomoney::Models::Locale] Body param: Язык интерфейса, писем и смс, которые будет видеть или получать поль
+      # @param metadata [Hash{Symbol=>String}] Body param: Любые дополнительные данные, которые нужны вам для работы (например,
       #
-      # @param metadata [Hash{Symbol=>String, nil}] Body param: Любые дополнительные данные, которые нужны вам для работы (например,
+      # @param payment_data [Yoomoney::Models::InvoiceCreateParams::PaymentData] Body param: Данные платежа.
       #
       # @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -47,13 +42,11 @@ module Yoomoney
         )
       end
 
-      # Используйте этот запрос, чтобы получить информацию о текущем состоянии счета по
-      # его уникальному идентификатору.
+      # Информация о счете
       #
       # @overload retrieve(invoice_id, request_options: {})
       #
-      # @param invoice_id [String] Идентификатор счета в ЮKassa.
-      #
+      # @param invoice_id [String]
       # @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}, nil]
       #
       # @return [Yoomoney::Models::Invoice]

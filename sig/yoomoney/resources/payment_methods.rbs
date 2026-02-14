@@ -2,12 +2,11 @@ module Yoomoney
   module Resources
     class PaymentMethods
       def create: (
+        payment_method_data: Yoomoney::PaymentMethodCreateParams::PaymentMethodData,
         type: Yoomoney::Models::PaymentMethodCreateParams::type_,
         idempotence_key: String,
-        ?card: Yoomoney::CardRequestDataWithCsc,
-        ?client_ip: String,
-        ?confirmation: Yoomoney::PaymentMethodCreateParams::Confirmation,
-        ?holder: Yoomoney::Recipient,
+        ?payment_data: Yoomoney::PaymentMethodCreateParams::PaymentData,
+        ?receipt: Yoomoney::ReceiptData,
         ?request_options: Yoomoney::request_opts
       ) -> Yoomoney::SavePaymentMethodBankCard
 

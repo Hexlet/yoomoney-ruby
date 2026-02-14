@@ -6,29 +6,21 @@ module Yoomoney
       # Some parameter documentations has been truncated, see
       # {Yoomoney::Models::PersonalDataCreateParams} for more details.
       #
-      # Используйте этот запрос, чтобы создать в ЮKassa объект персональных данных:
-      # https://yookassa.ru/developers/api#personal_data_object. В запросе необходимо
-      # указать тип данных (с какой целью они будут использоваться) и передать
-      # информацию о пользователе: фамилию, имя, отчество и другие — в зависимости от
-      # выбранного типа. Идентификатор созданного объекта персональных данных необходимо
-      # использовать в запросе на создание выплаты:
-      # https://yookassa.ru/developers/api#create_payout.
+      # Создание персональных данных
       #
-      # @overload create(first_name:, last_name:, type:, idempotence_key:, birthdate:, metadata: nil, middle_name: nil, request_options: {})
+      # @overload create(first_name:, last_name:, type:, idempotence_key:, metadata: nil, middle_name: nil, request_options: {})
       #
-      # @param first_name [String] Body param: Имя пользователя.
+      # @param first_name [String] Body param: Имя.
       #
-      # @param last_name [String] Body param: Фамилия пользователя.
+      # @param last_name [String] Body param: Фамилия.
       #
-      # @param type [Symbol, Yoomoney::Models::PersonalDataType] Body param: Тип персональных данных — цель, для которой вы будете использовать д
+      # @param type [Symbol, Yoomoney::Models::PersonalDataType] Body param: Тип персональных данных.
       #
       # @param idempotence_key [String] Header param
       #
-      # @param birthdate [Date] Body param: Дата рождения. Передается в формате ISO 8601: https://en.wikipedia.o
+      # @param metadata [Hash{Symbol=>String}] Body param: Любые дополнительные данные, которые нужны вам для работы (например,
       #
-      # @param metadata [Hash{Symbol=>String, nil}] Body param: Любые дополнительные данные, которые нужны вам для работы (например,
-      #
-      # @param middle_name [String] Body param: Отчество пользователя. Обязательный параметр, если есть в паспорте.
+      # @param middle_name [String] Body param: Отчество.
       #
       # @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -48,13 +40,11 @@ module Yoomoney
         )
       end
 
-      # С помощью этого запроса вы можете получить информацию о текущем статусе объекта
-      # персональных данных по его уникальному идентификатору.
+      # Информация о персональных данных
       #
       # @overload retrieve(personal_data_id, request_options: {})
       #
-      # @param personal_data_id [String] Идентификатор персональных данных, сохраненных в ЮKassa.
-      #
+      # @param personal_data_id [String]
       # @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}, nil]
       #
       # @return [Yoomoney::Models::PersonalDataAPI]

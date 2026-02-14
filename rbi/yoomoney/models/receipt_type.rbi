@@ -2,7 +2,6 @@
 
 module Yoomoney
   module Models
-    # Тип чека в онлайн-кассе: приход (payment) или возврат прихода (refund).
     module ReceiptType
       extend Yoomoney::Internal::Type::Enum
 

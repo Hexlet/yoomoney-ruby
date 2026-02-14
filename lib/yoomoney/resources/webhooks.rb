@@ -3,21 +3,13 @@
 module Yoomoney
   module Resources
     class Webhooks
-      # Some parameter documentations has been truncated, see
-      # {Yoomoney::Models::WebhookCreateParams} for more details.
-      #
-      # Запрос позволяет подписаться на уведомления о событиях:
-      # https://yookassa.ru/developers/using-api/webhooks#events (например, переход
-      # платежа в статус succeeded). C помощью webhook можно подписаться только на
-      # события платежей и возвратов. Если вы хотите получать уведомления о нескольких
-      # событиях, вам нужно для каждого из них создать свой webhook. Для каждого
-      # OAuth-токена нужно создавать свой набор webhook.
+      # Создание webhook
       #
       # @overload create(event:, url:, idempotence_key:, request_options: {})
       #
-      # @param event [Symbol, Yoomoney::Models::NotificationEventType] Body param: Событие: https://yookassa.ru/developers/using-api/webhooks#events, к
+      # @param event [Symbol, Yoomoney::Models::NotificationEventType] Body param: Событие, о котором нужно уведомить.
       #
-      # @param url [String] Body param: URL, на который ЮKassa будет отправлять уведомления.
+      # @param url [String] Body param: URL для уведомлений.
       #
       # @param idempotence_key [String] Header param
       #
@@ -39,7 +31,7 @@ module Yoomoney
         )
       end
 
-      # Запрос позволяет узнать, какие webhook есть для переданного OAuth-токена.
+      # Список webhook
       #
       # @overload list(request_options: {})
       #
@@ -57,14 +49,11 @@ module Yoomoney
         )
       end
 
-      # Запрос позволяет отписаться от уведомлений о событии для переданного
-      # OAuth-токена. Чтобы удалить webhook, вам нужно передать в запросе его
-      # идентификатор.
+      # Удаление webhook
       #
       # @overload delete(webhook_id, request_options: {})
       #
-      # @param webhook_id [String] Идентификатор webhook-a.
-      #
+      # @param webhook_id [String]
       # @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}, nil]
       #
       # @return [Object]

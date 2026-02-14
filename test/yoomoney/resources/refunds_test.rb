@@ -8,8 +8,8 @@ class Yoomoney::Test::Resources::RefundsTest < Yoomoney::Test::ResourceTest
 
     response =
       @yoomoney.refunds.create(
-        amount: {currency: :RUB, value: "1000.00"},
-        payment_id: "1da5c87d-0984-50e8-a7f3-8de646dd9ec9",
+        amount: {currency: :RUB, value: "value"},
+        payment_id: "payment_id",
         idempotence_key: "Idempotence-Key"
       )
 
@@ -27,7 +27,7 @@ class Yoomoney::Test::Resources::RefundsTest < Yoomoney::Test::ResourceTest
         cancellation_details: Yoomoney::Refund::CancellationDetails | nil,
         deal: Yoomoney::Refund::Deal | nil,
         description: String | nil,
-        metadata: ^(Yoomoney::Internal::Type::HashOf[String, nil?: true]) | nil,
+        metadata: ^(Yoomoney::Internal::Type::HashOf[String]) | nil,
         receipt_registration: Yoomoney::ReceiptRegistrationStatus | nil,
         refund_authorization_details: Yoomoney::Refund::RefundAuthorizationDetails | nil,
         refund_method: Yoomoney::Refund::RefundMethod | nil,
@@ -39,7 +39,7 @@ class Yoomoney::Test::Resources::RefundsTest < Yoomoney::Test::ResourceTest
   def test_retrieve
     skip("Prism tests are disabled")
 
-    response = @yoomoney.refunds.retrieve("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    response = @yoomoney.refunds.retrieve("refund_id")
 
     assert_pattern do
       response => Yoomoney::Refund
@@ -55,7 +55,7 @@ class Yoomoney::Test::Resources::RefundsTest < Yoomoney::Test::ResourceTest
         cancellation_details: Yoomoney::Refund::CancellationDetails | nil,
         deal: Yoomoney::Refund::Deal | nil,
         description: String | nil,
-        metadata: ^(Yoomoney::Internal::Type::HashOf[String, nil?: true]) | nil,
+        metadata: ^(Yoomoney::Internal::Type::HashOf[String]) | nil,
         receipt_registration: Yoomoney::ReceiptRegistrationStatus | nil,
         refund_authorization_details: Yoomoney::Refund::RefundAuthorizationDetails | nil,
         refund_method: Yoomoney::Refund::RefundMethod | nil,
@@ -76,7 +76,7 @@ class Yoomoney::Test::Resources::RefundsTest < Yoomoney::Test::ResourceTest
     assert_pattern do
       response => {
         items: ^(Yoomoney::Internal::Type::ArrayOf[Yoomoney::Refund]),
-        type: Yoomoney::Models::RefundListResponse::Type,
+        type: String,
         next_cursor: String | nil
       }
     end

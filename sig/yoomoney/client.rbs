@@ -34,8 +34,6 @@ module Yoomoney
 
     attr_reader me: Yoomoney::Resources::Me
 
-    private def auth_headers: -> ::Hash[String, String]
-
     def initialize: (
       ?username: String?,
       ?password: String?,

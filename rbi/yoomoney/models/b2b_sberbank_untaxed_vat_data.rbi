@@ -2,7 +2,7 @@
 
 module Yoomoney
   module Models
-    class B2bSberbankUntaxedVatData < Yoomoney::Models::B2bSberbankVatData
+    class B2bSberbankUntaxedVatData < Yoomoney::Internal::Type::BaseModel
       OrHash =
         T.type_alias do
           T.any(
@@ -11,14 +11,54 @@ module Yoomoney
           )
         end
 
-      # Данные об НДС, если товар или услуга не облагается налогом (в параметре type
-      # передано значение untaxed).
-      sig { returns(T.attached_class) }
-      def self.new
+      sig { returns(Yoomoney::B2bSberbankUntaxedVatData::Type::OrSymbol) }
+      attr_accessor :type
+
+      sig do
+        params(
+          type: Yoomoney::B2bSberbankUntaxedVatData::Type::OrSymbol
+        ).returns(T.attached_class)
+      end
+      def self.new(type:)
       end
 
-      sig { override.returns({}) }
+      sig do
+        override.returns(
+          { type: Yoomoney::B2bSberbankUntaxedVatData::Type::OrSymbol }
+        )
+      end
       def to_hash
+      end
+
+      module Type
+        extend Yoomoney::Internal::Type::Enum
+
+        TaggedSymbol =
+          T.type_alias do
+            T.all(Symbol, Yoomoney::B2bSberbankUntaxedVatData::Type)
+          end
+        OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+        CALCULATED =
+          T.let(
+            :calculated,
+            Yoomoney::B2bSberbankUntaxedVatData::Type::TaggedSymbol
+          )
+        UNTAXED =
+          T.let(
+            :untaxed,
+            Yoomoney::B2bSberbankUntaxedVatData::Type::TaggedSymbol
+          )
+        MIXED =
+          T.let(:mixed, Yoomoney::B2bSberbankUntaxedVatData::Type::TaggedSymbol)
+
+        sig do
+          override.returns(
+            T::Array[Yoomoney::B2bSberbankUntaxedVatData::Type::TaggedSymbol]
+          )
+        end
+        def self.values
+        end
       end
     end
   end

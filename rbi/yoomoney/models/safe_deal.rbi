@@ -10,46 +10,33 @@ module Yoomoney
       sig { returns(String) }
       attr_accessor :id
 
-      # Сумма в выбранной валюте.
+      # Баланс сделки.
       sig { returns(Yoomoney::MonetaryAmount) }
       attr_reader :balance
 
       sig { params(balance: Yoomoney::MonetaryAmount::OrHash).void }
       attr_writer :balance
 
-      # Время создания сделки. Указывается по UTC:
-      # https://ru.wikipedia.org/wiki/%D0%92%D1%81%D0%B5%D0%BC%D0%B8%D1%80%D0%BD%D0%BE%D0%B5_%D0%BA%D0%BE%D0%BE%D1%80%D0%B4%D0%B8%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5_%D0%B2%D1%80%D0%B5%D0%BC%D1%8F
-      # и передается в формате ISO 8601: https://en.wikipedia.org/wiki/ISO_8601. Пример:
-      # 2017-11-03T11:52:31.827Z
+      # Время создания сделки.
       sig { returns(Time) }
       attr_accessor :created_at
 
-      # Время автоматического закрытия сделки. Если в указанное время сделка всё еще в
-      # статусе opened, ЮKassa вернет деньги покупателю и закроет сделку. По умолчанию
-      # время жизни сделки составляет 90 дней. Время указывается по UTC:
-      # https://ru.wikipedia.org/wiki/%D0%92%D1%81%D0%B5%D0%BC%D0%B8%D1%80%D0%BD%D0%BE%D0%B5_%D0%BA%D0%BE%D0%BE%D1%80%D0%B4%D0%B8%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5_%D0%B2%D1%80%D0%B5%D0%BC%D1%8F
-      # и передается в формате ISO 8601: https://en.wikipedia.org/wiki/ISO_8601. Пример:
-      # 2017-11-03T11:52:31.827Z
+      # Время автоматического закрытия сделки.
       sig { returns(Time) }
       attr_accessor :expires_at
 
-      # Момент перечисления вам вознаграждения платформы. Возможные значения:
-      # payment_succeeded — после успешной оплаты; deal_closed — при закрытии сделки
-      # после успешной выплаты.
+      # Момент удержания вознаграждения.
       sig { returns(Yoomoney::FeeMoment::TaggedSymbol) }
       attr_accessor :fee_moment
 
-      # Сумма в выбранной валюте.
+      # Сумма вознаграждения продавца.
       sig { returns(Yoomoney::MonetaryAmount) }
       attr_reader :payout_balance
 
       sig { params(payout_balance: Yoomoney::MonetaryAmount::OrHash).void }
       attr_writer :payout_balance
 
-      # Статус сделки. Возможные значения: opened — сделка открыта; можно выполнять
-      # платежи, возвраты и выплаты в составе сделки; closed — сделка закрыта —
-      # вознаграждение перечислено продавцу и платформе или оплата возвращена
-      # покупателю; нельзя выполнять платежи, возвраты и выплаты в составе сделки.
+      # Статус сделки.
       sig { returns(Yoomoney::SafeDeal::Status::TaggedSymbol) }
       attr_accessor :status
 
@@ -57,27 +44,25 @@ module Yoomoney
       sig { returns(T::Boolean) }
       attr_accessor :test_
 
-      # Тип сделки. Фиксированное значение: safe_deal — Безопасная сделка.
+      # Тип сделки.
       sig { returns(Yoomoney::DealType::TaggedSymbol) }
       attr_accessor :type
 
-      # Поле, в котором пользователь может передать описание создаваемого объекта (не
-      # более 128 символов). Например: «Оплата заказа № 72».
+      # Описание сделки.
       sig { returns(T.nilable(String)) }
       attr_reader :description
 
       sig { params(description: String).void }
       attr_writer :description
 
-      # Любые дополнительные данные, которые нужны вам для работы (например, ваш
-      # внутренний идентификатор заказа). Передаются в виде набора пар «ключ-значение» и
-      # возвращаются в ответе от ЮKassa. Ограничения: максимум 16 ключей, имя ключа не
-      # больше 32 символов, значение ключа не больше 512 символов, тип данных — строка в
-      # формате UTF-8.
-      sig { returns(T.nilable(T::Hash[Symbol, T.nilable(String)])) }
+      # Любые дополнительные данные, которые нужны вам для работы (например, номер
+      # заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от
+      # ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов,
+      # значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
+      sig { returns(T.nilable(T::Hash[Symbol, String])) }
       attr_reader :metadata
 
-      sig { params(metadata: T::Hash[Symbol, T.nilable(String)]).void }
+      sig { params(metadata: T::Hash[Symbol, String]).void }
       attr_writer :metadata
 
       sig do
@@ -92,49 +77,34 @@ module Yoomoney
           test_: T::Boolean,
           type: Yoomoney::DealType::OrSymbol,
           description: String,
-          metadata: T::Hash[Symbol, T.nilable(String)]
+          metadata: T::Hash[Symbol, String]
         ).returns(T.attached_class)
       end
       def self.new(
         # Идентификатор сделки.
         id:,
-        # Сумма в выбранной валюте.
+        # Баланс сделки.
         balance:,
-        # Время создания сделки. Указывается по UTC:
-        # https://ru.wikipedia.org/wiki/%D0%92%D1%81%D0%B5%D0%BC%D0%B8%D1%80%D0%BD%D0%BE%D0%B5_%D0%BA%D0%BE%D0%BE%D1%80%D0%B4%D0%B8%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5_%D0%B2%D1%80%D0%B5%D0%BC%D1%8F
-        # и передается в формате ISO 8601: https://en.wikipedia.org/wiki/ISO_8601. Пример:
-        # 2017-11-03T11:52:31.827Z
+        # Время создания сделки.
         created_at:,
-        # Время автоматического закрытия сделки. Если в указанное время сделка всё еще в
-        # статусе opened, ЮKassa вернет деньги покупателю и закроет сделку. По умолчанию
-        # время жизни сделки составляет 90 дней. Время указывается по UTC:
-        # https://ru.wikipedia.org/wiki/%D0%92%D1%81%D0%B5%D0%BC%D0%B8%D1%80%D0%BD%D0%BE%D0%B5_%D0%BA%D0%BE%D0%BE%D1%80%D0%B4%D0%B8%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5_%D0%B2%D1%80%D0%B5%D0%BC%D1%8F
-        # и передается в формате ISO 8601: https://en.wikipedia.org/wiki/ISO_8601. Пример:
-        # 2017-11-03T11:52:31.827Z
+        # Время автоматического закрытия сделки.
         expires_at:,
-        # Момент перечисления вам вознаграждения платформы. Возможные значения:
-        # payment_succeeded — после успешной оплаты; deal_closed — при закрытии сделки
-        # после успешной выплаты.
+        # Момент удержания вознаграждения.
         fee_moment:,
-        # Сумма в выбранной валюте.
+        # Сумма вознаграждения продавца.
         payout_balance:,
-        # Статус сделки. Возможные значения: opened — сделка открыта; можно выполнять
-        # платежи, возвраты и выплаты в составе сделки; closed — сделка закрыта —
-        # вознаграждение перечислено продавцу и платформе или оплата возвращена
-        # покупателю; нельзя выполнять платежи, возвраты и выплаты в составе сделки.
+        # Статус сделки.
         status:,
         # Признак тестовой операции.
         test_:,
-        # Тип сделки. Фиксированное значение: safe_deal — Безопасная сделка.
+        # Тип сделки.
         type:,
-        # Поле, в котором пользователь может передать описание создаваемого объекта (не
-        # более 128 символов). Например: «Оплата заказа № 72».
+        # Описание сделки.
         description: nil,
-        # Любые дополнительные данные, которые нужны вам для работы (например, ваш
-        # внутренний идентификатор заказа). Передаются в виде набора пар «ключ-значение» и
-        # возвращаются в ответе от ЮKassa. Ограничения: максимум 16 ключей, имя ключа не
-        # больше 32 символов, значение ключа не больше 512 символов, тип данных — строка в
-        # формате UTF-8.
+        # Любые дополнительные данные, которые нужны вам для работы (например, номер
+        # заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от
+        # ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов,
+        # значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
         metadata: nil
       )
       end
@@ -152,17 +122,14 @@ module Yoomoney
             test_: T::Boolean,
             type: Yoomoney::DealType::TaggedSymbol,
             description: String,
-            metadata: T::Hash[Symbol, T.nilable(String)]
+            metadata: T::Hash[Symbol, String]
           }
         )
       end
       def to_hash
       end
 
-      # Статус сделки. Возможные значения: opened — сделка открыта; можно выполнять
-      # платежи, возвраты и выплаты в составе сделки; closed — сделка закрыта —
-      # вознаграждение перечислено продавцу и платформе или оплата возвращена
-      # покупателю; нельзя выполнять платежи, возвраты и выплаты в составе сделки.
+      # Статус сделки.
       module Status
         extend Yoomoney::Internal::Type::Enum
 

@@ -3,24 +3,24 @@ module Yoomoney
     type personal_data_request =
       {
         type: Yoomoney::Models::personal_data_type,
-        metadata: ::Hash[Symbol, String?]
+        metadata: ::Hash[Symbol, String]
       }
 
     class PersonalDataRequest < Yoomoney::Internal::Type::BaseModel
       attr_accessor type: Yoomoney::Models::personal_data_type
 
-      attr_reader metadata: ::Hash[Symbol, String?]?
+      attr_reader metadata: ::Hash[Symbol, String]?
 
-      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+      def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
 
       def initialize: (
         type: Yoomoney::Models::personal_data_type,
-        ?metadata: ::Hash[Symbol, String?]
+        ?metadata: ::Hash[Symbol, String]
       ) -> void
 
       def to_hash: -> {
         type: Yoomoney::Models::personal_data_type,
-        metadata: ::Hash[Symbol, String?]
+        metadata: ::Hash[Symbol, String]
       }
     end
   end

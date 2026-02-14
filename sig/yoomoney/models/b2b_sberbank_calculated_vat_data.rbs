@@ -1,39 +1,20 @@
 module Yoomoney
   module Models
     type b2b_sberbank_calculated_vat_data =
-      {
-        amount: Yoomoney::MonetaryAmount,
-        rate: Yoomoney::Models::B2bSberbankCalculatedVatData::rate
-      }
+      { amount: Yoomoney::MonetaryAmount, rate: String }
 
     class B2bSberbankCalculatedVatData < Yoomoney::Models::B2bSberbankVatData
       def amount: -> Yoomoney::MonetaryAmount
 
       def amount=: (Yoomoney::MonetaryAmount _) -> Yoomoney::MonetaryAmount
 
-      def rate: -> Yoomoney::Models::B2bSberbankCalculatedVatData::rate
+      def rate: -> String
 
-      def rate=: (
-        Yoomoney::Models::B2bSberbankCalculatedVatData::rate _
-      ) -> Yoomoney::Models::B2bSberbankCalculatedVatData::rate
+      def rate=: (String _) -> String
 
-      def initialize: (
-        amount: Yoomoney::MonetaryAmount,
-        rate: Yoomoney::Models::B2bSberbankCalculatedVatData::rate
-      ) -> void
+      def initialize: (amount: Yoomoney::MonetaryAmount, rate: String) -> void
 
-      def to_hash: -> {
-        amount: Yoomoney::MonetaryAmount,
-        rate: Yoomoney::Models::B2bSberbankCalculatedVatData::rate
-      }
-
-      type rate = nil
-
-      module Rate
-        extend Yoomoney::Internal::Type::Enum
-
-        def self?.values: -> ::Array[Yoomoney::Models::B2bSberbankCalculatedVatData::rate]
-      end
+      def to_hash: -> { amount: Yoomoney::MonetaryAmount, rate: String }
     end
   end
 end

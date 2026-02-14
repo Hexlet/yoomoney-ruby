@@ -26,12 +26,9 @@ gem "yoomoney", "~> 0.0.2"
 require "bundler/setup"
 require "yoomoney"
 
-yoomoney = Yoomoney::Client.new(
-  username: ENV["YOOMONEY_USERNAME"], # This is the default and can be omitted
-  password: ENV["YOOMONEY_PASSWORD"] # This is the default and can be omitted
-)
+yoomoney = Yoomoney::Client.new
 
-payment = yoomoney.payments.create(amount: {currency: "RUB", value: "1000.00"}, idempotence_key: "Idempotence-Key")
+payment = yoomoney.payments.create(amount: {currency: "RUB", value: "value"}, idempotence_key: "Idempotence-Key")
 
 puts(payment.id)
 ```
@@ -42,7 +39,7 @@ When the library is unable to connect to the API, or if the API returns a non-su
 
 ```ruby
 begin
-  payment = yoomoney.payments.create(amount: {currency: "RUB", value: "1000.00"}, idempotence_key: "Idempotence-Key")
+  payment = yoomoney.payments.create(amount: {currency: "RUB", value: "value"}, idempotence_key: "Idempotence-Key")
 rescue Yoomoney::Errors::APIConnectionError => e
   puts("The server could not be reached")
   puts(e.cause)  # an underlying Exception, likely raised within `net/http`
@@ -86,7 +83,7 @@ yoomoney = Yoomoney::Client.new(
 
 # Or, configure per-request:
 yoomoney.payments.create(
-  amount: {currency: "RUB", value: "1000.00"},
+  amount: {currency: "RUB", value: "value"},
   idempotence_key: "Idempotence-Key",
   request_options: {max_retries: 5}
 )
@@ -104,7 +101,7 @@ yoomoney = Yoomoney::Client.new(
 
 # Or, configure per-request:
 yoomoney.payments.create(
-  amount: {currency: "RUB", value: "1000.00"},
+  amount: {currency: "RUB", value: "value"},
   idempotence_key: "Idempotence-Key",
   request_options: {timeout: 5}
 )
@@ -139,7 +136,7 @@ Note: the `extra_` parameters of the same name overrides the documented paramete
 ```ruby
 payment =
   yoomoney.payments.create(
-    amount: {currency: "RUB", value: "1000.00"},
+    amount: {currency: "RUB", value: "value"},
     idempotence_key: "Idempotence-Key",
     request_options: {
       extra_query: {my_query_parameter: value},
@@ -187,7 +184,7 @@ You can provide typesafe request parameters like so:
 
 ```ruby
 yoomoney.payments.create(
-  amount: Yoomoney::MonetaryAmount.new(currency: "RUB", value: "1000.00"),
+  amount: Yoomoney::MonetaryAmount.new(currency: "RUB", value: "value"),
   idempotence_key: "Idempotence-Key"
 )
 ```
@@ -196,11 +193,11 @@ Or, equivalently:
 
 ```ruby
 # Hashes work, but are not typesafe:
-yoomoney.payments.create(amount: {currency: "RUB", value: "1000.00"}, idempotence_key: "Idempotence-Key")
+yoomoney.payments.create(amount: {currency: "RUB", value: "value"}, idempotence_key: "Idempotence-Key")
 
 # You can also splat a full Params class:
 params = Yoomoney::PaymentCreateParams.new(
-  amount: Yoomoney::MonetaryAmount.new(currency: "RUB", value: "1000.00"),
+  amount: Yoomoney::MonetaryAmount.new(currency: "RUB", value: "value"),
   idempotence_key: "Idempotence-Key"
 )
 yoomoney.payments.create(**params)

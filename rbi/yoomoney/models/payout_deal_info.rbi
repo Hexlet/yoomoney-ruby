@@ -12,9 +12,6 @@ module Yoomoney
       sig { returns(String) }
       attr_accessor :id
 
-      # Сделка, в рамках которой нужно провести выплату. Необходимо передавать, если вы
-      # проводите Безопасную сделку:
-      # https://yookassa.ru/developers/solutions-for-platforms/safe-deal/basics
       sig { params(id: String).returns(T.attached_class) }
       def self.new(
         # Идентификатор сделки.

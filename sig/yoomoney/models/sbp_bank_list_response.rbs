@@ -3,22 +3,22 @@ module Yoomoney
     type sbp_bank_list_response =
       {
         items: ::Array[Yoomoney::Models::SbpBankListResponse::Item],
-        type: Yoomoney::Models::SbpBankListResponse::type_
+        type: String
       }
 
     class SbpBankListResponse < Yoomoney::Internal::Type::BaseModel
       attr_accessor items: ::Array[Yoomoney::Models::SbpBankListResponse::Item]
 
-      attr_accessor type: Yoomoney::Models::SbpBankListResponse::type_
+      attr_accessor type: String
 
       def initialize: (
         items: ::Array[Yoomoney::Models::SbpBankListResponse::Item],
-        type: Yoomoney::Models::SbpBankListResponse::type_
+        type: String
       ) -> void
 
       def to_hash: -> {
         items: ::Array[Yoomoney::Models::SbpBankListResponse::Item],
-        type: Yoomoney::Models::SbpBankListResponse::type_
+        type: String
       }
 
       type item = { bank_id: String, bic: String, name: String }
@@ -33,16 +33,6 @@ module Yoomoney
         def initialize: (bank_id: String, bic: String, name: String) -> void
 
         def to_hash: -> { bank_id: String, bic: String, name: String }
-      end
-
-      type type_ = :list
-
-      module Type
-        extend Yoomoney::Internal::Type::Enum
-
-        LIST: :list
-
-        def self?.values: -> ::Array[Yoomoney::Models::SbpBankListResponse::type_]
       end
     end
   end

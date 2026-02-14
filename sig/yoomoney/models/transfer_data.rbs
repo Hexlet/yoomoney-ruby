@@ -3,48 +3,32 @@ module Yoomoney
     type transfer_data =
       {
         account_id: String,
-        amount: Yoomoney::TransferData::Amount,
-        platform_fee_amount: Yoomoney::TransferData::PlatformFeeAmount
+        amount: Yoomoney::MonetaryAmount,
+        platform_fee_amount: Yoomoney::MonetaryAmount
       }
 
     class TransferData < Yoomoney::Internal::Type::BaseModel
       attr_accessor account_id: String
 
-      attr_accessor amount: Yoomoney::TransferData::Amount
+      attr_accessor amount: Yoomoney::MonetaryAmount
 
-      attr_reader platform_fee_amount: Yoomoney::TransferData::PlatformFeeAmount?
+      attr_reader platform_fee_amount: Yoomoney::MonetaryAmount?
 
       def platform_fee_amount=: (
-        Yoomoney::TransferData::PlatformFeeAmount
-      ) -> Yoomoney::TransferData::PlatformFeeAmount
+        Yoomoney::MonetaryAmount
+      ) -> Yoomoney::MonetaryAmount
 
       def initialize: (
         account_id: String,
-        amount: Yoomoney::TransferData::Amount,
-        ?platform_fee_amount: Yoomoney::TransferData::PlatformFeeAmount
+        amount: Yoomoney::MonetaryAmount,
+        ?platform_fee_amount: Yoomoney::MonetaryAmount
       ) -> void
 
       def to_hash: -> {
         account_id: String,
-        amount: Yoomoney::TransferData::Amount,
-        platform_fee_amount: Yoomoney::TransferData::PlatformFeeAmount
+        amount: Yoomoney::MonetaryAmount,
+        platform_fee_amount: Yoomoney::MonetaryAmount
       }
-
-      type amount = {  }
-
-      class Amount < Yoomoney::Models::MonetaryAmount
-        def initialize: -> void
-
-        def to_hash: -> {  }
-      end
-
-      type platform_fee_amount = {  }
-
-      class PlatformFeeAmount < Yoomoney::Models::MonetaryAmount
-        def initialize: -> void
-
-        def to_hash: -> {  }
-      end
     end
   end
 end

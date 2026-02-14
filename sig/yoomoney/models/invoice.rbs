@@ -10,7 +10,7 @@ module Yoomoney
         delivery_method: Yoomoney::Models::Invoice::delivery_method,
         description: String,
         expires_at: Time,
-        metadata: ::Hash[Symbol, String?],
+        metadata: ::Hash[Symbol, String],
         payment_details: Yoomoney::Invoice::PaymentDetails
       }
 
@@ -43,9 +43,9 @@ module Yoomoney
 
       def expires_at=: (Time) -> Time
 
-      attr_reader metadata: ::Hash[Symbol, String?]?
+      attr_reader metadata: ::Hash[Symbol, String]?
 
-      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+      def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
 
       attr_reader payment_details: Yoomoney::Invoice::PaymentDetails?
 
@@ -62,7 +62,7 @@ module Yoomoney
         ?delivery_method: Yoomoney::Models::Invoice::delivery_method,
         ?description: String,
         ?expires_at: Time,
-        ?metadata: ::Hash[Symbol, String?],
+        ?metadata: ::Hash[Symbol, String],
         ?payment_details: Yoomoney::Invoice::PaymentDetails
       ) -> void
 
@@ -75,7 +75,7 @@ module Yoomoney
         delivery_method: Yoomoney::Models::Invoice::delivery_method,
         description: String,
         expires_at: Time,
-        metadata: ::Hash[Symbol, String?],
+        metadata: ::Hash[Symbol, String],
         payment_details: Yoomoney::Invoice::PaymentDetails
       }
 
@@ -91,56 +91,16 @@ module Yoomoney
         def self?.values: -> ::Array[Yoomoney::Models::Invoice::status]
       end
 
-      type cancellation_details =
-        {
-          party: Yoomoney::Models::Invoice::CancellationDetails::party,
-          reason: Yoomoney::Models::Invoice::CancellationDetails::reason
-        }
+      type cancellation_details = { party: String, reason: String }
 
       class CancellationDetails < Yoomoney::Internal::Type::BaseModel
-        attr_accessor party: Yoomoney::Models::Invoice::CancellationDetails::party
+        attr_accessor party: String
 
-        attr_accessor reason: Yoomoney::Models::Invoice::CancellationDetails::reason
+        attr_accessor reason: String
 
-        def initialize: (
-          party: Yoomoney::Models::Invoice::CancellationDetails::party,
-          reason: Yoomoney::Models::Invoice::CancellationDetails::reason
-        ) -> void
+        def initialize: (party: String, reason: String) -> void
 
-        def to_hash: -> {
-          party: Yoomoney::Models::Invoice::CancellationDetails::party,
-          reason: Yoomoney::Models::Invoice::CancellationDetails::reason
-        }
-
-        type party = :yoo_money | :merchant
-
-        module Party
-          extend Yoomoney::Internal::Type::Enum
-
-          YOO_MONEY: :yoo_money
-          MERCHANT: :merchant
-
-          def self?.values: -> ::Array[Yoomoney::Models::Invoice::CancellationDetails::party]
-        end
-
-        type reason =
-          :invoice_canceled
-          | :invoice_expired
-          | :general_decline
-          | :payment_canceled
-          | :payment_expired_on_capture
-
-        module Reason
-          extend Yoomoney::Internal::Type::Enum
-
-          INVOICE_CANCELED: :invoice_canceled
-          INVOICE_EXPIRED: :invoice_expired
-          GENERAL_DECLINE: :general_decline
-          PAYMENT_CANCELED: :payment_canceled
-          PAYMENT_EXPIRED_ON_CAPTURE: :payment_expired_on_capture
-
-          def self?.values: -> ::Array[Yoomoney::Models::Invoice::CancellationDetails::reason]
-        end
+        def to_hash: -> { party: String, reason: String }
       end
 
       type delivery_method =
@@ -165,20 +125,16 @@ module Yoomoney
         def self?.variants: -> ::Array[Yoomoney::Models::Invoice::delivery_method]
       end
 
-      type payment_details =
-        { id: String, status: Yoomoney::Models::payment_status }
+      type payment_details = { id: String, status: String }
 
       class PaymentDetails < Yoomoney::Internal::Type::BaseModel
         attr_accessor id: String
 
-        attr_accessor status: Yoomoney::Models::payment_status
+        attr_accessor status: String
 
-        def initialize: (
-          id: String,
-          status: Yoomoney::Models::payment_status
-        ) -> void
+        def initialize: (id: String, status: String) -> void
 
-        def to_hash: -> { id: String, status: Yoomoney::Models::payment_status }
+        def to_hash: -> { id: String, status: String }
       end
     end
   end

@@ -14,74 +14,67 @@ module Yoomoney
           )
         end
 
+      # Данные для проверки и сохранения способа оплаты.
+      sig { returns(Yoomoney::PaymentMethodCreateParams::PaymentMethodData) }
+      attr_reader :payment_method_data
+
+      sig do
+        params(
+          payment_method_data:
+            Yoomoney::PaymentMethodCreateParams::PaymentMethodData::OrHash
+        ).void
+      end
+      attr_writer :payment_method_data
+
+      # Тип способа оплаты.
       sig { returns(Yoomoney::PaymentMethodCreateParams::Type::OrSymbol) }
       attr_accessor :type
 
       sig { returns(String) }
       attr_accessor :idempotence_key
 
-      sig { returns(T.nilable(Yoomoney::CardRequestDataWithCsc)) }
-      attr_reader :card
-
-      sig { params(card: Yoomoney::CardRequestDataWithCsc::OrHash).void }
-      attr_writer :card
-
-      # IPv4 или IPv6-адрес пользователя. Если не указан, используется IP-адрес
-      # TCP-подключения.
-      sig { returns(T.nilable(String)) }
-      attr_reader :client_ip
-
-      sig { params(client_ip: String).void }
-      attr_writer :client_ip
-
-      # Перенаправление пользователя на сайт ЮKassa для подтверждения привязки или
-      # страницу банка-эмитента для аутентификации по 3-D Secure.
+      # Данные платежа, который будет создан после сохранения способа оплаты.
       sig do
-        returns(T.nilable(Yoomoney::PaymentMethodCreateParams::Confirmation))
+        returns(T.nilable(Yoomoney::PaymentMethodCreateParams::PaymentData))
       end
-      attr_reader :confirmation
+      attr_reader :payment_data
 
       sig do
         params(
-          confirmation:
-            Yoomoney::PaymentMethodCreateParams::Confirmation::OrHash
+          payment_data: Yoomoney::PaymentMethodCreateParams::PaymentData::OrHash
         ).void
       end
-      attr_writer :confirmation
+      attr_writer :payment_data
 
-      # Получатель платежа. Нужен, если вы разделяете потоки платежей в рамках одного
-      # аккаунта или создаете платеж в адрес другого аккаунта.
-      sig { returns(T.nilable(Yoomoney::Recipient)) }
-      attr_reader :holder
+      # Данные для формирования чека.
+      sig { returns(T.nilable(Yoomoney::ReceiptData)) }
+      attr_reader :receipt
 
-      sig { params(holder: Yoomoney::Recipient::OrHash).void }
-      attr_writer :holder
+      sig { params(receipt: Yoomoney::ReceiptData::OrHash).void }
+      attr_writer :receipt
 
       sig do
         params(
+          payment_method_data:
+            Yoomoney::PaymentMethodCreateParams::PaymentMethodData::OrHash,
           type: Yoomoney::PaymentMethodCreateParams::Type::OrSymbol,
           idempotence_key: String,
-          card: Yoomoney::CardRequestDataWithCsc::OrHash,
-          client_ip: String,
-          confirmation:
-            Yoomoney::PaymentMethodCreateParams::Confirmation::OrHash,
-          holder: Yoomoney::Recipient::OrHash,
+          payment_data:
+            Yoomoney::PaymentMethodCreateParams::PaymentData::OrHash,
+          receipt: Yoomoney::ReceiptData::OrHash,
           request_options: Yoomoney::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
       def self.new(
+        # Данные для проверки и сохранения способа оплаты.
+        payment_method_data:,
+        # Тип способа оплаты.
         type:,
         idempotence_key:,
-        card: nil,
-        # IPv4 или IPv6-адрес пользователя. Если не указан, используется IP-адрес
-        # TCP-подключения.
-        client_ip: nil,
-        # Перенаправление пользователя на сайт ЮKassa для подтверждения привязки или
-        # страницу банка-эмитента для аутентификации по 3-D Secure.
-        confirmation: nil,
-        # Получатель платежа. Нужен, если вы разделяете потоки платежей в рамках одного
-        # аккаунта или создаете платеж в адрес другого аккаунта.
-        holder: nil,
+        # Данные платежа, который будет создан после сохранения способа оплаты.
+        payment_data: nil,
+        # Данные для формирования чека.
+        receipt: nil,
         request_options: {}
       )
       end
@@ -89,12 +82,12 @@ module Yoomoney
       sig do
         override.returns(
           {
+            payment_method_data:
+              Yoomoney::PaymentMethodCreateParams::PaymentMethodData,
             type: Yoomoney::PaymentMethodCreateParams::Type::OrSymbol,
             idempotence_key: String,
-            card: Yoomoney::CardRequestDataWithCsc,
-            client_ip: String,
-            confirmation: Yoomoney::PaymentMethodCreateParams::Confirmation,
-            holder: Yoomoney::Recipient,
+            payment_data: Yoomoney::PaymentMethodCreateParams::PaymentData,
+            receipt: Yoomoney::ReceiptData,
             request_options: Yoomoney::RequestOptions
           }
         )
@@ -102,6 +95,147 @@ module Yoomoney
       def to_hash
       end
 
+      class PaymentMethodData < Yoomoney::Internal::Type::BaseModel
+        OrHash =
+          T.type_alias do
+            T.any(
+              Yoomoney::PaymentMethodCreateParams::PaymentMethodData,
+              Yoomoney::Internal::AnyHash
+            )
+          end
+
+        sig do
+          returns(
+            Yoomoney::PaymentMethodCreateParams::PaymentMethodData::Type::OrSymbol
+          )
+        end
+        attr_accessor :type
+
+        sig { returns(T.nilable(String)) }
+        attr_reader :client_ip
+
+        sig { params(client_ip: String).void }
+        attr_writer :client_ip
+
+        sig do
+          returns(
+            T.nilable(
+              Yoomoney::PaymentMethodCreateParams::PaymentMethodData::Confirmation
+            )
+          )
+        end
+        attr_reader :confirmation
+
+        sig do
+          params(
+            confirmation:
+              Yoomoney::PaymentMethodCreateParams::PaymentMethodData::Confirmation::OrHash
+          ).void
+        end
+        attr_writer :confirmation
+
+        sig { returns(T.nilable(String)) }
+        attr_reader :holder
+
+        sig { params(holder: String).void }
+        attr_writer :holder
+
+        # Данные для проверки и сохранения способа оплаты.
+        sig do
+          params(
+            type:
+              Yoomoney::PaymentMethodCreateParams::PaymentMethodData::Type::OrSymbol,
+            client_ip: String,
+            confirmation:
+              Yoomoney::PaymentMethodCreateParams::PaymentMethodData::Confirmation::OrHash,
+            holder: String
+          ).returns(T.attached_class)
+        end
+        def self.new(type:, client_ip: nil, confirmation: nil, holder: nil)
+        end
+
+        sig do
+          override.returns(
+            {
+              type:
+                Yoomoney::PaymentMethodCreateParams::PaymentMethodData::Type::OrSymbol,
+              client_ip: String,
+              confirmation:
+                Yoomoney::PaymentMethodCreateParams::PaymentMethodData::Confirmation,
+              holder: String
+            }
+          )
+        end
+        def to_hash
+        end
+
+        module Type
+          extend Yoomoney::Internal::Type::Enum
+
+          TaggedSymbol =
+            T.type_alias do
+              T.all(
+                Symbol,
+                Yoomoney::PaymentMethodCreateParams::PaymentMethodData::Type
+              )
+            end
+          OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+          BANK_CARD =
+            T.let(
+              :bank_card,
+              Yoomoney::PaymentMethodCreateParams::PaymentMethodData::Type::TaggedSymbol
+            )
+
+          sig do
+            override.returns(
+              T::Array[
+                Yoomoney::PaymentMethodCreateParams::PaymentMethodData::Type::TaggedSymbol
+              ]
+            )
+          end
+          def self.values
+          end
+        end
+
+        class Confirmation < Yoomoney::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Yoomoney::PaymentMethodCreateParams::PaymentMethodData::Confirmation,
+                Yoomoney::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :return_url
+
+          sig { returns(Yoomoney::PaymentMethodsConfirmationType::OrSymbol) }
+          attr_accessor :type
+
+          sig do
+            params(
+              return_url: String,
+              type: Yoomoney::PaymentMethodsConfirmationType::OrSymbol
+            ).returns(T.attached_class)
+          end
+          def self.new(return_url:, type:)
+          end
+
+          sig do
+            override.returns(
+              {
+                return_url: String,
+                type: Yoomoney::PaymentMethodsConfirmationType::OrSymbol
+              }
+            )
+          end
+          def to_hash
+          end
+        end
+      end
+
+      # Тип способа оплаты.
       module Type
         extend Yoomoney::Internal::Type::Enum
 
@@ -126,84 +260,107 @@ module Yoomoney
         end
       end
 
-      class Confirmation < Yoomoney::Internal::Type::BaseModel
+      class PaymentData < Yoomoney::Internal::Type::BaseModel
         OrHash =
           T.type_alias do
             T.any(
-              Yoomoney::PaymentMethodCreateParams::Confirmation,
+              Yoomoney::PaymentMethodCreateParams::PaymentData,
               Yoomoney::Internal::AnyHash
             )
           end
 
-        # URL, на который вернется пользователь после подтверждения или отмены платежа на
-        # веб-странице. Не более 2048 символов.
-        sig { returns(String) }
-        attr_accessor :return_url
+        sig { returns(Yoomoney::MonetaryAmount) }
+        attr_reader :amount
 
-        # Код сценария подтверждения пользователем привязки платежного средства к вашему
-        # магазину в ЮKassa.
-        sig { returns(Yoomoney::PaymentMethodsConfirmationType::OrSymbol) }
-        attr_accessor :type
+        sig { params(amount: Yoomoney::MonetaryAmount::OrHash).void }
+        attr_writer :amount
 
-        # Запрос на проведение платежа с аутентификацией по 3-D Secure. Будет работать,
-        # если оплату банковской картой вы по умолчанию принимаете без подтверждения
-        # платежа пользователем. В остальных случаях аутентификацией по 3-D Secure будет
-        # управлять ЮKassa. Если хотите принимать платежи без дополнительного
-        # подтверждения пользователем, напишите вашему менеджеру ЮKassa.
         sig { returns(T.nilable(T::Boolean)) }
-        attr_reader :enforce
+        attr_reader :capture
 
-        sig { params(enforce: T::Boolean).void }
-        attr_writer :enforce
+        sig { params(capture: T::Boolean).void }
+        attr_writer :capture
 
-        # Язык интерфейса, писем и смс, которые будет видеть или получать пользователь.
-        # Формат соответствует ISO/IEC 15897:
-        # https://en.wikipedia.org/wiki/Locale_(computer_software). Возможные значения:
-        # ru_RU, en_US. Регистр важен.
-        sig { returns(T.nilable(Yoomoney::Locale::OrSymbol)) }
-        attr_reader :locale
+        sig { returns(T.nilable(String)) }
+        attr_reader :client_ip
 
-        sig { params(locale: Yoomoney::Locale::OrSymbol).void }
-        attr_writer :locale
+        sig { params(client_ip: String).void }
+        attr_writer :client_ip
 
-        # Перенаправление пользователя на сайт ЮKassa для подтверждения привязки или
-        # страницу банка-эмитента для аутентификации по 3-D Secure.
+        sig { returns(T.nilable(String)) }
+        attr_reader :description
+
+        sig { params(description: String).void }
+        attr_writer :description
+
+        # Любые дополнительные данные, которые нужны вам для работы (например, номер
+        # заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от
+        # ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов,
+        # значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
+        sig { returns(T.nilable(T::Hash[Symbol, String])) }
+        attr_reader :metadata
+
+        sig { params(metadata: T::Hash[Symbol, String]).void }
+        attr_writer :metadata
+
+        sig { returns(T.nilable(Yoomoney::ReceiptData)) }
+        attr_reader :receipt
+
+        sig { params(receipt: Yoomoney::ReceiptData::OrHash).void }
+        attr_writer :receipt
+
+        sig { returns(T.nilable(Yoomoney::Recipient)) }
+        attr_reader :recipient
+
+        sig { params(recipient: Yoomoney::Recipient::OrHash).void }
+        attr_writer :recipient
+
+        sig { returns(T.nilable(T::Boolean)) }
+        attr_reader :save_payment_method
+
+        sig { params(save_payment_method: T::Boolean).void }
+        attr_writer :save_payment_method
+
+        # Данные платежа, который будет создан после сохранения способа оплаты.
         sig do
           params(
-            return_url: String,
-            type: Yoomoney::PaymentMethodsConfirmationType::OrSymbol,
-            enforce: T::Boolean,
-            locale: Yoomoney::Locale::OrSymbol
+            amount: Yoomoney::MonetaryAmount::OrHash,
+            capture: T::Boolean,
+            client_ip: String,
+            description: String,
+            metadata: T::Hash[Symbol, String],
+            receipt: Yoomoney::ReceiptData::OrHash,
+            recipient: Yoomoney::Recipient::OrHash,
+            save_payment_method: T::Boolean
           ).returns(T.attached_class)
         end
         def self.new(
-          # URL, на который вернется пользователь после подтверждения или отмены платежа на
-          # веб-странице. Не более 2048 символов.
-          return_url:,
-          # Код сценария подтверждения пользователем привязки платежного средства к вашему
-          # магазину в ЮKassa.
-          type:,
-          # Запрос на проведение платежа с аутентификацией по 3-D Secure. Будет работать,
-          # если оплату банковской картой вы по умолчанию принимаете без подтверждения
-          # платежа пользователем. В остальных случаях аутентификацией по 3-D Secure будет
-          # управлять ЮKassa. Если хотите принимать платежи без дополнительного
-          # подтверждения пользователем, напишите вашему менеджеру ЮKassa.
-          enforce: nil,
-          # Язык интерфейса, писем и смс, которые будет видеть или получать пользователь.
-          # Формат соответствует ISO/IEC 15897:
-          # https://en.wikipedia.org/wiki/Locale_(computer_software). Возможные значения:
-          # ru_RU, en_US. Регистр важен.
-          locale: nil
+          amount:,
+          capture: nil,
+          client_ip: nil,
+          description: nil,
+          # Любые дополнительные данные, которые нужны вам для работы (например, номер
+          # заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от
+          # ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов,
+          # значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
+          metadata: nil,
+          receipt: nil,
+          recipient: nil,
+          save_payment_method: nil
         )
         end
 
         sig do
           override.returns(
             {
-              return_url: String,
-              type: Yoomoney::PaymentMethodsConfirmationType::OrSymbol,
-              enforce: T::Boolean,
-              locale: Yoomoney::Locale::OrSymbol
+              amount: Yoomoney::MonetaryAmount,
+              capture: T::Boolean,
+              client_ip: String,
+              description: String,
+              metadata: T::Hash[Symbol, String],
+              receipt: Yoomoney::ReceiptData,
+              recipient: Yoomoney::Recipient,
+              save_payment_method: T::Boolean
             }
           )
         end

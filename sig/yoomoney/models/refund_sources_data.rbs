@@ -3,48 +3,32 @@ module Yoomoney
     type refund_sources_data =
       {
         account_id: String,
-        amount: Yoomoney::RefundSourcesData::Amount,
-        platform_fee_amount: Yoomoney::RefundSourcesData::PlatformFeeAmount
+        amount: Yoomoney::MonetaryAmount,
+        platform_fee_amount: Yoomoney::MonetaryAmount
       }
 
     class RefundSourcesData < Yoomoney::Internal::Type::BaseModel
       attr_accessor account_id: String
 
-      attr_accessor amount: Yoomoney::RefundSourcesData::Amount
+      attr_accessor amount: Yoomoney::MonetaryAmount
 
-      attr_reader platform_fee_amount: Yoomoney::RefundSourcesData::PlatformFeeAmount?
+      attr_reader platform_fee_amount: Yoomoney::MonetaryAmount?
 
       def platform_fee_amount=: (
-        Yoomoney::RefundSourcesData::PlatformFeeAmount
-      ) -> Yoomoney::RefundSourcesData::PlatformFeeAmount
+        Yoomoney::MonetaryAmount
+      ) -> Yoomoney::MonetaryAmount
 
       def initialize: (
         account_id: String,
-        amount: Yoomoney::RefundSourcesData::Amount,
-        ?platform_fee_amount: Yoomoney::RefundSourcesData::PlatformFeeAmount
+        amount: Yoomoney::MonetaryAmount,
+        ?platform_fee_amount: Yoomoney::MonetaryAmount
       ) -> void
 
       def to_hash: -> {
         account_id: String,
-        amount: Yoomoney::RefundSourcesData::Amount,
-        platform_fee_amount: Yoomoney::RefundSourcesData::PlatformFeeAmount
+        amount: Yoomoney::MonetaryAmount,
+        platform_fee_amount: Yoomoney::MonetaryAmount
       }
-
-      type amount = {  }
-
-      class Amount < Yoomoney::Models::MonetaryAmount
-        def initialize: -> void
-
-        def to_hash: -> {  }
-      end
-
-      type platform_fee_amount = {  }
-
-      class PlatformFeeAmount < Yoomoney::Models::MonetaryAmount
-        def initialize: -> void
-
-        def to_hash: -> {  }
-      end
     end
   end
 end

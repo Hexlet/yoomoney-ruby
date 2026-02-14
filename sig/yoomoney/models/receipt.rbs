@@ -19,7 +19,7 @@ module Yoomoney
         registered_at: Time,
         settlements: ::Array[Yoomoney::Settlement],
         tax_system_code: Integer,
-        timezone: Integer
+        timezone: String
       }
 
     class Receipt < Yoomoney::Internal::Type::BaseModel
@@ -89,9 +89,9 @@ module Yoomoney
 
       def tax_system_code=: (Integer) -> Integer
 
-      attr_reader timezone: Integer?
+      attr_reader timezone: String?
 
-      def timezone=: (Integer) -> Integer
+      def timezone=: (String) -> String
 
       def initialize: (
         id: String,
@@ -111,7 +111,7 @@ module Yoomoney
         ?registered_at: Time,
         ?settlements: ::Array[Yoomoney::Settlement],
         ?tax_system_code: Integer,
-        ?timezone: Integer
+        ?timezone: String
       ) -> void
 
       def to_hash: -> {
@@ -132,7 +132,7 @@ module Yoomoney
         registered_at: Time,
         settlements: ::Array[Yoomoney::Settlement],
         tax_system_code: Integer,
-        timezone: Integer
+        timezone: String
       }
 
       type item =

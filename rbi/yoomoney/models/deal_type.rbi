@@ -2,7 +2,6 @@
 
 module Yoomoney
   module Models
-    # Тип сделки. Фиксированное значение: safe_deal — Безопасная сделка.
     module DealType
       extend Yoomoney::Internal::Type::Enum
 

@@ -6,20 +6,17 @@ module Yoomoney
       OrHash =
         T.type_alias { T.any(Yoomoney::Receiver, Yoomoney::Internal::AnyHash) }
 
-      # Код получателя оплаты.
+      # Тип получателя.
       sig { returns(Yoomoney::Receiver::Type::OrSymbol) }
       attr_accessor :type
 
-      # Реквизиты получателя оплаты при пополнении электронного кошелька, банковского
-      # счета или баланса телефона:
-      # https://yookassa.ru/developers/payment-acceptance/scenario-extensions/receiver-data.
       sig do
         params(type: Yoomoney::Receiver::Type::OrSymbol).returns(
           T.attached_class
         )
       end
       def self.new(
-        # Код получателя оплаты.
+        # Тип получателя.
         type:
       )
       end
@@ -28,7 +25,7 @@ module Yoomoney
       def to_hash
       end
 
-      # Код получателя оплаты.
+      # Тип получателя.
       module Type
         extend Yoomoney::Internal::Type::Enum
 

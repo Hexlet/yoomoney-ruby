@@ -4,24 +4,15 @@ module Yoomoney
   module Models
     class PayoutDestination < Yoomoney::Internal::Type::BaseModel
       # @!attribute type
-      #   Способ получения выплаты: bank_card – выплата на банковскую карту; yoo_money –
-      #   выплата на кошелек ЮMoney; sbp – выплата через СБП на счет в банке или платежном
-      #   сервисе.
+      #   Тип метода для проведения выплаты.
       #
       #   @return [Symbol, Yoomoney::Models::PayoutDestination::Type]
       required :type, enum: -> { Yoomoney::PayoutDestination::Type }
 
       # @!method initialize(type:)
-      #   Some parameter documentations has been truncated, see
-      #   {Yoomoney::Models::PayoutDestination} for more details.
-      #
-      #   Платежное средство, на которое ЮKassa зачисляет выплату.
-      #
-      #   @param type [Symbol, Yoomoney::Models::PayoutDestination::Type] Способ получения выплаты: bank_card – выплата на банковскую карту; yoo_money – в
+      #   @param type [Symbol, Yoomoney::Models::PayoutDestination::Type] Тип метода для проведения выплаты.
 
-      # Способ получения выплаты: bank_card – выплата на банковскую карту; yoo_money –
-      # выплата на кошелек ЮMoney; sbp – выплата через СБП на счет в банке или платежном
-      # сервисе.
+      # Тип метода для проведения выплаты.
       #
       # @see Yoomoney::Models::PayoutDestination#type
       module Type

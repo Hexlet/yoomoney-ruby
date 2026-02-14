@@ -7,7 +7,7 @@ class Yoomoney::Test::Resources::PayoutsTest < Yoomoney::Test::ResourceTest
     skip("Prism tests are disabled")
 
     response =
-      @yoomoney.payouts.create(amount: {currency: :RUB, value: "1000.00"}, idempotence_key: "Idempotence-Key")
+      @yoomoney.payouts.create(amount: {currency: :RUB, value: "value"}, idempotence_key: "Idempotence-Key")
 
     assert_pattern do
       response => Yoomoney::Payout
@@ -22,9 +22,9 @@ class Yoomoney::Test::Resources::PayoutsTest < Yoomoney::Test::ResourceTest
         status: Yoomoney::PayoutStatus,
         test_: Yoomoney::Internal::Type::Boolean,
         cancellation_details: Yoomoney::Payout::CancellationDetails | nil,
-        deal: Yoomoney::Payout::Deal | nil,
+        deal: Yoomoney::PayoutDealInfo | nil,
         description: String | nil,
-        metadata: ^(Yoomoney::Internal::Type::HashOf[String, nil?: true]) | nil,
+        metadata: ^(Yoomoney::Internal::Type::HashOf[String]) | nil,
         receipt: Yoomoney::Payout::Receipt | nil,
         self_employed: Yoomoney::Payout::SelfEmployed | nil,
         succeeded_at: Time | nil
@@ -35,7 +35,7 @@ class Yoomoney::Test::Resources::PayoutsTest < Yoomoney::Test::ResourceTest
   def test_retrieve
     skip("Prism tests are disabled")
 
-    response = @yoomoney.payouts.retrieve("po-27ced252-0025-5000-9000-0a682a8bab8f")
+    response = @yoomoney.payouts.retrieve("payout_id")
 
     assert_pattern do
       response => Yoomoney::Payout
@@ -50,9 +50,9 @@ class Yoomoney::Test::Resources::PayoutsTest < Yoomoney::Test::ResourceTest
         status: Yoomoney::PayoutStatus,
         test_: Yoomoney::Internal::Type::Boolean,
         cancellation_details: Yoomoney::Payout::CancellationDetails | nil,
-        deal: Yoomoney::Payout::Deal | nil,
+        deal: Yoomoney::PayoutDealInfo | nil,
         description: String | nil,
-        metadata: ^(Yoomoney::Internal::Type::HashOf[String, nil?: true]) | nil,
+        metadata: ^(Yoomoney::Internal::Type::HashOf[String]) | nil,
         receipt: Yoomoney::Payout::Receipt | nil,
         self_employed: Yoomoney::Payout::SelfEmployed | nil,
         succeeded_at: Time | nil
@@ -72,7 +72,7 @@ class Yoomoney::Test::Resources::PayoutsTest < Yoomoney::Test::ResourceTest
     assert_pattern do
       response => {
         items: ^(Yoomoney::Internal::Type::ArrayOf[Yoomoney::Payout]),
-        type: Yoomoney::PayoutsList::Type,
+        type: String,
         next_cursor: String | nil
       }
     end
@@ -90,7 +90,7 @@ class Yoomoney::Test::Resources::PayoutsTest < Yoomoney::Test::ResourceTest
     assert_pattern do
       response => {
         items: ^(Yoomoney::Internal::Type::ArrayOf[Yoomoney::Payout]),
-        type: Yoomoney::PayoutsList::Type,
+        type: String,
         next_cursor: String | nil
       }
     end

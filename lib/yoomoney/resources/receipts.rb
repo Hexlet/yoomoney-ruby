@@ -3,48 +3,39 @@
 module Yoomoney
   module Resources
     class Receipts
-      # Some parameter documentations has been truncated, see
-      # {Yoomoney::Models::ReceiptCreateParams} for more details.
-      #
-      # Используйте этот запрос при оплате с соблюдением требований 54-ФЗ:
-      # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/basics, чтобы
-      # создать чек зачета предоплаты. Если вы работаете по сценарию Сначала платеж,
-      # потом чек:
-      # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/other-services/basics#receipt-after-payment,
-      # в запросе также нужно передавать данные для формирования чека прихода и чека
-      # возврата прихода.
+      # Создание чека
       #
       # @overload create(customer:, items:, send_:, settlements:, type:, idempotence_key:, additional_user_props: nil, internet: nil, on_behalf_of: nil, payment_id: nil, receipt_industry_details: nil, receipt_operational_details: nil, refund_id: nil, tax_system_code: nil, timezone: nil, request_options: {})
       #
-      # @param customer [Yoomoney::Models::ReceiptDataCustomer] Body param: Информация о пользователе. Необходимо указать как минимум контактные
+      # @param customer [Yoomoney::Models::ReceiptDataCustomer] Body param: Данные покупателя.
       #
-      # @param items [Array<Yoomoney::Models::ReceiptCreateParams::Item>] Body param: Список товаров в чеке: для Чеков от ЮKassa: https://yookassa.ru/deve
+      # @param items [Array<Yoomoney::Models::ReceiptCreateParams::Item>] Body param: Позиции чека.
       #
-      # @param send_ [Boolean] Body param: Формирование чека в онлайн-кассе сразу после создания объекта чека.
+      # @param send_ [Boolean] Body param: Признак отправки чека пользователю.
       #
-      # @param settlements [Array<Yoomoney::Models::Settlement>] Body param: Перечень совершенных расчетов.
+      # @param settlements [Array<Yoomoney::Models::Settlement>] Body param: Данные расчетов.
       #
-      # @param type [Symbol, Yoomoney::Models::ReceiptType] Body param: Тип чека в онлайн-кассе: приход (payment) или возврат прихода (refun
+      # @param type [Symbol, Yoomoney::Models::ReceiptType] Body param: Тип чека.
       #
       # @param idempotence_key [String] Header param
       #
-      # @param additional_user_props [Yoomoney::Models::ReceiptCreateParams::AdditionalUserProps] Body param: Дополнительный реквизит пользователя (тег в 54 ФЗ — 1084). Можно пер
+      # @param additional_user_props [Yoomoney::Models::ReceiptCreateParams::AdditionalUserProps] Body param: Дополнительный реквизит пользователя.
       #
-      # @param internet [Boolean] Body param: Признак проведения платежа в интернете (тег в 54 ФЗ — 1125) — указыв
+      # @param internet [Boolean] Body param: Флаг расчета в интернете.
       #
-      # @param on_behalf_of [String] Body param: Идентификатор магазина в ЮKassa.
+      # @param on_behalf_of [String] Body param: Идентификатор магазина.
       #
-      # @param payment_id [String] Body param: Идентификатор платежа в ЮKassa.
+      # @param payment_id [String] Body param: Идентификатор платежа.
       #
-      # @param receipt_industry_details [Array<Yoomoney::Models::IndustryDetails>] Body param: Отраслевой реквизит чека (тег в 54 ФЗ — 1261). Нужно передавать, есл
+      # @param receipt_industry_details [Array<Yoomoney::Models::IndustryDetails>] Body param: Отраслевой реквизит чека.
       #
-      # @param receipt_operational_details [Yoomoney::Models::OperationalDetails] Body param: Данные операционного реквизита чека
+      # @param receipt_operational_details [Yoomoney::Models::OperationalDetails] Body param: Операционный реквизит чека.
       #
-      # @param refund_id [String] Body param: Идентификатор возврата платежа в ЮKassa.
+      # @param refund_id [String] Body param: Идентификатор возврата.
       #
-      # @param tax_system_code [Integer] Body param: Система налогообложения магазина (тег в 54 ФЗ — 1055). Для сторонних
+      # @param tax_system_code [Integer] Body param: Код системы налогообложения.
       #
-      # @param timezone [Integer] Body param: Номер часовой зоны для адреса, по которому вы принимаете платежи (те
+      # @param timezone [String] Body param: Часовой пояс.
       #
       # @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -64,13 +55,11 @@ module Yoomoney
         )
       end
 
-      # Запрос позволяет получить информацию о текущем состоянии чека по его уникальному
-      # идентификатору.
+      # Информация о чеке
       #
       # @overload retrieve(receipt_id, request_options: {})
       #
-      # @param receipt_id [String] Идентификатор чека в ЮKassa.
-      #
+      # @param receipt_id [String]
       # @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}, nil]
       #
       # @return [Yoomoney::Models::Receipt]
@@ -85,28 +74,16 @@ module Yoomoney
         )
       end
 
-      # Some parameter documentations has been truncated, see
-      # {Yoomoney::Models::ReceiptListParams} for more details.
-      #
-      # Запрос позволяет получить список чеков, отфильтрованный по заданным критериям.
-      # Можно запросить чеки по конкретному платежу, чеки по конкретному возврату или
-      # все чеки магазина. Подробнее о работе со списками:
-      # https://yookassa.ru/developers/using-api/lists
+      # Список чеков
       #
       # @overload list(created_at: nil, cursor: nil, limit: nil, payment_id: nil, refund_id: nil, status: nil, request_options: {})
       #
       # @param created_at [Yoomoney::Models::ReceiptListParams::CreatedAt]
-      #
-      # @param cursor [String] Указатель на следующий фрагмент списка. Пример: cursor=37a5c87d-3984-51e8-a7f3-8
-      #
-      # @param limit [Integer] Размер выдачи результатов запроса — количество объектов, передаваемых в ответе.
-      #
-      # @param payment_id [String] Фильтр по идентификатору платежа: https://yookassa.ru/developers/api#payment_obj
-      #
-      # @param refund_id [String] Фильтр по идентификатору возврата: https://yookassa.ru/developers/api#refund_obj
-      #
-      # @param status [Symbol, Yoomoney::Models::ReceiptRegistrationStatus] Фильтр по статусу чека. Возможные значения: pending — в обработке, succeeded — у
-      #
+      # @param cursor [String]
+      # @param limit [Integer]
+      # @param payment_id [String]
+      # @param refund_id [String]
+      # @param status [Symbol, Yoomoney::Models::ReceiptRegistrationStatus]
       # @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}, nil]
       #
       # @return [Yoomoney::Models::ReceiptListResponse]

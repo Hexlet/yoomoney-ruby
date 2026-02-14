@@ -8,7 +8,7 @@ module Yoomoney
         receipt_industry_details: ::Array[Yoomoney::IndustryDetails],
         receipt_operational_details: Yoomoney::OperationalDetails,
         tax_system_code: Integer,
-        timezone: Integer
+        timezone: String
       }
 
     class ReceiptData < Yoomoney::Internal::Type::BaseModel
@@ -40,9 +40,9 @@ module Yoomoney
 
       def tax_system_code=: (Integer) -> Integer
 
-      attr_reader timezone: Integer?
+      attr_reader timezone: String?
 
-      def timezone=: (Integer) -> Integer
+      def timezone=: (String) -> String
 
       def initialize: (
         items: ::Array[Yoomoney::ReceiptData::Item],
@@ -51,7 +51,7 @@ module Yoomoney
         ?receipt_industry_details: ::Array[Yoomoney::IndustryDetails],
         ?receipt_operational_details: Yoomoney::OperationalDetails,
         ?tax_system_code: Integer,
-        ?timezone: Integer
+        ?timezone: String
       ) -> void
 
       def to_hash: -> {
@@ -61,7 +61,7 @@ module Yoomoney
         receipt_industry_details: ::Array[Yoomoney::IndustryDetails],
         receipt_operational_details: Yoomoney::OperationalDetails,
         tax_system_code: Integer,
-        timezone: Integer
+        timezone: String
       }
 
       type item =

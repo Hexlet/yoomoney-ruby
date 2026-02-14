@@ -9,9 +9,9 @@ module Yoomoney
         status: Yoomoney::Models::payout_status,
         test_: bool,
         cancellation_details: Yoomoney::Payout::CancellationDetails,
-        deal: Yoomoney::Payout::Deal,
+        deal: Yoomoney::PayoutDealInfo,
         description: String,
-        metadata: ::Hash[Symbol, String?],
+        metadata: ::Hash[Symbol, String],
         receipt: Yoomoney::Payout::Receipt,
         self_employed: Yoomoney::Payout::SelfEmployed,
         succeeded_at: Time
@@ -36,17 +36,17 @@ module Yoomoney
         Yoomoney::Payout::CancellationDetails
       ) -> Yoomoney::Payout::CancellationDetails
 
-      attr_reader deal: Yoomoney::Payout::Deal?
+      attr_reader deal: Yoomoney::PayoutDealInfo?
 
-      def deal=: (Yoomoney::Payout::Deal) -> Yoomoney::Payout::Deal
+      def deal=: (Yoomoney::PayoutDealInfo) -> Yoomoney::PayoutDealInfo
 
       attr_reader description: String?
 
       def description=: (String) -> String
 
-      attr_reader metadata: ::Hash[Symbol, String?]?
+      attr_reader metadata: ::Hash[Symbol, String]?
 
-      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+      def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
 
       attr_reader receipt: Yoomoney::Payout::Receipt?
 
@@ -70,9 +70,9 @@ module Yoomoney
         status: Yoomoney::Models::payout_status,
         test_: bool,
         ?cancellation_details: Yoomoney::Payout::CancellationDetails,
-        ?deal: Yoomoney::Payout::Deal,
+        ?deal: Yoomoney::PayoutDealInfo,
         ?description: String,
-        ?metadata: ::Hash[Symbol, String?],
+        ?metadata: ::Hash[Symbol, String],
         ?receipt: Yoomoney::Payout::Receipt,
         ?self_employed: Yoomoney::Payout::SelfEmployed,
         ?succeeded_at: Time
@@ -86,9 +86,9 @@ module Yoomoney
         status: Yoomoney::Models::payout_status,
         test_: bool,
         cancellation_details: Yoomoney::Payout::CancellationDetails,
-        deal: Yoomoney::Payout::Deal,
+        deal: Yoomoney::PayoutDealInfo,
         description: String,
-        metadata: ::Hash[Symbol, String?],
+        metadata: ::Hash[Symbol, String],
         receipt: Yoomoney::Payout::Receipt,
         self_employed: Yoomoney::Payout::SelfEmployed,
         succeeded_at: Time
@@ -176,108 +176,35 @@ module Yoomoney
           def to_hash: -> { account_number: String }
         end
 
-        type payout_to_sbp_destination =
-          { bank_id: String, phone: String, recipient_checked: bool }
+        type payout_to_sbp_destination = { bank_id: String, phone: String }
 
         class PayoutToSbpDestination < Yoomoney::Models::PayoutDestination
-          def bank_id: -> String
+          def bank_id: -> String?
 
           def bank_id=: (String _) -> String
 
-          def phone: -> String
+          def phone: -> String?
 
           def phone=: (String _) -> String
 
-          def recipient_checked: -> bool
+          def initialize: (?bank_id: String, ?phone: String) -> void
 
-          def recipient_checked=: (bool _) -> bool
-
-          def initialize: (
-            bank_id: String,
-            phone: String,
-            recipient_checked: bool
-          ) -> void
-
-          def to_hash: -> {
-            bank_id: String,
-            phone: String,
-            recipient_checked: bool
-          }
+          def to_hash: -> { bank_id: String, phone: String }
         end
 
         def self?.variants: -> ::Array[Yoomoney::Models::Payout::payout_destination]
       end
 
-      type cancellation_details =
-        {
-          party: Yoomoney::Models::Payout::CancellationDetails::party,
-          reason: Yoomoney::Models::Payout::CancellationDetails::reason
-        }
+      type cancellation_details = { party: String, reason: String }
 
       class CancellationDetails < Yoomoney::Internal::Type::BaseModel
-        attr_accessor party: Yoomoney::Models::Payout::CancellationDetails::party
+        attr_accessor party: String
 
-        attr_accessor reason: Yoomoney::Models::Payout::CancellationDetails::reason
+        attr_accessor reason: String
 
-        def initialize: (
-          party: Yoomoney::Models::Payout::CancellationDetails::party,
-          reason: Yoomoney::Models::Payout::CancellationDetails::reason
-        ) -> void
+        def initialize: (party: String, reason: String) -> void
 
-        def to_hash: -> {
-          party: Yoomoney::Models::Payout::CancellationDetails::party,
-          reason: Yoomoney::Models::Payout::CancellationDetails::reason
-        }
-
-        type party = :yoo_money | :payout_network
-
-        module Party
-          extend Yoomoney::Internal::Type::Enum
-
-          YOO_MONEY: :yoo_money
-          PAYOUT_NETWORK: :payout_network
-
-          def self?.values: -> ::Array[Yoomoney::Models::Payout::CancellationDetails::party]
-        end
-
-        type reason =
-          :insufficient_funds
-          | :fraud_suspected
-          | :one_time_limit_exceeded
-          | :periodic_limit_exceeded
-          | :rejected_by_payee
-          | :general_decline
-          | :issuer_unavailable
-          | :recipient_not_found
-          | :recipient_check_failed
-          | :identification_required
-          | :self_employed_annual_limit_exceeded
-
-        module Reason
-          extend Yoomoney::Internal::Type::Enum
-
-          INSUFFICIENT_FUNDS: :insufficient_funds
-          FRAUD_SUSPECTED: :fraud_suspected
-          ONE_TIME_LIMIT_EXCEEDED: :one_time_limit_exceeded
-          PERIODIC_LIMIT_EXCEEDED: :periodic_limit_exceeded
-          REJECTED_BY_PAYEE: :rejected_by_payee
-          GENERAL_DECLINE: :general_decline
-          ISSUER_UNAVAILABLE: :issuer_unavailable
-          RECIPIENT_NOT_FOUND: :recipient_not_found
-          RECIPIENT_CHECK_FAILED: :recipient_check_failed
-          IDENTIFICATION_REQUIRED: :identification_required
-          SELF_EMPLOYED_ANNUAL_LIMIT_EXCEEDED: :self_employed_annual_limit_exceeded
-
-          def self?.values: -> ::Array[Yoomoney::Models::Payout::CancellationDetails::reason]
-        end
-      end
-
-      type deal = {  }
-
-      class Deal < Yoomoney::Models::PayoutDealInfo
-        def initialize: -> void
-
-        def to_hash: -> {  }
+        def to_hash: -> { party: String, reason: String }
       end
 
       type receipt =
