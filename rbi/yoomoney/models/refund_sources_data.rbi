@@ -8,45 +8,37 @@ module Yoomoney
           T.any(Yoomoney::RefundSourcesData, Yoomoney::Internal::AnyHash)
         end
 
-      # Идентификатор магазина в ЮKassa.
+      # Идентификатор магазина.
       sig { returns(String) }
       attr_accessor :account_id
 
-      # Сумма в выбранной валюте.
-      sig { returns(Yoomoney::RefundSourcesData::Amount) }
+      # Сумма возврата.
+      sig { returns(Yoomoney::MonetaryAmount) }
       attr_reader :amount
 
-      sig { params(amount: Yoomoney::RefundSourcesData::Amount::OrHash).void }
+      sig { params(amount: Yoomoney::MonetaryAmount::OrHash).void }
       attr_writer :amount
 
-      # Сумма в выбранной валюте.
-      sig { returns(T.nilable(Yoomoney::RefundSourcesData::PlatformFeeAmount)) }
+      # Комиссия, которую вы удержали при оплате.
+      sig { returns(T.nilable(Yoomoney::MonetaryAmount)) }
       attr_reader :platform_fee_amount
 
-      sig do
-        params(
-          platform_fee_amount:
-            Yoomoney::RefundSourcesData::PlatformFeeAmount::OrHash
-        ).void
-      end
+      sig { params(platform_fee_amount: Yoomoney::MonetaryAmount::OrHash).void }
       attr_writer :platform_fee_amount
 
-      # Данные о том, с какого магазина и какую сумму нужно удержать для проведения
-      # возврата. Сейчас в этом параметре можно передать данные только одного магазина.
       sig do
         params(
           account_id: String,
-          amount: Yoomoney::RefundSourcesData::Amount::OrHash,
-          platform_fee_amount:
-            Yoomoney::RefundSourcesData::PlatformFeeAmount::OrHash
+          amount: Yoomoney::MonetaryAmount::OrHash,
+          platform_fee_amount: Yoomoney::MonetaryAmount::OrHash
         ).returns(T.attached_class)
       end
       def self.new(
-        # Идентификатор магазина в ЮKassa.
+        # Идентификатор магазина.
         account_id:,
-        # Сумма в выбранной валюте.
+        # Сумма возврата.
         amount:,
-        # Сумма в выбранной валюте.
+        # Комиссия, которую вы удержали при оплате.
         platform_fee_amount: nil
       )
       end
@@ -55,50 +47,12 @@ module Yoomoney
         override.returns(
           {
             account_id: String,
-            amount: Yoomoney::RefundSourcesData::Amount,
-            platform_fee_amount: Yoomoney::RefundSourcesData::PlatformFeeAmount
+            amount: Yoomoney::MonetaryAmount,
+            platform_fee_amount: Yoomoney::MonetaryAmount
           }
         )
       end
       def to_hash
-      end
-
-      class Amount < Yoomoney::Models::MonetaryAmount
-        OrHash =
-          T.type_alias do
-            T.any(
-              Yoomoney::RefundSourcesData::Amount,
-              Yoomoney::Internal::AnyHash
-            )
-          end
-
-        # Сумма в выбранной валюте.
-        sig { returns(T.attached_class) }
-        def self.new
-        end
-
-        sig { override.returns({}) }
-        def to_hash
-        end
-      end
-
-      class PlatformFeeAmount < Yoomoney::Models::MonetaryAmount
-        OrHash =
-          T.type_alias do
-            T.any(
-              Yoomoney::RefundSourcesData::PlatformFeeAmount,
-              Yoomoney::Internal::AnyHash
-            )
-          end
-
-        # Сумма в выбранной валюте.
-        sig { returns(T.attached_class) }
-        def self.new
-        end
-
-        sig { override.returns({}) }
-        def to_hash
-        end
       end
     end
   end

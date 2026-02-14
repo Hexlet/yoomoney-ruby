@@ -4,13 +4,13 @@ module Yoomoney
   module Models
     class CardRequestDataWithCsc < Yoomoney::Internal::Type::BaseModel
       # @!attribute expiry_month
-      #   Срок действия, месяц, MM.
+      #   Срок действия, месяц. Формат: MM.
       #
       #   @return [String]
       required :expiry_month, String
 
       # @!attribute expiry_year
-      #   Срок действия, год, YYYY.
+      #   Срок действия, год. Формат: YYYY.
       #
       #   @return [String]
       required :expiry_year, String
@@ -34,9 +34,9 @@ module Yoomoney
       optional :csc, String
 
       # @!method initialize(expiry_month:, expiry_year:, number:, cardholder: nil, csc: nil)
-      #   @param expiry_month [String] Срок действия, месяц, MM.
+      #   @param expiry_month [String] Срок действия, месяц. Формат: MM.
       #
-      #   @param expiry_year [String] Срок действия, год, YYYY.
+      #   @param expiry_year [String] Срок действия, год. Формат: YYYY.
       #
       #   @param number [String] Номер банковской карты.
       #

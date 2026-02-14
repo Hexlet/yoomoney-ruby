@@ -1,22 +1,47 @@
 module Yoomoney
   module Models
     type payment_deal_info =
-      { id: String, settlements: ::Array[Yoomoney::SettlementPaymentItem] }
+      {
+        id: String,
+        settlements: ::Array[Yoomoney::PaymentDealInfo::Settlement]
+      }
 
     class PaymentDealInfo < Yoomoney::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor settlements: ::Array[Yoomoney::SettlementPaymentItem]
+      attr_accessor settlements: ::Array[Yoomoney::PaymentDealInfo::Settlement]
 
       def initialize: (
         id: String,
-        settlements: ::Array[Yoomoney::SettlementPaymentItem]
+        settlements: ::Array[Yoomoney::PaymentDealInfo::Settlement]
       ) -> void
 
       def to_hash: -> {
         id: String,
-        settlements: ::Array[Yoomoney::SettlementPaymentItem]
+        settlements: ::Array[Yoomoney::PaymentDealInfo::Settlement]
       }
+
+      type settlement =
+        {
+          amount: Yoomoney::MonetaryAmount,
+          type: Yoomoney::Models::settlement_item_type
+        }
+
+      class Settlement < Yoomoney::Internal::Type::BaseModel
+        attr_accessor amount: Yoomoney::MonetaryAmount
+
+        attr_accessor type: Yoomoney::Models::settlement_item_type
+
+        def initialize: (
+          amount: Yoomoney::MonetaryAmount,
+          type: Yoomoney::Models::settlement_item_type
+        ) -> void
+
+        def to_hash: -> {
+          amount: Yoomoney::MonetaryAmount,
+          type: Yoomoney::Models::settlement_item_type
+        }
+      end
     end
   end
 end

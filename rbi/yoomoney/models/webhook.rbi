@@ -10,16 +10,14 @@ module Yoomoney
       sig { returns(String) }
       attr_accessor :id
 
-      # Событие: https://yookassa.ru/developers/using-api/webhooks#events, о котором
-      # уведомляет ЮKassa.
+      # Событие, о котором нужно уведомить.
       sig { returns(Yoomoney::NotificationEventType::TaggedSymbol) }
       attr_accessor :event
 
-      # URL, на который ЮKassa отправляет уведомления.
+      # URL для уведомлений.
       sig { returns(String) }
       attr_accessor :url
 
-      # Данные о webhook.
       sig do
         params(
           id: String,
@@ -30,10 +28,9 @@ module Yoomoney
       def self.new(
         # Идентификатор webhook.
         id:,
-        # Событие: https://yookassa.ru/developers/using-api/webhooks#events, о котором
-        # уведомляет ЮKassa.
+        # Событие, о котором нужно уведомить.
         event:,
-        # URL, на который ЮKassa отправляет уведомления.
+        # URL для уведомлений.
         url:
       )
       end

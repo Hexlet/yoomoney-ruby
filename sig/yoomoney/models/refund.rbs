@@ -10,7 +10,7 @@ module Yoomoney
         cancellation_details: Yoomoney::Refund::CancellationDetails,
         deal: Yoomoney::Refund::Deal,
         description: String,
-        metadata: ::Hash[Symbol, String?],
+        metadata: ::Hash[Symbol, String],
         receipt_registration: Yoomoney::Models::receipt_registration_status,
         refund_authorization_details: Yoomoney::Refund::RefundAuthorizationDetails,
         refund_method: Yoomoney::Models::Refund::refund_method,
@@ -42,9 +42,9 @@ module Yoomoney
 
       def description=: (String) -> String
 
-      attr_reader metadata: ::Hash[Symbol, String?]?
+      attr_reader metadata: ::Hash[Symbol, String]?
 
-      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+      def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
 
       attr_reader receipt_registration: Yoomoney::Models::receipt_registration_status?
 
@@ -79,7 +79,7 @@ module Yoomoney
         ?cancellation_details: Yoomoney::Refund::CancellationDetails,
         ?deal: Yoomoney::Refund::Deal,
         ?description: String,
-        ?metadata: ::Hash[Symbol, String?],
+        ?metadata: ::Hash[Symbol, String],
         ?receipt_registration: Yoomoney::Models::receipt_registration_status,
         ?refund_authorization_details: Yoomoney::Refund::RefundAuthorizationDetails,
         ?refund_method: Yoomoney::Models::Refund::refund_method,
@@ -95,95 +95,67 @@ module Yoomoney
         cancellation_details: Yoomoney::Refund::CancellationDetails,
         deal: Yoomoney::Refund::Deal,
         description: String,
-        metadata: ::Hash[Symbol, String?],
+        metadata: ::Hash[Symbol, String],
         receipt_registration: Yoomoney::Models::receipt_registration_status,
         refund_authorization_details: Yoomoney::Refund::RefundAuthorizationDetails,
         refund_method: Yoomoney::Models::Refund::refund_method,
         sources: ::Array[Yoomoney::RefundSourcesData]
       }
 
-      type cancellation_details =
-        {
-          party: Yoomoney::Models::Refund::CancellationDetails::party,
-          reason: Yoomoney::Models::Refund::CancellationDetails::reason
-        }
+      type cancellation_details = { party: String, reason: String }
 
       class CancellationDetails < Yoomoney::Internal::Type::BaseModel
-        attr_accessor party: Yoomoney::Models::Refund::CancellationDetails::party
+        attr_accessor party: String
 
-        attr_accessor reason: Yoomoney::Models::Refund::CancellationDetails::reason
+        attr_accessor reason: String
 
-        def initialize: (
-          party: Yoomoney::Models::Refund::CancellationDetails::party,
-          reason: Yoomoney::Models::Refund::CancellationDetails::reason
-        ) -> void
+        def initialize: (party: String, reason: String) -> void
 
-        def to_hash: -> {
-          party: Yoomoney::Models::Refund::CancellationDetails::party,
-          reason: Yoomoney::Models::Refund::CancellationDetails::reason
-        }
-
-        type party = :yoo_money | :refund_network
-
-        module Party
-          extend Yoomoney::Internal::Type::Enum
-
-          YOO_MONEY: :yoo_money
-          REFUND_NETWORK: :refund_network
-
-          def self?.values: -> ::Array[Yoomoney::Models::Refund::CancellationDetails::party]
-        end
-
-        type reason =
-          :yoo_money_account_closed
-          | :insufficient_funds
-          | :general_decline
-          | :rejected_by_payee
-          | :rejected_by_timeout
-          | :payment_basket_id_not_found
-          | :payment_article_number_not_found
-          | :payment_tru_code_not_found
-          | :too_many_refunding_articles
-          | :some_articles_already_refunded
-
-        module Reason
-          extend Yoomoney::Internal::Type::Enum
-
-          YOO_MONEY_ACCOUNT_CLOSED: :yoo_money_account_closed
-          INSUFFICIENT_FUNDS: :insufficient_funds
-          GENERAL_DECLINE: :general_decline
-          REJECTED_BY_PAYEE: :rejected_by_payee
-          REJECTED_BY_TIMEOUT: :rejected_by_timeout
-          PAYMENT_BASKET_ID_NOT_FOUND: :payment_basket_id_not_found
-          PAYMENT_ARTICLE_NUMBER_NOT_FOUND: :payment_article_number_not_found
-          PAYMENT_TRU_CODE_NOT_FOUND: :payment_tru_code_not_found
-          TOO_MANY_REFUNDING_ARTICLES: :too_many_refunding_articles
-          SOME_ARTICLES_ALREADY_REFUNDED: :some_articles_already_refunded
-
-          def self?.values: -> ::Array[Yoomoney::Models::Refund::CancellationDetails::reason]
-        end
+        def to_hash: -> { party: String, reason: String }
       end
 
       type deal =
         {
           id: String,
-          refund_settlements: ::Array[Yoomoney::SettlementRefundItem]
+          refund_settlements: ::Array[Yoomoney::Refund::Deal::RefundSettlement]
         }
 
       class Deal < Yoomoney::Internal::Type::BaseModel
         attr_accessor id: String
 
-        attr_accessor refund_settlements: ::Array[Yoomoney::SettlementRefundItem]
+        attr_accessor refund_settlements: ::Array[Yoomoney::Refund::Deal::RefundSettlement]
 
         def initialize: (
           id: String,
-          refund_settlements: ::Array[Yoomoney::SettlementRefundItem]
+          refund_settlements: ::Array[Yoomoney::Refund::Deal::RefundSettlement]
         ) -> void
 
         def to_hash: -> {
           id: String,
-          refund_settlements: ::Array[Yoomoney::SettlementRefundItem]
+          refund_settlements: ::Array[Yoomoney::Refund::Deal::RefundSettlement]
         }
+
+        type refund_settlement =
+          {
+            amount: Yoomoney::MonetaryAmount,
+            type: Yoomoney::Models::settlement_item_type
+          }
+
+        class RefundSettlement < Yoomoney::Internal::Type::BaseModel
+          attr_accessor amount: Yoomoney::MonetaryAmount
+
+          attr_accessor type: Yoomoney::Models::settlement_item_type
+
+          def initialize: (
+            amount: Yoomoney::MonetaryAmount,
+            type: Yoomoney::Models::settlement_item_type
+          ) -> void
+
+          def to_hash: -> {
+            amount: Yoomoney::MonetaryAmount,
+            type: Yoomoney::Models::settlement_item_type
+          }
+        end
       end
 
       type refund_authorization_details = { rrn: String }

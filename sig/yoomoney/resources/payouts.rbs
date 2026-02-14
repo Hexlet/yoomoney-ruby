@@ -6,7 +6,7 @@ module Yoomoney
         idempotence_key: String,
         ?deal: Yoomoney::PayoutDealInfo,
         ?description: String,
-        ?metadata: ::Hash[Symbol, String?],
+        ?metadata: ::Hash[Symbol, String],
         ?payment_method_id: String,
         ?payout_destination_data: Yoomoney::Models::PayoutCreateParams::payout_destination_data,
         ?payout_token: String,
@@ -32,7 +32,6 @@ module Yoomoney
         ?created_at: Yoomoney::PayoutSearchParams::CreatedAt,
         ?cursor: String,
         ?limit: Integer,
-        ?metadata: ::Hash[Symbol, String],
         ?request_options: Yoomoney::request_opts
       ) -> Yoomoney::PayoutsList
 

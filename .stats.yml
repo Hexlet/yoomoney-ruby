@@ -1,4 +1,4 @@
 configured_endpoints: 29
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/hexlet%2Fyoomoney-e79983ebb73dc492639a179cde02e5b05a95e62b0d58f1d46d88f5fbbe7c08e9.yml
-openapi_spec_hash: fc0d1bbe6fdf77f789ac85296886b59c
-config_hash: 6433d1cac8d875904a0b31d4e1c47660
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/hexlet%2Fyoomoney-fe24d3dfadad5d93c34abf83e572cc9d7125c28f090934bf1d41f6557ca75485.yml
+openapi_spec_hash: f220490d3d2ce47ac80ed85d1447e231
+config_hash: 821caa7ed3e3faede827f9735dace317

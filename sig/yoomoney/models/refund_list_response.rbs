@@ -1,16 +1,12 @@
 module Yoomoney
   module Models
     type refund_list_response =
-      {
-        items: ::Array[Yoomoney::Refund],
-        type: Yoomoney::Models::RefundListResponse::type_,
-        next_cursor: String
-      }
+      { items: ::Array[Yoomoney::Refund], type: String, next_cursor: String }
 
     class RefundListResponse < Yoomoney::Internal::Type::BaseModel
       attr_accessor items: ::Array[Yoomoney::Refund]
 
-      attr_accessor type: Yoomoney::Models::RefundListResponse::type_
+      attr_accessor type: String
 
       attr_reader next_cursor: String?
 
@@ -18,25 +14,15 @@ module Yoomoney
 
       def initialize: (
         items: ::Array[Yoomoney::Refund],
-        type: Yoomoney::Models::RefundListResponse::type_,
+        type: String,
         ?next_cursor: String
       ) -> void
 
       def to_hash: -> {
         items: ::Array[Yoomoney::Refund],
-        type: Yoomoney::Models::RefundListResponse::type_,
+        type: String,
         next_cursor: String
       }
-
-      type type_ = :list
-
-      module Type
-        extend Yoomoney::Internal::Type::Enum
-
-        LIST: :list
-
-        def self?.values: -> ::Array[Yoomoney::Models::RefundListResponse::type_]
-      end
     end
   end
 end

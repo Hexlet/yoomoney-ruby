@@ -12,7 +12,7 @@ module Yoomoney
         test_: bool,
         type: Yoomoney::Models::deal_type,
         description: String,
-        metadata: ::Hash[Symbol, String?]
+        metadata: ::Hash[Symbol, String]
       }
 
     class SafeDeal < Yoomoney::Internal::Type::BaseModel
@@ -38,9 +38,9 @@ module Yoomoney
 
       def description=: (String) -> String
 
-      attr_reader metadata: ::Hash[Symbol, String?]?
+      attr_reader metadata: ::Hash[Symbol, String]?
 
-      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+      def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
 
       def initialize: (
         id: String,
@@ -53,7 +53,7 @@ module Yoomoney
         test_: bool,
         type: Yoomoney::Models::deal_type,
         ?description: String,
-        ?metadata: ::Hash[Symbol, String?]
+        ?metadata: ::Hash[Symbol, String]
       ) -> void
 
       def to_hash: -> {
@@ -67,7 +67,7 @@ module Yoomoney
         test_: bool,
         type: Yoomoney::Models::deal_type,
         description: String,
-        metadata: ::Hash[Symbol, String?]
+        metadata: ::Hash[Symbol, String]
       }
 
       type status = :opened | :closed

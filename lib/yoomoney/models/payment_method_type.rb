@@ -2,9 +2,6 @@
 
 module Yoomoney
   module Models
-    # Код способа оплаты — тип платежного средства, которое используется для оплаты.
-    # Подробнее о способах оплаты:
-    # https://yookassa.ru/developers/payment-acceptance/getting-started/payment-methods
     module PaymentMethodType
       extend Yoomoney::Internal::Type::Enum
 

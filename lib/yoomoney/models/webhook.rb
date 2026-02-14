@@ -11,29 +11,23 @@ module Yoomoney
       required :id, String
 
       # @!attribute event
-      #   Событие: https://yookassa.ru/developers/using-api/webhooks#events, о котором
-      #   уведомляет ЮKassa.
+      #   Событие, о котором нужно уведомить.
       #
       #   @return [Symbol, Yoomoney::Models::NotificationEventType]
       required :event, enum: -> { Yoomoney::NotificationEventType }
 
       # @!attribute url
-      #   URL, на который ЮKassa отправляет уведомления.
+      #   URL для уведомлений.
       #
       #   @return [String]
       required :url, String
 
       # @!method initialize(id:, event:, url:)
-      #   Some parameter documentations has been truncated, see
-      #   {Yoomoney::Models::Webhook} for more details.
-      #
-      #   Данные о webhook.
-      #
       #   @param id [String] Идентификатор webhook.
       #
-      #   @param event [Symbol, Yoomoney::Models::NotificationEventType] Событие: https://yookassa.ru/developers/using-api/webhooks#events, о котором уве
+      #   @param event [Symbol, Yoomoney::Models::NotificationEventType] Событие, о котором нужно уведомить.
       #
-      #   @param url [String] URL, на который ЮKassa отправляет уведомления.
+      #   @param url [String] URL для уведомлений.
     end
   end
 end

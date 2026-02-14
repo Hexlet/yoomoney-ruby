@@ -1,38 +1,15 @@
 module Yoomoney
   module Models
-    type settlement =
-      {
-        amount: Yoomoney::MonetaryAmount,
-        type: Yoomoney::Models::Settlement::type_
-      }
+    type settlement = { amount: Yoomoney::MonetaryAmount, type: String }
 
     class Settlement < Yoomoney::Internal::Type::BaseModel
       attr_accessor amount: Yoomoney::MonetaryAmount
 
-      attr_accessor type: Yoomoney::Models::Settlement::type_
+      attr_accessor type: String
 
-      def initialize: (
-        amount: Yoomoney::MonetaryAmount,
-        type: Yoomoney::Models::Settlement::type_
-      ) -> void
+      def initialize: (amount: Yoomoney::MonetaryAmount, type: String) -> void
 
-      def to_hash: -> {
-        amount: Yoomoney::MonetaryAmount,
-        type: Yoomoney::Models::Settlement::type_
-      }
-
-      type type_ = :cashless | :prepayment | :postpayment | :consideration
-
-      module Type
-        extend Yoomoney::Internal::Type::Enum
-
-        CASHLESS: :cashless
-        PREPAYMENT: :prepayment
-        POSTPAYMENT: :postpayment
-        CONSIDERATION: :consideration
-
-        def self?.values: -> ::Array[Yoomoney::Models::Settlement::type_]
-      end
+      def to_hash: -> { amount: Yoomoney::MonetaryAmount, type: String }
     end
   end
 end

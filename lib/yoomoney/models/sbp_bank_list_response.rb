@@ -10,59 +10,39 @@ module Yoomoney
       required :items, -> { Yoomoney::Internal::Type::ArrayOf[Yoomoney::Models::SbpBankListResponse::Item] }
 
       # @!attribute type
-      #   Формат выдачи результатов запроса. Возможное значение: list (список).
       #
-      #   @return [Symbol, Yoomoney::Models::SbpBankListResponse::Type]
-      required :type, enum: -> { Yoomoney::Models::SbpBankListResponse::Type }
+      #   @return [String]
+      required :type, String
 
       # @!method initialize(items:, type:)
-      #   Список участников СБП. Участники СБП отсортированы по идентификатору участника в
-      #   порядке убывания.
-      #
       #   @param items [Array<Yoomoney::Models::SbpBankListResponse::Item>]
-      #
-      #   @param type [Symbol, Yoomoney::Models::SbpBankListResponse::Type] Формат выдачи результатов запроса. Возможное значение: list (список).
+      #   @param type [String]
 
       class Item < Yoomoney::Internal::Type::BaseModel
         # @!attribute bank_id
-        #   Идентификатор банка или платежного сервиса в СБП (НСПК).
+        #   Идентификатор участника СБП.
         #
         #   @return [String]
         required :bank_id, String
 
         # @!attribute bic
-        #   Банковский идентификационный код (БИК) банка или платежного сервиса.
+        #   БИК участника СБП.
         #
         #   @return [String]
         required :bic, String
 
         # @!attribute name
-        #   Название банка или платежного сервиса в СБП.
+        #   Название участника СБП.
         #
         #   @return [String]
         required :name, String
 
         # @!method initialize(bank_id:, bic:, name:)
-        #   Объект участника СБП (Системы быстрых платежей ЦБ РФ) — актуальная информация о
-        #   банке или платежном сервисе, подключенном к СБП.
+        #   @param bank_id [String] Идентификатор участника СБП.
         #
-        #   @param bank_id [String] Идентификатор банка или платежного сервиса в СБП (НСПК).
+        #   @param bic [String] БИК участника СБП.
         #
-        #   @param bic [String] Банковский идентификационный код (БИК) банка или платежного сервиса.
-        #
-        #   @param name [String] Название банка или платежного сервиса в СБП.
-      end
-
-      # Формат выдачи результатов запроса. Возможное значение: list (список).
-      #
-      # @see Yoomoney::Models::SbpBankListResponse#type
-      module Type
-        extend Yoomoney::Internal::Type::Enum
-
-        LIST = :list
-
-        # @!method self.values
-        #   @return [Array<Symbol>]
+        #   @param name [String] Название участника СБП.
       end
     end
   end

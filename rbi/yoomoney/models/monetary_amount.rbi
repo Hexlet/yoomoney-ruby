@@ -8,18 +8,15 @@ module Yoomoney
           T.any(Yoomoney::MonetaryAmount, Yoomoney::Internal::AnyHash)
         end
 
-      # Трехбуквенный код валюты в формате ISO-4217:
-      # https://www.iso.org/iso-4217-currency-codes.html. Пример: RUB.
+      # Код валюты в формате ISO-4217.
       sig { returns(Yoomoney::MonetaryAmount::Currency::OrSymbol) }
       attr_accessor :currency
 
-      # Сумма в выбранной валюте. Всегда дробное значение. Разделитель дробной части —
-      # точка, разделитель тысяч отсутствует. Количество знаков после точки зависит от
-      # выбранной валюты. Пример: 1000.00.
+      # Сумма в выбранной валюте. Выражается в виде строки и пишется через точку,
+      # например 10.00.
       sig { returns(String) }
       attr_accessor :value
 
-      # Сумма в выбранной валюте.
       sig do
         params(
           currency: Yoomoney::MonetaryAmount::Currency::OrSymbol,
@@ -27,12 +24,10 @@ module Yoomoney
         ).returns(T.attached_class)
       end
       def self.new(
-        # Трехбуквенный код валюты в формате ISO-4217:
-        # https://www.iso.org/iso-4217-currency-codes.html. Пример: RUB.
+        # Код валюты в формате ISO-4217.
         currency:,
-        # Сумма в выбранной валюте. Всегда дробное значение. Разделитель дробной части —
-        # точка, разделитель тысяч отсутствует. Количество знаков после точки зависит от
-        # выбранной валюты. Пример: 1000.00.
+        # Сумма в выбранной валюте. Выражается в виде строки и пишется через точку,
+        # например 10.00.
         value:
       )
       end
@@ -48,8 +43,7 @@ module Yoomoney
       def to_hash
       end
 
-      # Трехбуквенный код валюты в формате ISO-4217:
-      # https://www.iso.org/iso-4217-currency-codes.html. Пример: RUB.
+      # Код валюты в формате ISO-4217.
       module Currency
         extend Yoomoney::Internal::Type::Enum
 

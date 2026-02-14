@@ -2,7 +2,6 @@
 
 module Yoomoney
   module Models
-    # Код способа оплаты, который использовался при проведении платежа.
     module RefundMethodType
       extend Yoomoney::Internal::Type::Enum
 

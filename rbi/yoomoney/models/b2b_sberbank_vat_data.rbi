@@ -8,21 +8,15 @@ module Yoomoney
           T.any(Yoomoney::B2bSberbankVatData, Yoomoney::Internal::AnyHash)
         end
 
-      # Тип способа расчета НДС.
       sig { returns(Yoomoney::B2bSberbankVatData::Type::OrSymbol) }
       attr_accessor :type
 
-      # Данные о налоге на добавленную стоимость (НДС). Платеж может облагаться или не
-      # облагаться НДС. Товары могут облагаться по одной ставке НДС или по разным.
       sig do
         params(type: Yoomoney::B2bSberbankVatData::Type::OrSymbol).returns(
           T.attached_class
         )
       end
-      def self.new(
-        # Тип способа расчета НДС.
-        type:
-      )
+      def self.new(type:)
       end
 
       sig do
@@ -31,7 +25,6 @@ module Yoomoney
       def to_hash
       end
 
-      # Тип способа расчета НДС.
       module Type
         extend Yoomoney::Internal::Type::Enum
 

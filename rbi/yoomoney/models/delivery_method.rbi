@@ -8,43 +8,19 @@ module Yoomoney
           T.any(Yoomoney::DeliveryMethod, Yoomoney::Internal::AnyHash)
         end
 
-      sig { returns(Yoomoney::DeliveryMethod::Type::TaggedSymbol) }
+      # Тип способа доставки.
+      sig { returns(String) }
       attr_accessor :type
 
-      # Данные о выбранном способе доставки счета. Присутствует только для счетов в
-      # статусе pending.
-      sig do
-        params(type: Yoomoney::DeliveryMethod::Type::OrSymbol).returns(
-          T.attached_class
-        )
-      end
-      def self.new(type:)
+      sig { params(type: String).returns(T.attached_class) }
+      def self.new(
+        # Тип способа доставки.
+        type:
+      )
       end
 
-      sig do
-        override.returns({ type: Yoomoney::DeliveryMethod::Type::TaggedSymbol })
-      end
+      sig { override.returns({ type: String }) }
       def to_hash
-      end
-
-      module Type
-        extend Yoomoney::Internal::Type::Enum
-
-        TaggedSymbol =
-          T.type_alias { T.all(Symbol, Yoomoney::DeliveryMethod::Type) }
-        OrSymbol = T.type_alias { T.any(Symbol, String) }
-
-        SELF = T.let(:self, Yoomoney::DeliveryMethod::Type::TaggedSymbol)
-        SMS = T.let(:sms, Yoomoney::DeliveryMethod::Type::TaggedSymbol)
-        EMAIL = T.let(:email, Yoomoney::DeliveryMethod::Type::TaggedSymbol)
-
-        sig do
-          override.returns(
-            T::Array[Yoomoney::DeliveryMethod::Type::TaggedSymbol]
-          )
-        end
-        def self.values
-        end
       end
     end
   end

@@ -2,7 +2,6 @@
 
 module Yoomoney
   module Models
-    # Тип операции.
     module SettlementItemType
       extend Yoomoney::Internal::Type::Enum
 

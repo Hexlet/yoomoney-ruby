@@ -11,14 +11,14 @@ class Yoomoney::Test::Resources::ReceiptsTest < Yoomoney::Test::ResourceTest
         customer: {},
         items: [
           {
-            amount: {currency: :RUB, value: "1000.00"},
+            amount: {currency: :RUB, value: "value"},
             description: "description",
-            quantity: 1,
-            vat_code: 1
+            quantity: 0,
+            vat_code: 0
           }
         ],
         send_: true,
-        settlements: [{amount: {currency: :RUB, value: "1000.00"}, type: :cashless}],
+        settlements: [{amount: {currency: :RUB, value: "value"}, type: "type"}],
         type: :payment,
         idempotence_key: "Idempotence-Key"
       )
@@ -46,7 +46,7 @@ class Yoomoney::Test::Resources::ReceiptsTest < Yoomoney::Test::ResourceTest
         registered_at: Time | nil,
         settlements: ^(Yoomoney::Internal::Type::ArrayOf[Yoomoney::Settlement]) | nil,
         tax_system_code: Integer | nil,
-        timezone: Integer | nil
+        timezone: String | nil
       }
     end
   end
@@ -54,7 +54,7 @@ class Yoomoney::Test::Resources::ReceiptsTest < Yoomoney::Test::ResourceTest
   def test_retrieve
     skip("Prism tests are disabled")
 
-    response = @yoomoney.receipts.retrieve("rt-1da5c87d-0984-50e8-a7f3-8de646dd9ec9")
+    response = @yoomoney.receipts.retrieve("receipt_id")
 
     assert_pattern do
       response => Yoomoney::Receipt
@@ -79,7 +79,7 @@ class Yoomoney::Test::Resources::ReceiptsTest < Yoomoney::Test::ResourceTest
         registered_at: Time | nil,
         settlements: ^(Yoomoney::Internal::Type::ArrayOf[Yoomoney::Settlement]) | nil,
         tax_system_code: Integer | nil,
-        timezone: Integer | nil
+        timezone: String | nil
       }
     end
   end
@@ -96,7 +96,7 @@ class Yoomoney::Test::Resources::ReceiptsTest < Yoomoney::Test::ResourceTest
     assert_pattern do
       response => {
         items: ^(Yoomoney::Internal::Type::ArrayOf[Yoomoney::Receipt]),
-        type: Yoomoney::Models::ReceiptListResponse::Type,
+        type: String,
         next_cursor: String | nil
       }
     end

@@ -7,10 +7,7 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
     skip("Prism tests are disabled")
 
     response =
-      @yoomoney.payments.create(
-        amount: {currency: :RUB, value: "1000.00"},
-        idempotence_key: "Idempotence-Key"
-      )
+      @yoomoney.payments.create(amount: {currency: :RUB, value: "value"}, idempotence_key: "Idempotence-Key")
 
     assert_pattern do
       response => Yoomoney::Payment
@@ -22,7 +19,7 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
         amount: Yoomoney::MonetaryAmount,
         created_at: Time,
         paid: Yoomoney::Internal::Type::Boolean,
-        recipient: Yoomoney::Payment::Recipient,
+        recipient: Yoomoney::Recipient,
         refundable: Yoomoney::Internal::Type::Boolean,
         status: Yoomoney::PaymentStatus,
         test_: Yoomoney::Internal::Type::Boolean,
@@ -34,9 +31,9 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
         description: String | nil,
         expires_at: Time | nil,
         income_amount: Yoomoney::MonetaryAmount | nil,
-        invoice_details: Yoomoney::Payment::InvoiceDetails | nil,
+        invoice_details: String | nil,
         merchant_customer_id: String | nil,
-        metadata: ^(Yoomoney::Internal::Type::HashOf[String, nil?: true]) | nil,
+        metadata: ^(Yoomoney::Internal::Type::HashOf[String]) | nil,
         payment_method: Yoomoney::Payment::PaymentMethod | nil,
         receipt_registration: Yoomoney::ReceiptRegistrationStatus | nil,
         refunded_amount: Yoomoney::MonetaryAmount | nil,
@@ -48,7 +45,7 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
   def test_retrieve
     skip("Prism tests are disabled")
 
-    response = @yoomoney.payments.retrieve("1da5c87d-0984-50e8-a7f3-8de646dd9ec9")
+    response = @yoomoney.payments.retrieve("payment_id")
 
     assert_pattern do
       response => Yoomoney::Payment
@@ -60,7 +57,7 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
         amount: Yoomoney::MonetaryAmount,
         created_at: Time,
         paid: Yoomoney::Internal::Type::Boolean,
-        recipient: Yoomoney::Payment::Recipient,
+        recipient: Yoomoney::Recipient,
         refundable: Yoomoney::Internal::Type::Boolean,
         status: Yoomoney::PaymentStatus,
         test_: Yoomoney::Internal::Type::Boolean,
@@ -72,9 +69,9 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
         description: String | nil,
         expires_at: Time | nil,
         income_amount: Yoomoney::MonetaryAmount | nil,
-        invoice_details: Yoomoney::Payment::InvoiceDetails | nil,
+        invoice_details: String | nil,
         merchant_customer_id: String | nil,
-        metadata: ^(Yoomoney::Internal::Type::HashOf[String, nil?: true]) | nil,
+        metadata: ^(Yoomoney::Internal::Type::HashOf[String]) | nil,
         payment_method: Yoomoney::Payment::PaymentMethod | nil,
         receipt_registration: Yoomoney::ReceiptRegistrationStatus | nil,
         refunded_amount: Yoomoney::MonetaryAmount | nil,
@@ -95,7 +92,7 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
     assert_pattern do
       response => {
         items: ^(Yoomoney::Internal::Type::ArrayOf[Yoomoney::Payment]),
-        type: Yoomoney::Models::PaymentListResponse::Type,
+        type: String,
         next_cursor: String | nil
       }
     end
@@ -104,8 +101,7 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
   def test_cancel_required_params
     skip("Prism tests are disabled")
 
-    response =
-      @yoomoney.payments.cancel("1da5c87d-0984-50e8-a7f3-8de646dd9ec9", idempotence_key: "Idempotence-Key")
+    response = @yoomoney.payments.cancel("payment_id", idempotence_key: "Idempotence-Key")
 
     assert_pattern do
       response => Yoomoney::Payment
@@ -117,7 +113,7 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
         amount: Yoomoney::MonetaryAmount,
         created_at: Time,
         paid: Yoomoney::Internal::Type::Boolean,
-        recipient: Yoomoney::Payment::Recipient,
+        recipient: Yoomoney::Recipient,
         refundable: Yoomoney::Internal::Type::Boolean,
         status: Yoomoney::PaymentStatus,
         test_: Yoomoney::Internal::Type::Boolean,
@@ -129,9 +125,9 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
         description: String | nil,
         expires_at: Time | nil,
         income_amount: Yoomoney::MonetaryAmount | nil,
-        invoice_details: Yoomoney::Payment::InvoiceDetails | nil,
+        invoice_details: String | nil,
         merchant_customer_id: String | nil,
-        metadata: ^(Yoomoney::Internal::Type::HashOf[String, nil?: true]) | nil,
+        metadata: ^(Yoomoney::Internal::Type::HashOf[String]) | nil,
         payment_method: Yoomoney::Payment::PaymentMethod | nil,
         receipt_registration: Yoomoney::ReceiptRegistrationStatus | nil,
         refunded_amount: Yoomoney::MonetaryAmount | nil,
@@ -143,8 +139,7 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
   def test_capture_required_params
     skip("Prism tests are disabled")
 
-    response =
-      @yoomoney.payments.capture("1da5c87d-0984-50e8-a7f3-8de646dd9ec9", idempotence_key: "Idempotence-Key")
+    response = @yoomoney.payments.capture("payment_id", idempotence_key: "Idempotence-Key")
 
     assert_pattern do
       response => Yoomoney::Payment
@@ -156,7 +151,7 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
         amount: Yoomoney::MonetaryAmount,
         created_at: Time,
         paid: Yoomoney::Internal::Type::Boolean,
-        recipient: Yoomoney::Payment::Recipient,
+        recipient: Yoomoney::Recipient,
         refundable: Yoomoney::Internal::Type::Boolean,
         status: Yoomoney::PaymentStatus,
         test_: Yoomoney::Internal::Type::Boolean,
@@ -168,9 +163,9 @@ class Yoomoney::Test::Resources::PaymentsTest < Yoomoney::Test::ResourceTest
         description: String | nil,
         expires_at: Time | nil,
         income_amount: Yoomoney::MonetaryAmount | nil,
-        invoice_details: Yoomoney::Payment::InvoiceDetails | nil,
+        invoice_details: String | nil,
         merchant_customer_id: String | nil,
-        metadata: ^(Yoomoney::Internal::Type::HashOf[String, nil?: true]) | nil,
+        metadata: ^(Yoomoney::Internal::Type::HashOf[String]) | nil,
         payment_method: Yoomoney::Payment::PaymentMethod | nil,
         receipt_registration: Yoomoney::ReceiptRegistrationStatus | nil,
         refunded_amount: Yoomoney::MonetaryAmount | nil,

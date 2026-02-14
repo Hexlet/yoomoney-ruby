@@ -29,7 +29,7 @@ class Yoomoney::Test::Resources::DealsTest < Yoomoney::Test::ResourceTest
         test_: Yoomoney::Internal::Type::Boolean,
         type: Yoomoney::DealType,
         description: String | nil,
-        metadata: ^(Yoomoney::Internal::Type::HashOf[String, nil?: true]) | nil
+        metadata: ^(Yoomoney::Internal::Type::HashOf[String]) | nil
       }
     end
   end
@@ -37,7 +37,7 @@ class Yoomoney::Test::Resources::DealsTest < Yoomoney::Test::ResourceTest
   def test_retrieve
     skip("Prism tests are disabled")
 
-    response = @yoomoney.deals.retrieve("dl-d68d2fe4-2abb-47e5-8112-32e28f87fb52")
+    response = @yoomoney.deals.retrieve("deal_id")
 
     assert_pattern do
       response => Yoomoney::SafeDeal
@@ -55,7 +55,7 @@ class Yoomoney::Test::Resources::DealsTest < Yoomoney::Test::ResourceTest
         test_: Yoomoney::Internal::Type::Boolean,
         type: Yoomoney::DealType,
         description: String | nil,
-        metadata: ^(Yoomoney::Internal::Type::HashOf[String, nil?: true]) | nil
+        metadata: ^(Yoomoney::Internal::Type::HashOf[String]) | nil
       }
     end
   end
@@ -72,7 +72,7 @@ class Yoomoney::Test::Resources::DealsTest < Yoomoney::Test::ResourceTest
     assert_pattern do
       response => {
         items: ^(Yoomoney::Internal::Type::ArrayOf[Yoomoney::SafeDeal]),
-        type: Yoomoney::Models::DealListResponse::Type,
+        type: String,
         next_cursor: String | nil
       }
     end

@@ -46,7 +46,7 @@ module Yoomoney
       type leg =
         {
           departure_airport: String,
-          departure_date: Date,
+          departure_date: String,
           destination_airport: String,
           carrier_code: String
         }
@@ -54,7 +54,7 @@ module Yoomoney
       class Leg < Yoomoney::Internal::Type::BaseModel
         attr_accessor departure_airport: String
 
-        attr_accessor departure_date: Date
+        attr_accessor departure_date: String
 
         attr_accessor destination_airport: String
 
@@ -64,14 +64,14 @@ module Yoomoney
 
         def initialize: (
           departure_airport: String,
-          departure_date: Date,
+          departure_date: String,
           destination_airport: String,
           ?carrier_code: String
         ) -> void
 
         def to_hash: -> {
           departure_airport: String,
-          departure_date: Date,
+          departure_date: String,
           destination_airport: String,
           carrier_code: String
         }

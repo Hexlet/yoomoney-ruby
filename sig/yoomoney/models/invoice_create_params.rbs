@@ -3,13 +3,12 @@ module Yoomoney
     type invoice_create_params =
       {
         cart: ::Array[Yoomoney::LineItem],
-        expires_at: Time,
-        payment_data: Yoomoney::InvoiceCreateParams::PaymentData,
+        delivery_method: Yoomoney::Models::InvoiceCreateParams::delivery_method,
         idempotence_key: String,
-        delivery_method_data: Yoomoney::Models::InvoiceCreateParams::delivery_method_data,
         description: String,
-        locale: Yoomoney::Models::locale,
-        metadata: ::Hash[Symbol, String?]
+        expires_at: Time,
+        metadata: ::Hash[Symbol, String],
+        payment_data: Yoomoney::InvoiceCreateParams::PaymentData
       }
       & Yoomoney::Internal::Type::request_parameters
 
@@ -19,135 +18,57 @@ module Yoomoney
 
       attr_accessor cart: ::Array[Yoomoney::LineItem]
 
-      attr_accessor expires_at: Time
-
-      attr_accessor payment_data: Yoomoney::InvoiceCreateParams::PaymentData
+      attr_accessor delivery_method: Yoomoney::Models::InvoiceCreateParams::delivery_method
 
       attr_accessor idempotence_key: String
-
-      attr_reader delivery_method_data: Yoomoney::Models::InvoiceCreateParams::delivery_method_data?
-
-      def delivery_method_data=: (
-        Yoomoney::Models::InvoiceCreateParams::delivery_method_data
-      ) -> Yoomoney::Models::InvoiceCreateParams::delivery_method_data
 
       attr_reader description: String?
 
       def description=: (String) -> String
 
-      attr_reader locale: Yoomoney::Models::locale?
+      attr_reader expires_at: Time?
 
-      def locale=: (Yoomoney::Models::locale) -> Yoomoney::Models::locale
+      def expires_at=: (Time) -> Time
 
-      attr_reader metadata: ::Hash[Symbol, String?]?
+      attr_reader metadata: ::Hash[Symbol, String]?
 
-      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+      def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
+
+      attr_reader payment_data: Yoomoney::InvoiceCreateParams::PaymentData?
+
+      def payment_data=: (
+        Yoomoney::InvoiceCreateParams::PaymentData
+      ) -> Yoomoney::InvoiceCreateParams::PaymentData
 
       def initialize: (
         cart: ::Array[Yoomoney::LineItem],
-        expires_at: Time,
-        payment_data: Yoomoney::InvoiceCreateParams::PaymentData,
+        delivery_method: Yoomoney::Models::InvoiceCreateParams::delivery_method,
         idempotence_key: String,
-        ?delivery_method_data: Yoomoney::Models::InvoiceCreateParams::delivery_method_data,
         ?description: String,
-        ?locale: Yoomoney::Models::locale,
-        ?metadata: ::Hash[Symbol, String?],
+        ?expires_at: Time,
+        ?metadata: ::Hash[Symbol, String],
+        ?payment_data: Yoomoney::InvoiceCreateParams::PaymentData,
         ?request_options: Yoomoney::request_opts
       ) -> void
 
       def to_hash: -> {
         cart: ::Array[Yoomoney::LineItem],
-        expires_at: Time,
-        payment_data: Yoomoney::InvoiceCreateParams::PaymentData,
+        delivery_method: Yoomoney::Models::InvoiceCreateParams::delivery_method,
         idempotence_key: String,
-        delivery_method_data: Yoomoney::Models::InvoiceCreateParams::delivery_method_data,
         description: String,
-        locale: Yoomoney::Models::locale,
-        metadata: ::Hash[Symbol, String?],
+        expires_at: Time,
+        metadata: ::Hash[Symbol, String],
+        payment_data: Yoomoney::InvoiceCreateParams::PaymentData,
         request_options: Yoomoney::RequestOptions
       }
 
-      type payment_data =
-        {
-          amount: Yoomoney::MonetaryAmount,
-          capture: bool,
-          client_ip: String,
-          description: String,
-          metadata: ::Hash[Symbol, String?],
-          receipt: Yoomoney::ReceiptData,
-          recipient: Yoomoney::Recipient,
-          save_payment_method: bool
-        }
+      type delivery_method =
+        Yoomoney::DeliveryMethodData
+        | Yoomoney::InvoiceCreateParams::DeliveryMethod::DeliveryMethodDataSMS
+        | Yoomoney::InvoiceCreateParams::DeliveryMethod::DeliveryMethodDataEmail
 
-      class PaymentData < Yoomoney::Internal::Type::BaseModel
-        attr_accessor amount: Yoomoney::MonetaryAmount
-
-        attr_reader capture: bool?
-
-        def capture=: (bool) -> bool
-
-        attr_reader client_ip: String?
-
-        def client_ip=: (String) -> String
-
-        attr_reader description: String?
-
-        def description=: (String) -> String
-
-        attr_reader metadata: ::Hash[Symbol, String?]?
-
-        def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
-
-        attr_reader receipt: Yoomoney::ReceiptData?
-
-        def receipt=: (Yoomoney::ReceiptData) -> Yoomoney::ReceiptData
-
-        attr_reader recipient: Yoomoney::Recipient?
-
-        def recipient=: (Yoomoney::Recipient) -> Yoomoney::Recipient
-
-        attr_reader save_payment_method: bool?
-
-        def save_payment_method=: (bool) -> bool
-
-        def initialize: (
-          amount: Yoomoney::MonetaryAmount,
-          ?capture: bool,
-          ?client_ip: String,
-          ?description: String,
-          ?metadata: ::Hash[Symbol, String?],
-          ?receipt: Yoomoney::ReceiptData,
-          ?recipient: Yoomoney::Recipient,
-          ?save_payment_method: bool
-        ) -> void
-
-        def to_hash: -> {
-          amount: Yoomoney::MonetaryAmount,
-          capture: bool,
-          client_ip: String,
-          description: String,
-          metadata: ::Hash[Symbol, String?],
-          receipt: Yoomoney::ReceiptData,
-          recipient: Yoomoney::Recipient,
-          save_payment_method: bool
-        }
-      end
-
-      type delivery_method_data =
-        Yoomoney::InvoiceCreateParams::DeliveryMethodData::DeliveryMethodDataSelf
-        | Yoomoney::InvoiceCreateParams::DeliveryMethodData::DeliveryMethodDataSMS
-        | Yoomoney::InvoiceCreateParams::DeliveryMethodData::DeliveryMethodDataEmail
-
-      module DeliveryMethodData
+      module DeliveryMethod
         extend Yoomoney::Internal::Type::Union
-
-        type delivery_method_data_self = {  }
-
-        class DeliveryMethodDataSelf < Yoomoney::Models::DeliveryMethodData
-          def initialize: -> void
-
-          def to_hash: -> {  }
-        end
 
         type delivery_method_data_sms = { phone: String }
 
@@ -173,7 +94,73 @@ module Yoomoney
           def to_hash: -> { email: String }
         end
 
-        def self?.variants: -> ::Array[Yoomoney::Models::InvoiceCreateParams::delivery_method_data]
+        def self?.variants: -> ::Array[Yoomoney::Models::InvoiceCreateParams::delivery_method]
+      end
+
+      type payment_data =
+        {
+          amount: Yoomoney::MonetaryAmount,
+          capture: bool,
+          client_ip: String,
+          description: String,
+          metadata: ::Hash[Symbol, String],
+          receipt: Yoomoney::ReceiptData,
+          recipient: Yoomoney::Recipient,
+          save_payment_method: bool
+        }
+
+      class PaymentData < Yoomoney::Internal::Type::BaseModel
+        attr_accessor amount: Yoomoney::MonetaryAmount
+
+        attr_reader capture: bool?
+
+        def capture=: (bool) -> bool
+
+        attr_reader client_ip: String?
+
+        def client_ip=: (String) -> String
+
+        attr_reader description: String?
+
+        def description=: (String) -> String
+
+        attr_reader metadata: ::Hash[Symbol, String]?
+
+        def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
+
+        attr_reader receipt: Yoomoney::ReceiptData?
+
+        def receipt=: (Yoomoney::ReceiptData) -> Yoomoney::ReceiptData
+
+        attr_reader recipient: Yoomoney::Recipient?
+
+        def recipient=: (Yoomoney::Recipient) -> Yoomoney::Recipient
+
+        attr_reader save_payment_method: bool?
+
+        def save_payment_method=: (bool) -> bool
+
+        def initialize: (
+          amount: Yoomoney::MonetaryAmount,
+          ?capture: bool,
+          ?client_ip: String,
+          ?description: String,
+          ?metadata: ::Hash[Symbol, String],
+          ?receipt: Yoomoney::ReceiptData,
+          ?recipient: Yoomoney::Recipient,
+          ?save_payment_method: bool
+        ) -> void
+
+        def to_hash: -> {
+          amount: Yoomoney::MonetaryAmount,
+          capture: bool,
+          client_ip: String,
+          description: String,
+          metadata: ::Hash[Symbol, String],
+          receipt: Yoomoney::ReceiptData,
+          recipient: Yoomoney::Recipient,
+          save_payment_method: bool
+        }
       end
     end
   end

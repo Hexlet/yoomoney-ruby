@@ -179,10 +179,6 @@ module Yoomoney
 
   module SettlementItemType = Yoomoney::Models::SettlementItemType
 
-  class SettlementPaymentItem = Yoomoney::Models::SettlementPaymentItem
-
-  class SettlementRefundItem = Yoomoney::Models::SettlementRefundItem
-
   class TransferData = Yoomoney::Models::TransferData
 
   class Webhook = Yoomoney::Models::Webhook

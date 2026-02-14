@@ -6,7 +6,7 @@ module Yoomoney
         type: Yoomoney::Models::deal_type,
         idempotence_key: String,
         ?description: String,
-        ?metadata: ::Hash[Symbol, String?],
+        ?metadata: ::Hash[Symbol, String],
         ?request_options: Yoomoney::request_opts
       ) -> Yoomoney::SafeDeal
 

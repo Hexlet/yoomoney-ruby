@@ -83,20 +83,34 @@ module Yoomoney
       end
 
       type payout_destination =
-        { type: Yoomoney::Models::payout_destination_data_type }
+        { type: Yoomoney::Models::PayoutListParams::PayoutDestination::type_ }
 
       class PayoutDestination < Yoomoney::Internal::Type::BaseModel
-        attr_reader type: Yoomoney::Models::payout_destination_data_type?
+        attr_reader type: Yoomoney::Models::PayoutListParams::PayoutDestination::type_?
 
         def type=: (
-          Yoomoney::Models::payout_destination_data_type
-        ) -> Yoomoney::Models::payout_destination_data_type
+          Yoomoney::Models::PayoutListParams::PayoutDestination::type_
+        ) -> Yoomoney::Models::PayoutListParams::PayoutDestination::type_
 
         def initialize: (
-          ?type: Yoomoney::Models::payout_destination_data_type
+          ?type: Yoomoney::Models::PayoutListParams::PayoutDestination::type_
         ) -> void
 
-        def to_hash: -> { type: Yoomoney::Models::payout_destination_data_type }
+        def to_hash: -> {
+          type: Yoomoney::Models::PayoutListParams::PayoutDestination::type_
+        }
+
+        type type_ = :bank_card | :yoo_money | :sbp
+
+        module Type
+          extend Yoomoney::Internal::Type::Enum
+
+          BANK_CARD: :bank_card
+          YOO_MONEY: :yoo_money
+          SBP: :sbp
+
+          def self?.values: -> ::Array[Yoomoney::Models::PayoutListParams::PayoutDestination::type_]
+        end
       end
     end
   end

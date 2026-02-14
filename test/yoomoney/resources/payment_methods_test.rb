@@ -6,7 +6,12 @@ class Yoomoney::Test::Resources::PaymentMethodsTest < Yoomoney::Test::ResourceTe
   def test_create_required_params
     skip("Prism tests are disabled")
 
-    response = @yoomoney.payment_methods.create(type: :bank_card, idempotence_key: "Idempotence-Key")
+    response =
+      @yoomoney.payment_methods.create(
+        payment_method_data: {type: :bank_card},
+        type: :bank_card,
+        idempotence_key: "Idempotence-Key"
+      )
 
     assert_pattern do
       response => Yoomoney::SavePaymentMethodBankCard
@@ -15,7 +20,7 @@ class Yoomoney::Test::Resources::PaymentMethodsTest < Yoomoney::Test::ResourceTe
     assert_pattern do
       response => {
         id: String,
-        holder: Yoomoney::SavePaymentMethodBankCard::Holder,
+        holder: String,
         saved: Yoomoney::Internal::Type::Boolean,
         status: Yoomoney::PaymentMethodStatus,
         type: Yoomoney::SavePaymentMethodBankCard::Type,
@@ -29,7 +34,7 @@ class Yoomoney::Test::Resources::PaymentMethodsTest < Yoomoney::Test::ResourceTe
   def test_retrieve
     skip("Prism tests are disabled")
 
-    response = @yoomoney.payment_methods.retrieve("1da5c87d-0984-50e8-a7f3-8de646dd9ec9")
+    response = @yoomoney.payment_methods.retrieve("payment_method_id")
 
     assert_pattern do
       response => Yoomoney::SavePaymentMethodBankCard
@@ -38,7 +43,7 @@ class Yoomoney::Test::Resources::PaymentMethodsTest < Yoomoney::Test::ResourceTe
     assert_pattern do
       response => {
         id: String,
-        holder: Yoomoney::SavePaymentMethodBankCard::Holder,
+        holder: String,
         saved: Yoomoney::Internal::Type::Boolean,
         status: Yoomoney::PaymentMethodStatus,
         type: Yoomoney::SavePaymentMethodBankCard::Type,

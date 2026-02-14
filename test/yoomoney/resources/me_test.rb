@@ -15,7 +15,7 @@ class Yoomoney::Test::Resources::MeTest < Yoomoney::Test::ResourceTest
     assert_pattern do
       response => {
         account_id: String,
-        status: Yoomoney::Models::MeRetrieveResponse::Status,
+        status: String,
         test_: Yoomoney::Internal::Type::Boolean,
         fiscalization: Yoomoney::Models::MeRetrieveResponse::Fiscalization | nil,
         fiscalization_enabled: Yoomoney::Internal::Type::Boolean | nil,

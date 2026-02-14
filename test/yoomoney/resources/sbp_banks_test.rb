@@ -15,7 +15,7 @@ class Yoomoney::Test::Resources::SbpBanksTest < Yoomoney::Test::ResourceTest
     assert_pattern do
       response => {
         items: ^(Yoomoney::Internal::Type::ArrayOf[Yoomoney::Models::SbpBankListResponse::Item]),
-        type: Yoomoney::Models::SbpBankListResponse::Type
+        type: String
       }
     end
   end

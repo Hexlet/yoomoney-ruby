@@ -10,10 +10,6 @@ module Yoomoney
       required :id, String
 
       # @!method initialize(id:)
-      #   Сделка, в рамках которой нужно провести выплату. Необходимо передавать, если вы
-      #   проводите Безопасную сделку:
-      #   https://yookassa.ru/developers/solutions-for-platforms/safe-deal/basics
-      #
       #   @param id [String] Идентификатор сделки.
     end
   end

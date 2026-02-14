@@ -56,16 +56,6 @@ module Yoomoney
     # @return [Yoomoney::Resources::Me]
     attr_reader :me
 
-    # @api private
-    #
-    # @return [Hash{String=>String}]
-    private def auth_headers
-      return {} if @username.nil? || @password.nil?
-
-      base64_credentials = ["#{@username}:#{@password}"].pack("m0")
-      {"authorization" => "Basic #{base64_credentials}"}
-    end
-
     # Creates and returns a new client for interacting with the API.
     #
     # @param username [String, nil] HTTP Basic аутентификация клиента ЮKassa Defaults to `ENV["YOOMONEY_USERNAME"]`

@@ -4,8 +4,7 @@ module Yoomoney
       {
         created_at: Yoomoney::PayoutSearchParams::CreatedAt,
         cursor: String,
-        limit: Integer,
-        metadata: ::Hash[Symbol, String]
+        limit: Integer
       }
       & Yoomoney::Internal::Type::request_parameters
 
@@ -27,15 +26,10 @@ module Yoomoney
 
       def limit=: (Integer) -> Integer
 
-      attr_reader metadata: ::Hash[Symbol, String]?
-
-      def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
-
       def initialize: (
         ?created_at: Yoomoney::PayoutSearchParams::CreatedAt,
         ?cursor: String,
         ?limit: Integer,
-        ?metadata: ::Hash[Symbol, String],
         ?request_options: Yoomoney::request_opts
       ) -> void
 
@@ -43,7 +37,6 @@ module Yoomoney
         created_at: Yoomoney::PayoutSearchParams::CreatedAt,
         cursor: String,
         limit: Integer,
-        metadata: ::Hash[Symbol, String],
         request_options: Yoomoney::RequestOptions
       }
 

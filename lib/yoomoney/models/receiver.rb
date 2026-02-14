@@ -4,19 +4,15 @@ module Yoomoney
   module Models
     class Receiver < Yoomoney::Internal::Type::BaseModel
       # @!attribute type
-      #   Код получателя оплаты.
+      #   Тип получателя.
       #
       #   @return [Symbol, Yoomoney::Models::Receiver::Type]
       required :type, enum: -> { Yoomoney::Receiver::Type }
 
       # @!method initialize(type:)
-      #   Реквизиты получателя оплаты при пополнении электронного кошелька, банковского
-      #   счета или баланса телефона:
-      #   https://yookassa.ru/developers/payment-acceptance/scenario-extensions/receiver-data.
-      #
-      #   @param type [Symbol, Yoomoney::Models::Receiver::Type] Код получателя оплаты.
+      #   @param type [Symbol, Yoomoney::Models::Receiver::Type] Тип получателя.
 
-      # Код получателя оплаты.
+      # Тип получателя.
       #
       # @see Yoomoney::Models::Receiver#type
       module Type

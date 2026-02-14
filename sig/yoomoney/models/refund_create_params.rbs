@@ -7,7 +7,7 @@ module Yoomoney
         idempotence_key: String,
         deal: Yoomoney::RefundCreateParams::Deal,
         description: String,
-        metadata: ::Hash[Symbol, String?],
+        metadata: ::Hash[Symbol, String],
         receipt: Yoomoney::ReceiptData,
         refund_method_data: Yoomoney::RefundCreateParams::RefundMethodData,
         sources: ::Array[Yoomoney::RefundSourcesData]
@@ -34,9 +34,9 @@ module Yoomoney
 
       def description=: (String) -> String
 
-      attr_reader metadata: ::Hash[Symbol, String?]?
+      attr_reader metadata: ::Hash[Symbol, String]?
 
-      def metadata=: (::Hash[Symbol, String?]) -> ::Hash[Symbol, String?]
+      def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
 
       attr_reader receipt: Yoomoney::ReceiptData?
 
@@ -60,7 +60,7 @@ module Yoomoney
         idempotence_key: String,
         ?deal: Yoomoney::RefundCreateParams::Deal,
         ?description: String,
-        ?metadata: ::Hash[Symbol, String?],
+        ?metadata: ::Hash[Symbol, String],
         ?receipt: Yoomoney::ReceiptData,
         ?refund_method_data: Yoomoney::RefundCreateParams::RefundMethodData,
         ?sources: ::Array[Yoomoney::RefundSourcesData],
@@ -73,7 +73,7 @@ module Yoomoney
         idempotence_key: String,
         deal: Yoomoney::RefundCreateParams::Deal,
         description: String,
-        metadata: ::Hash[Symbol, String?],
+        metadata: ::Hash[Symbol, String],
         receipt: Yoomoney::ReceiptData,
         refund_method_data: Yoomoney::RefundCreateParams::RefundMethodData,
         sources: ::Array[Yoomoney::RefundSourcesData],
@@ -81,72 +81,52 @@ module Yoomoney
       }
 
       type deal =
-        { refund_settlements: ::Array[Yoomoney::SettlementRefundItem] }
+        {
+          refund_settlements: ::Array[Yoomoney::RefundCreateParams::Deal::RefundSettlement]
+        }
 
       class Deal < Yoomoney::Internal::Type::BaseModel
-        attr_accessor refund_settlements: ::Array[Yoomoney::SettlementRefundItem]
+        attr_accessor refund_settlements: ::Array[Yoomoney::RefundCreateParams::Deal::RefundSettlement]
 
         def initialize: (
-          refund_settlements: ::Array[Yoomoney::SettlementRefundItem]
+          refund_settlements: ::Array[Yoomoney::RefundCreateParams::Deal::RefundSettlement]
         ) -> void
 
         def to_hash: -> {
-          refund_settlements: ::Array[Yoomoney::SettlementRefundItem]
-        }
-      end
-
-      type refund_method_data =
-        {
-          type: Yoomoney::Models::refund_method_type,
-          articles: ::Array[Yoomoney::ElectronicCertificateRefundArticle],
-          electronic_certificate: Yoomoney::RefundCreateParams::RefundMethodData::ElectronicCertificate
+          refund_settlements: ::Array[Yoomoney::RefundCreateParams::Deal::RefundSettlement]
         }
 
-      class RefundMethodData < Yoomoney::Internal::Type::BaseModel
-        attr_accessor type: Yoomoney::Models::refund_method_type
+        type refund_settlement =
+          {
+            amount: Yoomoney::MonetaryAmount,
+            type: Yoomoney::Models::settlement_item_type
+          }
 
-        attr_reader articles: ::Array[Yoomoney::ElectronicCertificateRefundArticle]?
-
-        def articles=: (
-          ::Array[Yoomoney::ElectronicCertificateRefundArticle]
-        ) -> ::Array[Yoomoney::ElectronicCertificateRefundArticle]
-
-        attr_reader electronic_certificate: Yoomoney::RefundCreateParams::RefundMethodData::ElectronicCertificate?
-
-        def electronic_certificate=: (
-          Yoomoney::RefundCreateParams::RefundMethodData::ElectronicCertificate
-        ) -> Yoomoney::RefundCreateParams::RefundMethodData::ElectronicCertificate
-
-        def initialize: (
-          type: Yoomoney::Models::refund_method_type,
-          ?articles: ::Array[Yoomoney::ElectronicCertificateRefundArticle],
-          ?electronic_certificate: Yoomoney::RefundCreateParams::RefundMethodData::ElectronicCertificate
-        ) -> void
-
-        def to_hash: -> {
-          type: Yoomoney::Models::refund_method_type,
-          articles: ::Array[Yoomoney::ElectronicCertificateRefundArticle],
-          electronic_certificate: Yoomoney::RefundCreateParams::RefundMethodData::ElectronicCertificate
-        }
-
-        type electronic_certificate =
-          { amount: Yoomoney::MonetaryAmount, basket_id: String }
-
-        class ElectronicCertificate < Yoomoney::Internal::Type::BaseModel
+        class RefundSettlement < Yoomoney::Internal::Type::BaseModel
           attr_accessor amount: Yoomoney::MonetaryAmount
 
-          attr_accessor basket_id: String
+          attr_accessor type: Yoomoney::Models::settlement_item_type
 
           def initialize: (
             amount: Yoomoney::MonetaryAmount,
-            basket_id: String
+            type: Yoomoney::Models::settlement_item_type
           ) -> void
 
           def to_hash: -> {
             amount: Yoomoney::MonetaryAmount,
-            basket_id: String
+            type: Yoomoney::Models::settlement_item_type
           }
         end
+      end
+
+      type refund_method_data = { type: Yoomoney::Models::refund_method_type }
+
+      class RefundMethodData < Yoomoney::Internal::Type::BaseModel
+        attr_accessor type: Yoomoney::Models::refund_method_type
+
+        def initialize: (type: Yoomoney::Models::refund_method_type) -> void
+
+        def to_hash: -> { type: Yoomoney::Models::refund_method_type }
       end
     end
   end

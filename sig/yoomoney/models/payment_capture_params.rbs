@@ -5,7 +5,7 @@ module Yoomoney
         idempotence_key: String,
         airline: Yoomoney::Airline,
         amount: Yoomoney::MonetaryAmount,
-        deal: Yoomoney::PaymentCaptureParams::Deal,
+        deal: Yoomoney::PaymentDealInfo,
         receipt: Yoomoney::ReceiptData,
         transfers: ::Array[Yoomoney::TransferData]
       }
@@ -25,11 +25,9 @@ module Yoomoney
 
       def amount=: (Yoomoney::MonetaryAmount) -> Yoomoney::MonetaryAmount
 
-      attr_reader deal: Yoomoney::PaymentCaptureParams::Deal?
+      attr_reader deal: Yoomoney::PaymentDealInfo?
 
-      def deal=: (
-        Yoomoney::PaymentCaptureParams::Deal
-      ) -> Yoomoney::PaymentCaptureParams::Deal
+      def deal=: (Yoomoney::PaymentDealInfo) -> Yoomoney::PaymentDealInfo
 
       attr_reader receipt: Yoomoney::ReceiptData?
 
@@ -45,7 +43,7 @@ module Yoomoney
         idempotence_key: String,
         ?airline: Yoomoney::Airline,
         ?amount: Yoomoney::MonetaryAmount,
-        ?deal: Yoomoney::PaymentCaptureParams::Deal,
+        ?deal: Yoomoney::PaymentDealInfo,
         ?receipt: Yoomoney::ReceiptData,
         ?transfers: ::Array[Yoomoney::TransferData],
         ?request_options: Yoomoney::request_opts
@@ -55,25 +53,11 @@ module Yoomoney
         idempotence_key: String,
         airline: Yoomoney::Airline,
         amount: Yoomoney::MonetaryAmount,
-        deal: Yoomoney::PaymentCaptureParams::Deal,
+        deal: Yoomoney::PaymentDealInfo,
         receipt: Yoomoney::ReceiptData,
         transfers: ::Array[Yoomoney::TransferData],
         request_options: Yoomoney::RequestOptions
       }
-
-      type deal = { settlements: ::Array[Yoomoney::SettlementPaymentItem] }
-
-      class Deal < Yoomoney::Internal::Type::BaseModel
-        attr_accessor settlements: ::Array[Yoomoney::SettlementPaymentItem]
-
-        def initialize: (
-          settlements: ::Array[Yoomoney::SettlementPaymentItem]
-        ) -> void
-
-        def to_hash: -> {
-          settlements: ::Array[Yoomoney::SettlementPaymentItem]
-        }
-      end
     end
   end
 end

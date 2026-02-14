@@ -2,10 +2,6 @@
 
 module Yoomoney
   module Models
-    # Тип банковской карты. Возможные значения: MasterCard (для карт Mastercard и
-    # Maestro), Visa (для карт Visa и Visa Electron), Mir, UnionPay, JCB,
-    # AmericanExpress, DinersClub, DiscoverCard, InstaPayment, InstaPaymentTM, Laser,
-    # Dankort, Solo, Switch и Unknown.
     module BankCardType
       extend Yoomoney::Internal::Type::Enum
 

@@ -2,14 +2,14 @@ module Yoomoney
   module Models
     type industry_details =
       {
-        document_date: Date,
+        document_date: String,
         document_number: String,
         federal_id: String,
         value: String
       }
 
     class IndustryDetails < Yoomoney::Internal::Type::BaseModel
-      attr_accessor document_date: Date
+      attr_accessor document_date: String
 
       attr_accessor document_number: String
 
@@ -18,14 +18,14 @@ module Yoomoney
       attr_accessor value: String
 
       def initialize: (
-        document_date: Date,
+        document_date: String,
         document_number: String,
         federal_id: String,
         value: String
       ) -> void
 
       def to_hash: -> {
-        document_date: Date,
+        document_date: String,
         document_number: String,
         federal_id: String,
         value: String

@@ -14,9 +14,6 @@ module Yoomoney
       #   Some parameter documentations has been truncated, see
       #   {Yoomoney::Models::Recipient} for more details.
       #
-      #   Получатель платежа. Нужен, если вы разделяете потоки платежей в рамках одного
-      #   аккаунта или создаете платеж в адрес другого аккаунта.
-      #
       #   @param gateway_id [String] Идентификатор субаккаунта. Используется для разделения потоков платежей в рамках
     end
   end

@@ -8,22 +8,17 @@ module Yoomoney
           T.any(Yoomoney::PayoutDestination, Yoomoney::Internal::AnyHash)
         end
 
-      # Способ получения выплаты: bank_card – выплата на банковскую карту; yoo_money –
-      # выплата на кошелек ЮMoney; sbp – выплата через СБП на счет в банке или платежном
-      # сервисе.
+      # Тип метода для проведения выплаты.
       sig { returns(Yoomoney::PayoutDestination::Type::TaggedSymbol) }
       attr_accessor :type
 
-      # Платежное средство, на которое ЮKassa зачисляет выплату.
       sig do
         params(type: Yoomoney::PayoutDestination::Type::OrSymbol).returns(
           T.attached_class
         )
       end
       def self.new(
-        # Способ получения выплаты: bank_card – выплата на банковскую карту; yoo_money –
-        # выплата на кошелек ЮMoney; sbp – выплата через СБП на счет в банке или платежном
-        # сервисе.
+        # Тип метода для проведения выплаты.
         type:
       )
       end
@@ -36,9 +31,7 @@ module Yoomoney
       def to_hash
       end
 
-      # Способ получения выплаты: bank_card – выплата на банковскую карту; yoo_money –
-      # выплата на кошелек ЮMoney; sbp – выплата через СБП на счет в банке или платежном
-      # сервисе.
+      # Тип метода для проведения выплаты.
       module Type
         extend Yoomoney::Internal::Type::Enum
 

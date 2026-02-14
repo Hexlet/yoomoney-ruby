@@ -10,29 +10,13 @@ module Yoomoney
       required :items, -> { Yoomoney::Internal::Type::ArrayOf[Yoomoney::Webhook] }
 
       # @!attribute type
-      #   Формат выдачи результатов запроса. Возможное значение: list (список).
       #
-      #   @return [Symbol, Yoomoney::Models::WebhookListResponse::Type]
-      required :type, enum: -> { Yoomoney::Models::WebhookListResponse::Type }
+      #   @return [String]
+      required :type, String
 
       # @!method initialize(items:, type:)
-      #   Список webhook.
-      #
       #   @param items [Array<Yoomoney::Models::Webhook>]
-      #
-      #   @param type [Symbol, Yoomoney::Models::WebhookListResponse::Type] Формат выдачи результатов запроса. Возможное значение: list (список).
-
-      # Формат выдачи результатов запроса. Возможное значение: list (список).
-      #
-      # @see Yoomoney::Models::WebhookListResponse#type
-      module Type
-        extend Yoomoney::Internal::Type::Enum
-
-        LIST = :list
-
-        # @!method self.values
-        #   @return [Array<Symbol>]
-      end
+      #   @param type [String]
     end
   end
 end

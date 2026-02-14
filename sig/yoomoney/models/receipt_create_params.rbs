@@ -16,7 +16,7 @@ module Yoomoney
         receipt_operational_details: Yoomoney::OperationalDetails,
         refund_id: String,
         tax_system_code: Integer,
-        timezone: Integer
+        timezone: String
       }
       & Yoomoney::Internal::Type::request_parameters
 
@@ -74,9 +74,9 @@ module Yoomoney
 
       def tax_system_code=: (Integer) -> Integer
 
-      attr_reader timezone: Integer?
+      attr_reader timezone: String?
 
-      def timezone=: (Integer) -> Integer
+      def timezone=: (String) -> String
 
       def initialize: (
         customer: Yoomoney::ReceiptDataCustomer,
@@ -93,7 +93,7 @@ module Yoomoney
         ?receipt_operational_details: Yoomoney::OperationalDetails,
         ?refund_id: String,
         ?tax_system_code: Integer,
-        ?timezone: Integer,
+        ?timezone: String,
         ?request_options: Yoomoney::request_opts
       ) -> void
 
@@ -112,7 +112,7 @@ module Yoomoney
         receipt_operational_details: Yoomoney::OperationalDetails,
         refund_id: String,
         tax_system_code: Integer,
-        timezone: Integer,
+        timezone: String,
         request_options: Yoomoney::RequestOptions
       }
 

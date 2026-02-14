@@ -2,12 +2,6 @@
 
 module Yoomoney
   module Models
-    # Признак предмета расчета (тег в 54 ФЗ — 1212) — это то, за что принимается
-    # оплата, например товар, услуга. Перечень возможных значений: для Чеков от
-    # ЮKassa:
-    # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/yoomoney/parameters-values#payment-subject;
-    # для сторонних онлайн-касс:
-    # https://yookassa.ru/developers/payment-acceptance/receipts/54fz/other-services/parameters-values#payment-subject.
     module ReceiptItemPaymentSubject
       extend Yoomoney::Internal::Type::Enum
 

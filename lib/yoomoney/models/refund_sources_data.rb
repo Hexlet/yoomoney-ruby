@@ -4,44 +4,29 @@ module Yoomoney
   module Models
     class RefundSourcesData < Yoomoney::Internal::Type::BaseModel
       # @!attribute account_id
-      #   Идентификатор магазина в ЮKassa.
+      #   Идентификатор магазина.
       #
       #   @return [String]
       required :account_id, String
 
       # @!attribute amount
-      #   Сумма в выбранной валюте.
+      #   Сумма возврата.
       #
-      #   @return [Yoomoney::Models::RefundSourcesData::Amount]
-      required :amount, -> { Yoomoney::RefundSourcesData::Amount }
+      #   @return [Yoomoney::Models::MonetaryAmount]
+      required :amount, -> { Yoomoney::MonetaryAmount }
 
       # @!attribute platform_fee_amount
-      #   Сумма в выбранной валюте.
+      #   Комиссия, которую вы удержали при оплате.
       #
-      #   @return [Yoomoney::Models::RefundSourcesData::PlatformFeeAmount, nil]
-      optional :platform_fee_amount, -> { Yoomoney::RefundSourcesData::PlatformFeeAmount }
+      #   @return [Yoomoney::Models::MonetaryAmount, nil]
+      optional :platform_fee_amount, -> { Yoomoney::MonetaryAmount }
 
       # @!method initialize(account_id:, amount:, platform_fee_amount: nil)
-      #   Данные о том, с какого магазина и какую сумму нужно удержать для проведения
-      #   возврата. Сейчас в этом параметре можно передать данные только одного магазина.
+      #   @param account_id [String] Идентификатор магазина.
       #
-      #   @param account_id [String] Идентификатор магазина в ЮKassa.
+      #   @param amount [Yoomoney::Models::MonetaryAmount] Сумма возврата.
       #
-      #   @param amount [Yoomoney::Models::RefundSourcesData::Amount] Сумма в выбранной валюте.
-      #
-      #   @param platform_fee_amount [Yoomoney::Models::RefundSourcesData::PlatformFeeAmount] Сумма в выбранной валюте.
-
-      # @see Yoomoney::Models::RefundSourcesData#amount
-      class Amount < Yoomoney::Models::MonetaryAmount
-        # @!method initialize
-        #   Сумма в выбранной валюте.
-      end
-
-      # @see Yoomoney::Models::RefundSourcesData#platform_fee_amount
-      class PlatformFeeAmount < Yoomoney::Models::MonetaryAmount
-        # @!method initialize
-        #   Сумма в выбранной валюте.
-      end
+      #   @param platform_fee_amount [Yoomoney::Models::MonetaryAmount] Комиссия, которую вы удержали при оплате.
     end
   end
 end
