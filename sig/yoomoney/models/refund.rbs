@@ -117,45 +117,23 @@ module Yoomoney
       type deal =
         {
           id: String,
-          refund_settlements: ::Array[Yoomoney::Refund::Deal::RefundSettlement]
+          refund_settlements: ::Array[Yoomoney::SettlementRefundItem]
         }
 
       class Deal < Yoomoney::Internal::Type::BaseModel
         attr_accessor id: String
 
-        attr_accessor refund_settlements: ::Array[Yoomoney::Refund::Deal::RefundSettlement]
+        attr_accessor refund_settlements: ::Array[Yoomoney::SettlementRefundItem]
 
         def initialize: (
           id: String,
-          refund_settlements: ::Array[Yoomoney::Refund::Deal::RefundSettlement]
+          refund_settlements: ::Array[Yoomoney::SettlementRefundItem]
         ) -> void
 
         def to_hash: -> {
           id: String,
-          refund_settlements: ::Array[Yoomoney::Refund::Deal::RefundSettlement]
+          refund_settlements: ::Array[Yoomoney::SettlementRefundItem]
         }
-
-        type refund_settlement =
-          {
-            amount: Yoomoney::MonetaryAmount,
-            type: Yoomoney::Models::settlement_item_type
-          }
-
-        class RefundSettlement < Yoomoney::Internal::Type::BaseModel
-          attr_accessor amount: Yoomoney::MonetaryAmount
-
-          attr_accessor type: Yoomoney::Models::settlement_item_type
-
-          def initialize: (
-            amount: Yoomoney::MonetaryAmount,
-            type: Yoomoney::Models::settlement_item_type
-          ) -> void
-
-          def to_hash: -> {
-            amount: Yoomoney::MonetaryAmount,
-            type: Yoomoney::Models::settlement_item_type
-          }
-        end
       end
 
       type refund_authorization_details = { rrn: String }

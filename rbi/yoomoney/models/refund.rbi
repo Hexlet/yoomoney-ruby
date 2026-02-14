@@ -228,15 +228,14 @@ module Yoomoney
         attr_accessor :id
 
         # Данные о распределении денег.
-        sig { returns(T::Array[Yoomoney::Refund::Deal::RefundSettlement]) }
+        sig { returns(T::Array[Yoomoney::SettlementRefundItem]) }
         attr_accessor :refund_settlements
 
         # Данные о сделке.
         sig do
           params(
             id: String,
-            refund_settlements:
-              T::Array[Yoomoney::Refund::Deal::RefundSettlement::OrHash]
+            refund_settlements: T::Array[Yoomoney::SettlementRefundItem::OrHash]
           ).returns(T.attached_class)
         end
         def self.new(
@@ -251,51 +250,11 @@ module Yoomoney
           override.returns(
             {
               id: String,
-              refund_settlements:
-                T::Array[Yoomoney::Refund::Deal::RefundSettlement]
+              refund_settlements: T::Array[Yoomoney::SettlementRefundItem]
             }
           )
         end
         def to_hash
-        end
-
-        class RefundSettlement < Yoomoney::Internal::Type::BaseModel
-          OrHash =
-            T.type_alias do
-              T.any(
-                Yoomoney::Refund::Deal::RefundSettlement,
-                Yoomoney::Internal::AnyHash
-              )
-            end
-
-          sig { returns(Yoomoney::MonetaryAmount) }
-          attr_reader :amount
-
-          sig { params(amount: Yoomoney::MonetaryAmount::OrHash).void }
-          attr_writer :amount
-
-          sig { returns(Yoomoney::SettlementItemType::TaggedSymbol) }
-          attr_accessor :type
-
-          sig do
-            params(
-              amount: Yoomoney::MonetaryAmount::OrHash,
-              type: Yoomoney::SettlementItemType::OrSymbol
-            ).returns(T.attached_class)
-          end
-          def self.new(amount:, type:)
-          end
-
-          sig do
-            override.returns(
-              {
-                amount: Yoomoney::MonetaryAmount,
-                type: Yoomoney::SettlementItemType::TaggedSymbol
-              }
-            )
-          end
-          def to_hash
-          end
         end
       end
 
