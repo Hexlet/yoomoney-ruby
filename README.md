@@ -15,7 +15,7 @@ To use this gem, install via Bundler by adding the following to your application
 <!-- x-release-please-start-version -->
 
 ```ruby
-gem "yoomoney", "~> 0.0.2"
+gem "yoomoney", "~> 0.1.0"
 ```
 
 <!-- x-release-please-end -->
