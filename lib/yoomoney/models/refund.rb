@@ -145,32 +145,15 @@ module Yoomoney
         # @!attribute refund_settlements
         #   Данные о распределении денег.
         #
-        #   @return [Array<Yoomoney::Models::Refund::Deal::RefundSettlement>]
-        required :refund_settlements,
-                 -> { Yoomoney::Internal::Type::ArrayOf[Yoomoney::Refund::Deal::RefundSettlement] }
+        #   @return [Array<Yoomoney::Models::SettlementRefundItem>]
+        required :refund_settlements, -> { Yoomoney::Internal::Type::ArrayOf[Yoomoney::SettlementRefundItem] }
 
         # @!method initialize(id:, refund_settlements:)
         #   Данные о сделке.
         #
         #   @param id [String] Идентификатор сделки.
         #
-        #   @param refund_settlements [Array<Yoomoney::Models::Refund::Deal::RefundSettlement>] Данные о распределении денег.
-
-        class RefundSettlement < Yoomoney::Internal::Type::BaseModel
-          # @!attribute amount
-          #
-          #   @return [Yoomoney::Models::MonetaryAmount]
-          required :amount, -> { Yoomoney::MonetaryAmount }
-
-          # @!attribute type
-          #
-          #   @return [Symbol, Yoomoney::Models::SettlementItemType]
-          required :type, enum: -> { Yoomoney::SettlementItemType }
-
-          # @!method initialize(amount:, type:)
-          #   @param amount [Yoomoney::Models::MonetaryAmount]
-          #   @param type [Symbol, Yoomoney::Models::SettlementItemType]
-        end
+        #   @param refund_settlements [Array<Yoomoney::Models::SettlementRefundItem>] Данные о распределении денег.
       end
 
       # @see Yoomoney::Models::Refund#refund_authorization_details

@@ -15,11 +15,11 @@ module Yoomoney
     # Default max retry delay in seconds.
     DEFAULT_MAX_RETRY_DELAY = 8.0
 
-    # HTTP Basic аутентификация клиента ЮKassa
+    # HTTP Basic аутентификация клиента ЮKassa (shopId)
     # @return [String, nil]
     attr_reader :username
 
-    # HTTP Basic аутентификация клиента ЮKassa
+    # HTTP Basic аутентификация клиента ЮKassa (секретный ключ)
     # @return [String, nil]
     attr_reader :password
 
@@ -58,9 +58,11 @@ module Yoomoney
 
     # Creates and returns a new client for interacting with the API.
     #
-    # @param username [String, nil] HTTP Basic аутентификация клиента ЮKassa Defaults to `ENV["YOOMONEY_USERNAME"]`
+    # @param username [String, nil] HTTP Basic аутентификация клиента ЮKassa (shopId) Defaults to
+    # `ENV["YOOMONEY_USERNAME"]`
     #
-    # @param password [String, nil] HTTP Basic аутентификация клиента ЮKassa Defaults to `ENV["YOOMONEY_PASSWORD"]`
+    # @param password [String, nil] HTTP Basic аутентификация клиента ЮKassa (секретный ключ) Defaults to
+    # `ENV["YOOMONEY_PASSWORD"]`
     #
     # @param base_url [String, nil] Override the default base URL for the API, e.g.,
     # `"https://api.example.com/v2/"`. Defaults to `ENV["YOOMONEY_BASE_URL"]`
