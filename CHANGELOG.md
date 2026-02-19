@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 (2026-02-19)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/Hexlet/yoomoney-ruby/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** api update ([c792fd8](https://github.com/Hexlet/yoomoney-ruby/commit/c792fd813fb0c1937753a2deda1c1d763af4081d))
+
 ## 0.3.0 (2026-02-19)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/Hexlet/yoomoney-ruby/compare/v0.2.0...v0.3.0)
