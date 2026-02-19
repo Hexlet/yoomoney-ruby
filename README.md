@@ -26,7 +26,10 @@ gem "yoomoney", "~> 0.2.0"
 require "bundler/setup"
 require "yoomoney"
 
-yoomoney = Yoomoney::Client.new
+yoomoney = Yoomoney::Client.new(
+  username: ENV["YOOMONEY_USERNAME"], # This is the default and can be omitted
+  password: ENV["YOOMONEY_PASSWORD"] # This is the default and can be omitted
+)
 
 payment = yoomoney.payments.create(amount: {currency: "RUB", value: "value"}, idempotence_key: "Idempotence-Key")
 

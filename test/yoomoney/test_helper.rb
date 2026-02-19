@@ -48,7 +48,11 @@ class Yoomoney::Test::SingletonClient < Yoomoney::Client
   TEST_API_BASE_URL = ENV.fetch("TEST_API_BASE_URL", "http://localhost:4010")
 
   def initialize
-    super(base_url: Yoomoney::Test::SingletonClient::TEST_API_BASE_URL)
+    super(
+      base_url: Yoomoney::Test::SingletonClient::TEST_API_BASE_URL,
+      username: "My Username",
+      password: "My Password"
+    )
   end
 end
 

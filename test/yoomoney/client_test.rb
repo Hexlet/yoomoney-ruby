@@ -30,7 +30,8 @@ class YoomoneyTest < Minitest::Test
   def test_client_default_request_default_retry_attempts
     stub_request(:post, "http://localhost/payments").to_return_json(status: 500, body: {})
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost")
+    yoomoney =
+      Yoomoney::Client.new(base_url: "http://localhost", username: "My Username", password: "My Password")
 
     assert_raises(Yoomoney::Errors::InternalServerError) do
       yoomoney.payments.create(amount: {currency: :RUB, value: "value"}, idempotence_key: "Idempotence-Key")
@@ -42,7 +43,13 @@ class YoomoneyTest < Minitest::Test
   def test_client_given_request_default_retry_attempts
     stub_request(:post, "http://localhost/payments").to_return_json(status: 500, body: {})
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost", max_retries: 3)
+    yoomoney =
+      Yoomoney::Client.new(
+        base_url: "http://localhost",
+        username: "My Username",
+        password: "My Password",
+        max_retries: 3
+      )
 
     assert_raises(Yoomoney::Errors::InternalServerError) do
       yoomoney.payments.create(amount: {currency: :RUB, value: "value"}, idempotence_key: "Idempotence-Key")
@@ -54,7 +61,8 @@ class YoomoneyTest < Minitest::Test
   def test_client_default_request_given_retry_attempts
     stub_request(:post, "http://localhost/payments").to_return_json(status: 500, body: {})
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost")
+    yoomoney =
+      Yoomoney::Client.new(base_url: "http://localhost", username: "My Username", password: "My Password")
 
     assert_raises(Yoomoney::Errors::InternalServerError) do
       yoomoney.payments.create(
@@ -70,7 +78,13 @@ class YoomoneyTest < Minitest::Test
   def test_client_given_request_given_retry_attempts
     stub_request(:post, "http://localhost/payments").to_return_json(status: 500, body: {})
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost", max_retries: 3)
+    yoomoney =
+      Yoomoney::Client.new(
+        base_url: "http://localhost",
+        username: "My Username",
+        password: "My Password",
+        max_retries: 3
+      )
 
     assert_raises(Yoomoney::Errors::InternalServerError) do
       yoomoney.payments.create(
@@ -90,7 +104,13 @@ class YoomoneyTest < Minitest::Test
       body: {}
     )
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost", max_retries: 1)
+    yoomoney =
+      Yoomoney::Client.new(
+        base_url: "http://localhost",
+        username: "My Username",
+        password: "My Password",
+        max_retries: 1
+      )
 
     assert_raises(Yoomoney::Errors::InternalServerError) do
       yoomoney.payments.create(amount: {currency: :RUB, value: "value"}, idempotence_key: "Idempotence-Key")
@@ -107,7 +127,13 @@ class YoomoneyTest < Minitest::Test
       body: {}
     )
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost", max_retries: 1)
+    yoomoney =
+      Yoomoney::Client.new(
+        base_url: "http://localhost",
+        username: "My Username",
+        password: "My Password",
+        max_retries: 1
+      )
 
     assert_raises(Yoomoney::Errors::InternalServerError) do
       Thread.current.thread_variable_set(:time_now, Time.now)
@@ -126,7 +152,13 @@ class YoomoneyTest < Minitest::Test
       body: {}
     )
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost", max_retries: 1)
+    yoomoney =
+      Yoomoney::Client.new(
+        base_url: "http://localhost",
+        username: "My Username",
+        password: "My Password",
+        max_retries: 1
+      )
 
     assert_raises(Yoomoney::Errors::InternalServerError) do
       yoomoney.payments.create(amount: {currency: :RUB, value: "value"}, idempotence_key: "Idempotence-Key")
@@ -139,7 +171,8 @@ class YoomoneyTest < Minitest::Test
   def test_retry_count_header
     stub_request(:post, "http://localhost/payments").to_return_json(status: 500, body: {})
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost")
+    yoomoney =
+      Yoomoney::Client.new(base_url: "http://localhost", username: "My Username", password: "My Password")
 
     assert_raises(Yoomoney::Errors::InternalServerError) do
       yoomoney.payments.create(amount: {currency: :RUB, value: "value"}, idempotence_key: "Idempotence-Key")
@@ -153,7 +186,8 @@ class YoomoneyTest < Minitest::Test
   def test_omit_retry_count_header
     stub_request(:post, "http://localhost/payments").to_return_json(status: 500, body: {})
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost")
+    yoomoney =
+      Yoomoney::Client.new(base_url: "http://localhost", username: "My Username", password: "My Password")
 
     assert_raises(Yoomoney::Errors::InternalServerError) do
       yoomoney.payments.create(
@@ -171,7 +205,8 @@ class YoomoneyTest < Minitest::Test
   def test_overwrite_retry_count_header
     stub_request(:post, "http://localhost/payments").to_return_json(status: 500, body: {})
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost")
+    yoomoney =
+      Yoomoney::Client.new(base_url: "http://localhost", username: "My Username", password: "My Password")
 
     assert_raises(Yoomoney::Errors::InternalServerError) do
       yoomoney.payments.create(
@@ -195,7 +230,8 @@ class YoomoneyTest < Minitest::Test
       headers: {"location" => "/redirected"}
     )
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost")
+    yoomoney =
+      Yoomoney::Client.new(base_url: "http://localhost", username: "My Username", password: "My Password")
 
     assert_raises(Yoomoney::Errors::APIConnectionError) do
       yoomoney.payments.create(
@@ -228,7 +264,8 @@ class YoomoneyTest < Minitest::Test
       headers: {"location" => "/redirected"}
     )
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost")
+    yoomoney =
+      Yoomoney::Client.new(base_url: "http://localhost", username: "My Username", password: "My Password")
 
     assert_raises(Yoomoney::Errors::APIConnectionError) do
       yoomoney.payments.create(
@@ -256,7 +293,8 @@ class YoomoneyTest < Minitest::Test
       headers: {"location" => "/redirected"}
     )
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost")
+    yoomoney =
+      Yoomoney::Client.new(base_url: "http://localhost", username: "My Username", password: "My Password")
 
     assert_raises(Yoomoney::Errors::APIConnectionError) do
       yoomoney.payments.create(
@@ -287,7 +325,8 @@ class YoomoneyTest < Minitest::Test
       headers: {"location" => "https://example.com/redirected"}
     )
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost")
+    yoomoney =
+      Yoomoney::Client.new(base_url: "http://localhost", username: "My Username", password: "My Password")
 
     assert_raises(Yoomoney::Errors::APIConnectionError) do
       yoomoney.payments.create(
@@ -306,7 +345,8 @@ class YoomoneyTest < Minitest::Test
   def test_default_headers
     stub_request(:post, "http://localhost/payments").to_return_json(status: 200, body: {})
 
-    yoomoney = Yoomoney::Client.new(base_url: "http://localhost")
+    yoomoney =
+      Yoomoney::Client.new(base_url: "http://localhost", username: "My Username", password: "My Password")
 
     yoomoney.payments.create(amount: {currency: :RUB, value: "value"}, idempotence_key: "Idempotence-Key")
 
