@@ -118,149 +118,37 @@ module Yoomoney
 
       type item =
         {
-          amount: Yoomoney::MonetaryAmount,
-          description: String,
-          quantity: Float,
-          vat_code: Integer,
           additional_payment_subject_props: String,
           agent_type: Yoomoney::Models::receipt_item_agent_type,
-          country_of_origin_code: String,
-          customs_declaration_number: String,
-          excise: String,
-          mark_code_info: Yoomoney::MarkCodeInfo,
-          mark_mode: String,
-          mark_quantity: Yoomoney::MarkQuantity,
-          measure: Yoomoney::Models::receipt_item_measure,
-          payment_mode: Yoomoney::Models::receipt_item_payment_mode,
-          payment_subject: Yoomoney::Models::receipt_item_payment_subject,
-          payment_subject_industry_details: ::Array[Yoomoney::IndustryDetails],
-          planned_status: Integer,
-          product_code: String,
           supplier: Yoomoney::ReceiptCreateParams::Item::Supplier
         }
 
-      class Item < Yoomoney::Internal::Type::BaseModel
-        attr_accessor amount: Yoomoney::MonetaryAmount
+      class Item < Yoomoney::Models::ReceiptDataItem
+        def additional_payment_subject_props: -> String?
 
-        attr_accessor description: String
+        def additional_payment_subject_props=: (String _) -> String
 
-        attr_accessor quantity: Float
-
-        attr_accessor vat_code: Integer
-
-        attr_reader additional_payment_subject_props: String?
-
-        def additional_payment_subject_props=: (String) -> String
-
-        attr_reader agent_type: Yoomoney::Models::receipt_item_agent_type?
+        def agent_type: -> Yoomoney::Models::receipt_item_agent_type?
 
         def agent_type=: (
-          Yoomoney::Models::receipt_item_agent_type
+          Yoomoney::Models::receipt_item_agent_type _
         ) -> Yoomoney::Models::receipt_item_agent_type
 
-        attr_reader country_of_origin_code: String?
-
-        def country_of_origin_code=: (String) -> String
-
-        attr_reader customs_declaration_number: String?
-
-        def customs_declaration_number=: (String) -> String
-
-        attr_reader excise: String?
-
-        def excise=: (String) -> String
-
-        attr_reader mark_code_info: Yoomoney::MarkCodeInfo?
-
-        def mark_code_info=: (Yoomoney::MarkCodeInfo) -> Yoomoney::MarkCodeInfo
-
-        attr_reader mark_mode: String?
-
-        def mark_mode=: (String) -> String
-
-        attr_reader mark_quantity: Yoomoney::MarkQuantity?
-
-        def mark_quantity=: (Yoomoney::MarkQuantity) -> Yoomoney::MarkQuantity
-
-        attr_reader measure: Yoomoney::Models::receipt_item_measure?
-
-        def measure=: (
-          Yoomoney::Models::receipt_item_measure
-        ) -> Yoomoney::Models::receipt_item_measure
-
-        attr_reader payment_mode: Yoomoney::Models::receipt_item_payment_mode?
-
-        def payment_mode=: (
-          Yoomoney::Models::receipt_item_payment_mode
-        ) -> Yoomoney::Models::receipt_item_payment_mode
-
-        attr_reader payment_subject: Yoomoney::Models::receipt_item_payment_subject?
-
-        def payment_subject=: (
-          Yoomoney::Models::receipt_item_payment_subject
-        ) -> Yoomoney::Models::receipt_item_payment_subject
-
-        attr_reader payment_subject_industry_details: ::Array[Yoomoney::IndustryDetails]?
-
-        def payment_subject_industry_details=: (
-          ::Array[Yoomoney::IndustryDetails]
-        ) -> ::Array[Yoomoney::IndustryDetails]
-
-        attr_reader planned_status: Integer?
-
-        def planned_status=: (Integer) -> Integer
-
-        attr_reader product_code: String?
-
-        def product_code=: (String) -> String
-
-        attr_reader supplier: Yoomoney::ReceiptCreateParams::Item::Supplier?
+        def supplier: -> Yoomoney::ReceiptCreateParams::Item::Supplier?
 
         def supplier=: (
-          Yoomoney::ReceiptCreateParams::Item::Supplier
+          Yoomoney::ReceiptCreateParams::Item::Supplier _
         ) -> Yoomoney::ReceiptCreateParams::Item::Supplier
 
         def initialize: (
-          amount: Yoomoney::MonetaryAmount,
-          description: String,
-          quantity: Float,
-          vat_code: Integer,
           ?additional_payment_subject_props: String,
           ?agent_type: Yoomoney::Models::receipt_item_agent_type,
-          ?country_of_origin_code: String,
-          ?customs_declaration_number: String,
-          ?excise: String,
-          ?mark_code_info: Yoomoney::MarkCodeInfo,
-          ?mark_mode: String,
-          ?mark_quantity: Yoomoney::MarkQuantity,
-          ?measure: Yoomoney::Models::receipt_item_measure,
-          ?payment_mode: Yoomoney::Models::receipt_item_payment_mode,
-          ?payment_subject: Yoomoney::Models::receipt_item_payment_subject,
-          ?payment_subject_industry_details: ::Array[Yoomoney::IndustryDetails],
-          ?planned_status: Integer,
-          ?product_code: String,
           ?supplier: Yoomoney::ReceiptCreateParams::Item::Supplier
         ) -> void
 
         def to_hash: -> {
-          amount: Yoomoney::MonetaryAmount,
-          description: String,
-          quantity: Float,
-          vat_code: Integer,
           additional_payment_subject_props: String,
           agent_type: Yoomoney::Models::receipt_item_agent_type,
-          country_of_origin_code: String,
-          customs_declaration_number: String,
-          excise: String,
-          mark_code_info: Yoomoney::MarkCodeInfo,
-          mark_mode: String,
-          mark_quantity: Yoomoney::MarkQuantity,
-          measure: Yoomoney::Models::receipt_item_measure,
-          payment_mode: Yoomoney::Models::receipt_item_payment_mode,
-          payment_subject: Yoomoney::Models::receipt_item_payment_subject,
-          payment_subject_industry_details: ::Array[Yoomoney::IndustryDetails],
-          planned_status: Integer,
-          product_code: String,
           supplier: Yoomoney::ReceiptCreateParams::Item::Supplier
         }
 
