@@ -1,10 +1,6 @@
 module Yoomoney
   class Airline = Yoomoney::Models::Airline
 
-  class AirlineLeg = Yoomoney::Models::AirlineLeg
-
-  class AirlinePassenger = Yoomoney::Models::AirlinePassenger
-
   class B2bSberbankCalculatedVatData = Yoomoney::Models::B2bSberbankCalculatedVatData
 
   class B2bSberbankMixedVatData = Yoomoney::Models::B2bSberbankMixedVatData
@@ -134,8 +130,6 @@ module Yoomoney
   class ReceiptData = Yoomoney::Models::ReceiptData
 
   class ReceiptDataCustomer = Yoomoney::Models::ReceiptDataCustomer
-
-  class ReceiptDataItem = Yoomoney::Models::ReceiptDataItem
 
   module ReceiptItemAgentType = Yoomoney::Models::ReceiptItemAgentType
 
