@@ -11,7 +11,7 @@ GIT
 PATH
   remote: .
   specs:
-    yoomoney (0.3.0)
+    yoomoney (0.4.0)
       cgi
       connection_pool
 
