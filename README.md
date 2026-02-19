@@ -15,7 +15,7 @@ To use this gem, install via Bundler by adding the following to your application
 <!-- x-release-please-start-version -->
 
 ```ruby
-gem "yoomoney", "~> 0.2.0"
+gem "yoomoney", "~> 0.3.0"
 ```
 
 <!-- x-release-please-end -->
@@ -26,7 +26,10 @@ gem "yoomoney", "~> 0.2.0"
 require "bundler/setup"
 require "yoomoney"
 
-yoomoney = Yoomoney::Client.new
+yoomoney = Yoomoney::Client.new(
+  username: ENV["YOOMONEY_USERNAME"], # This is the default and can be omitted
+  password: ENV["YOOMONEY_PASSWORD"] # This is the default and can be omitted
+)
 
 payment = yoomoney.payments.create(amount: {currency: "RUB", value: "value"}, idempotence_key: "Idempotence-Key")
 

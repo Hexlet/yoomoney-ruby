@@ -41,6 +41,10 @@ module Yoomoney
 
   Airline = Yoomoney::Models::Airline
 
+  AirlineLeg = Yoomoney::Models::AirlineLeg
+
+  AirlinePassenger = Yoomoney::Models::AirlinePassenger
+
   B2bSberbankCalculatedVatData = Yoomoney::Models::B2bSberbankCalculatedVatData
 
   B2bSberbankMixedVatData = Yoomoney::Models::B2bSberbankMixedVatData
@@ -170,6 +174,8 @@ module Yoomoney
   ReceiptData = Yoomoney::Models::ReceiptData
 
   ReceiptDataCustomer = Yoomoney::Models::ReceiptDataCustomer
+
+  ReceiptDataItem = Yoomoney::Models::ReceiptDataItem
 
   ReceiptItemAgentType = Yoomoney::Models::ReceiptItemAgentType
 
