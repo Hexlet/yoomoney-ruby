@@ -3,8 +3,8 @@ module Yoomoney
     type airline =
       {
         booking_reference: String,
-        legs: ::Array[Yoomoney::Airline::Leg],
-        passengers: ::Array[Yoomoney::Airline::Passenger],
+        legs: ::Array[Yoomoney::AirlineLeg],
+        passengers: ::Array[Yoomoney::AirlinePassenger],
         ticket_number: String
       }
 
@@ -13,17 +13,17 @@ module Yoomoney
 
       def booking_reference=: (String) -> String
 
-      attr_reader legs: ::Array[Yoomoney::Airline::Leg]?
+      attr_reader legs: ::Array[Yoomoney::AirlineLeg]?
 
       def legs=: (
-        ::Array[Yoomoney::Airline::Leg]
-      ) -> ::Array[Yoomoney::Airline::Leg]
+        ::Array[Yoomoney::AirlineLeg]
+      ) -> ::Array[Yoomoney::AirlineLeg]
 
-      attr_reader passengers: ::Array[Yoomoney::Airline::Passenger]?
+      attr_reader passengers: ::Array[Yoomoney::AirlinePassenger]?
 
       def passengers=: (
-        ::Array[Yoomoney::Airline::Passenger]
-      ) -> ::Array[Yoomoney::Airline::Passenger]
+        ::Array[Yoomoney::AirlinePassenger]
+      ) -> ::Array[Yoomoney::AirlinePassenger]
 
       attr_reader ticket_number: String?
 
@@ -31,63 +31,17 @@ module Yoomoney
 
       def initialize: (
         ?booking_reference: String,
-        ?legs: ::Array[Yoomoney::Airline::Leg],
-        ?passengers: ::Array[Yoomoney::Airline::Passenger],
+        ?legs: ::Array[Yoomoney::AirlineLeg],
+        ?passengers: ::Array[Yoomoney::AirlinePassenger],
         ?ticket_number: String
       ) -> void
 
       def to_hash: -> {
         booking_reference: String,
-        legs: ::Array[Yoomoney::Airline::Leg],
-        passengers: ::Array[Yoomoney::Airline::Passenger],
+        legs: ::Array[Yoomoney::AirlineLeg],
+        passengers: ::Array[Yoomoney::AirlinePassenger],
         ticket_number: String
       }
-
-      type leg =
-        {
-          departure_airport: String,
-          departure_date: String,
-          destination_airport: String,
-          carrier_code: String
-        }
-
-      class Leg < Yoomoney::Internal::Type::BaseModel
-        attr_accessor departure_airport: String
-
-        attr_accessor departure_date: String
-
-        attr_accessor destination_airport: String
-
-        attr_reader carrier_code: String?
-
-        def carrier_code=: (String) -> String
-
-        def initialize: (
-          departure_airport: String,
-          departure_date: String,
-          destination_airport: String,
-          ?carrier_code: String
-        ) -> void
-
-        def to_hash: -> {
-          departure_airport: String,
-          departure_date: String,
-          destination_airport: String,
-          carrier_code: String
-        }
-      end
-
-      type passenger = { first_name: String, last_name: String }
-
-      class Passenger < Yoomoney::Internal::Type::BaseModel
-        attr_accessor first_name: String
-
-        attr_accessor last_name: String
-
-        def initialize: (first_name: String, last_name: String) -> void
-
-        def to_hash: -> { first_name: String, last_name: String }
-      end
     end
   end
 end

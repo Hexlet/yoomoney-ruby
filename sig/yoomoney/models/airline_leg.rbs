@@ -1,0 +1,37 @@
+module Yoomoney
+  module Models
+    type airline_leg =
+      {
+        departure_airport: String,
+        departure_date: String,
+        destination_airport: String,
+        carrier_code: String
+      }
+
+    class AirlineLeg < Yoomoney::Internal::Type::BaseModel
+      attr_accessor departure_airport: String
+
+      attr_accessor departure_date: String
+
+      attr_accessor destination_airport: String
+
+      attr_reader carrier_code: String?
+
+      def carrier_code=: (String) -> String
+
+      def initialize: (
+        departure_airport: String,
+        departure_date: String,
+        destination_airport: String,
+        ?carrier_code: String
+      ) -> void
+
+      def to_hash: -> {
+        departure_airport: String,
+        departure_date: String,
+        destination_airport: String,
+        carrier_code: String
+      }
+    end
+  end
+end

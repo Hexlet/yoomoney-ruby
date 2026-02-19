@@ -1,0 +1,15 @@
+module Yoomoney
+  module Models
+    type airline_passenger = { first_name: String, last_name: String }
+
+    class AirlinePassenger < Yoomoney::Internal::Type::BaseModel
+      attr_accessor first_name: String
+
+      attr_accessor last_name: String
+
+      def initialize: (first_name: String, last_name: String) -> void
+
+      def to_hash: -> { first_name: String, last_name: String }
+    end
+  end
+end
