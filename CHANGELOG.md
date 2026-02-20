@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.1 (2026-02-20)
+
+Full Changelog: [v0.4.0...v0.4.1](https://github.com/Hexlet/yoomoney-ruby/compare/v0.4.0...v0.4.1)
+
+### Chores
+
+* **internal:** remove mock server code ([ff71548](https://github.com/Hexlet/yoomoney-ruby/commit/ff7154864d2ab53d55c4eeacb28120965dca14a1))
+* update mock server docs ([98bf708](https://github.com/Hexlet/yoomoney-ruby/commit/98bf7084f1c04c1d0c816d96584a4074e9187024))
+
 ## 0.4.0 (2026-02-19)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/Hexlet/yoomoney-ruby/compare/v0.3.0...v0.4.0)
