@@ -81,10 +81,11 @@ module Yoomoney
       # @see Yoomoney::Models::RefundListParams
       def list(params = {})
         parsed, options = Yoomoney::RefundListParams.dump_request(params)
+        query = Yoomoney::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "refunds",
-          query: parsed,
+          query: query,
           model: Yoomoney::Models::RefundListResponse,
           options: options
         )

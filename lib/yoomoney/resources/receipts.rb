@@ -91,10 +91,11 @@ module Yoomoney
       # @see Yoomoney::Models::ReceiptListParams
       def list(params = {})
         parsed, options = Yoomoney::ReceiptListParams.dump_request(params)
+        query = Yoomoney::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "receipts",
-          query: parsed,
+          query: query,
           model: Yoomoney::Models::ReceiptListResponse,
           options: options
         )
