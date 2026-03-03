@@ -81,10 +81,11 @@ module Yoomoney
       # @see Yoomoney::Models::PayoutListParams
       def list(params = {})
         parsed, options = Yoomoney::PayoutListParams.dump_request(params)
+        query = Yoomoney::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "payouts",
-          query: parsed,
+          query: query,
           model: Yoomoney::PayoutsList,
           options: options
         )
@@ -104,10 +105,11 @@ module Yoomoney
       # @see Yoomoney::Models::PayoutSearchParams
       def search(params = {})
         parsed, options = Yoomoney::PayoutSearchParams.dump_request(params)
+        query = Yoomoney::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "payouts/search",
-          query: parsed,
+          query: query,
           model: Yoomoney::PayoutsList,
           options: options
         )

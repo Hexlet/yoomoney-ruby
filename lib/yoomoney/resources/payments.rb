@@ -104,10 +104,11 @@ module Yoomoney
       # @see Yoomoney::Models::PaymentListParams
       def list(params = {})
         parsed, options = Yoomoney::PaymentListParams.dump_request(params)
+        query = Yoomoney::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "payments",
-          query: parsed,
+          query: query,
           model: Yoomoney::Models::PaymentListResponse,
           options: options
         )
