@@ -2,12 +2,8 @@ module Yoomoney
   module Resources
     class PersonalData
       def create: (
-        first_name: String,
-        last_name: String,
-        type: Yoomoney::Models::personal_data_type,
+        body: Yoomoney::Models::PersonalDataCreateParams::body,
         idempotence_key: String,
-        ?metadata: ::Hash[Symbol, String],
-        ?middle_name: String,
         ?request_options: Yoomoney::request_opts
       ) -> Yoomoney::PersonalDataAPI
 

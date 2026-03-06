@@ -1,15 +1,24 @@
 module Yoomoney
   module Models
     type personal_data_retrieve_params =
-      {  } & Yoomoney::Internal::Type::request_parameters
+      { personal_data_id: String }
+      & Yoomoney::Internal::Type::request_parameters
 
     class PersonalDataRetrieveParams < Yoomoney::Internal::Type::BaseModel
       extend Yoomoney::Internal::Type::RequestParameters::Converter
       include Yoomoney::Internal::Type::RequestParameters
 
-      def initialize: (?request_options: Yoomoney::request_opts) -> void
+      attr_accessor personal_data_id: String
 
-      def to_hash: -> { request_options: Yoomoney::RequestOptions }
+      def initialize: (
+        personal_data_id: String,
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        personal_data_id: String,
+        request_options: Yoomoney::RequestOptions
+      }
     end
   end
 end

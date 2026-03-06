@@ -8,9 +8,7 @@ class Yoomoney::Test::Resources::PersonalDataTest < Yoomoney::Test::ResourceTest
 
     response =
       @yoomoney.personal_data.create(
-        first_name: "first_name",
-        last_name: "last_name",
-        type: :payout_statement_recipient,
+        body: {type: :payout_statement_recipient, first_name: "first_name", last_name: "last_name"},
         idempotence_key: "Idempotence-Key"
       )
 

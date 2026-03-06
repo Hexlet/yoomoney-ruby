@@ -1,15 +1,23 @@
 module Yoomoney
   module Models
     type receipt_retrieve_params =
-      {  } & Yoomoney::Internal::Type::request_parameters
+      { receipt_id: String } & Yoomoney::Internal::Type::request_parameters
 
     class ReceiptRetrieveParams < Yoomoney::Internal::Type::BaseModel
       extend Yoomoney::Internal::Type::RequestParameters::Converter
       include Yoomoney::Internal::Type::RequestParameters
 
-      def initialize: (?request_options: Yoomoney::request_opts) -> void
+      attr_accessor receipt_id: String
 
-      def to_hash: -> { request_options: Yoomoney::RequestOptions }
+      def initialize: (
+        receipt_id: String,
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        receipt_id: String,
+        request_options: Yoomoney::RequestOptions
+      }
     end
   end
 end

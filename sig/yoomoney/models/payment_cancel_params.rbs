@@ -1,20 +1,25 @@
 module Yoomoney
   module Models
     type payment_cancel_params =
-      { idempotence_key: String } & Yoomoney::Internal::Type::request_parameters
+      { payment_id: String, idempotence_key: String }
+      & Yoomoney::Internal::Type::request_parameters
 
     class PaymentCancelParams < Yoomoney::Internal::Type::BaseModel
       extend Yoomoney::Internal::Type::RequestParameters::Converter
       include Yoomoney::Internal::Type::RequestParameters
 
+      attr_accessor payment_id: String
+
       attr_accessor idempotence_key: String
 
       def initialize: (
+        payment_id: String,
         idempotence_key: String,
         ?request_options: Yoomoney::request_opts
       ) -> void
 
       def to_hash: -> {
+        payment_id: String,
         idempotence_key: String,
         request_options: Yoomoney::RequestOptions
       }

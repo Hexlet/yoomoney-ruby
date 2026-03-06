@@ -11,15 +11,23 @@ module Yoomoney
           T.any(Yoomoney::WebhookDeleteParams, Yoomoney::Internal::AnyHash)
         end
 
+      sig { returns(String) }
+      attr_accessor :webhook_id
+
       sig do
-        params(request_options: Yoomoney::RequestOptions::OrHash).returns(
-          T.attached_class
-        )
+        params(
+          webhook_id: String,
+          request_options: Yoomoney::RequestOptions::OrHash
+        ).returns(T.attached_class)
       end
-      def self.new(request_options: {})
+      def self.new(webhook_id:, request_options: {})
       end
 
-      sig { override.returns({ request_options: Yoomoney::RequestOptions }) }
+      sig do
+        override.returns(
+          { webhook_id: String, request_options: Yoomoney::RequestOptions }
+        )
+      end
       def to_hash
       end
     end

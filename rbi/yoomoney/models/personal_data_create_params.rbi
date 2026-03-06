@@ -11,82 +11,167 @@ module Yoomoney
           T.any(Yoomoney::PersonalDataCreateParams, Yoomoney::Internal::AnyHash)
         end
 
-      # Имя.
-      sig { returns(String) }
-      attr_accessor :first_name
-
-      # Фамилия.
-      sig { returns(String) }
-      attr_accessor :last_name
-
-      # Тип персональных данных.
-      sig { returns(Yoomoney::PersonalDataType::OrSymbol) }
-      attr_accessor :type
+      sig do
+        returns(
+          T.any(
+            Yoomoney::PersonalDataCreateParams::Body::SbpPayoutRecipientPersonalDataRequest,
+            Yoomoney::PersonalDataCreateParams::Body::PayoutStatementRecipientPersonalDataRequest
+          )
+        )
+      end
+      attr_accessor :body
 
       sig { returns(String) }
       attr_accessor :idempotence_key
 
-      # Любые дополнительные данные, которые нужны вам для работы (например, номер
-      # заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от
-      # ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов,
-      # значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
-      sig { returns(T.nilable(T::Hash[Symbol, String])) }
-      attr_reader :metadata
-
-      sig { params(metadata: T::Hash[Symbol, String]).void }
-      attr_writer :metadata
-
-      # Отчество.
-      sig { returns(T.nilable(String)) }
-      attr_reader :middle_name
-
-      sig { params(middle_name: String).void }
-      attr_writer :middle_name
-
       sig do
         params(
-          first_name: String,
-          last_name: String,
-          type: Yoomoney::PersonalDataType::OrSymbol,
+          body:
+            T.any(
+              Yoomoney::PersonalDataCreateParams::Body::SbpPayoutRecipientPersonalDataRequest::OrHash,
+              Yoomoney::PersonalDataCreateParams::Body::PayoutStatementRecipientPersonalDataRequest::OrHash
+            ),
           idempotence_key: String,
-          metadata: T::Hash[Symbol, String],
-          middle_name: String,
           request_options: Yoomoney::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
-      def self.new(
-        # Имя.
-        first_name:,
-        # Фамилия.
-        last_name:,
-        # Тип персональных данных.
-        type:,
-        idempotence_key:,
-        # Любые дополнительные данные, которые нужны вам для работы (например, номер
-        # заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в ответе от
-        # ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32 символов,
-        # значение ключа не больше 512 символов, тип данных — строка в формате UTF-8.
-        metadata: nil,
-        # Отчество.
-        middle_name: nil,
-        request_options: {}
-      )
+      def self.new(body:, idempotence_key:, request_options: {})
       end
 
       sig do
         override.returns(
           {
-            first_name: String,
-            last_name: String,
-            type: Yoomoney::PersonalDataType::OrSymbol,
+            body:
+              T.any(
+                Yoomoney::PersonalDataCreateParams::Body::SbpPayoutRecipientPersonalDataRequest,
+                Yoomoney::PersonalDataCreateParams::Body::PayoutStatementRecipientPersonalDataRequest
+              ),
             idempotence_key: String,
-            metadata: T::Hash[Symbol, String],
-            middle_name: String,
             request_options: Yoomoney::RequestOptions
           }
         )
       end
       def to_hash
+      end
+
+      module Body
+        extend Yoomoney::Internal::Type::Union
+
+        Variants =
+          T.type_alias do
+            T.any(
+              Yoomoney::PersonalDataCreateParams::Body::SbpPayoutRecipientPersonalDataRequest,
+              Yoomoney::PersonalDataCreateParams::Body::PayoutStatementRecipientPersonalDataRequest
+            )
+          end
+
+        class SbpPayoutRecipientPersonalDataRequest < Yoomoney::Models::PersonalDataRequest
+          OrHash =
+            T.type_alias do
+              T.any(
+                Yoomoney::PersonalDataCreateParams::Body::SbpPayoutRecipientPersonalDataRequest,
+                Yoomoney::Internal::AnyHash
+              )
+            end
+
+          # Имя.
+          sig { returns(String) }
+          attr_accessor :first_name
+
+          # Фамилия.
+          sig { returns(String) }
+          attr_accessor :last_name
+
+          # Отчество.
+          sig { returns(T.nilable(String)) }
+          attr_reader :middle_name
+
+          sig { params(middle_name: String).void }
+          attr_writer :middle_name
+
+          sig do
+            params(
+              first_name: String,
+              last_name: String,
+              middle_name: String
+            ).returns(T.attached_class)
+          end
+          def self.new(
+            # Имя.
+            first_name:,
+            # Фамилия.
+            last_name:,
+            # Отчество.
+            middle_name: nil
+          )
+          end
+
+          sig do
+            override.returns(
+              { first_name: String, last_name: String, middle_name: String }
+            )
+          end
+          def to_hash
+          end
+        end
+
+        class PayoutStatementRecipientPersonalDataRequest < Yoomoney::Models::PersonalDataRequest
+          OrHash =
+            T.type_alias do
+              T.any(
+                Yoomoney::PersonalDataCreateParams::Body::PayoutStatementRecipientPersonalDataRequest,
+                Yoomoney::Internal::AnyHash
+              )
+            end
+
+          # Имя.
+          sig { returns(String) }
+          attr_accessor :first_name
+
+          # Фамилия.
+          sig { returns(String) }
+          attr_accessor :last_name
+
+          # Отчество.
+          sig { returns(T.nilable(String)) }
+          attr_reader :middle_name
+
+          sig { params(middle_name: String).void }
+          attr_writer :middle_name
+
+          sig do
+            params(
+              first_name: String,
+              last_name: String,
+              middle_name: String
+            ).returns(T.attached_class)
+          end
+          def self.new(
+            # Имя.
+            first_name:,
+            # Фамилия.
+            last_name:,
+            # Отчество.
+            middle_name: nil
+          )
+          end
+
+          sig do
+            override.returns(
+              { first_name: String, last_name: String, middle_name: String }
+            )
+          end
+          def to_hash
+          end
+        end
+
+        sig do
+          override.returns(
+            T::Array[Yoomoney::PersonalDataCreateParams::Body::Variants]
+          )
+        end
+        def self.variants
+        end
       end
     end
   end
