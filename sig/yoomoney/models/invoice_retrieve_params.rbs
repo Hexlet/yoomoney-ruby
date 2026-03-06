@@ -1,15 +1,23 @@
 module Yoomoney
   module Models
     type invoice_retrieve_params =
-      {  } & Yoomoney::Internal::Type::request_parameters
+      { invoice_id: String } & Yoomoney::Internal::Type::request_parameters
 
     class InvoiceRetrieveParams < Yoomoney::Internal::Type::BaseModel
       extend Yoomoney::Internal::Type::RequestParameters::Converter
       include Yoomoney::Internal::Type::RequestParameters
 
-      def initialize: (?request_options: Yoomoney::request_opts) -> void
+      attr_accessor invoice_id: String
 
-      def to_hash: -> { request_options: Yoomoney::RequestOptions }
+      def initialize: (
+        invoice_id: String,
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        invoice_id: String,
+        request_options: Yoomoney::RequestOptions
+      }
     end
   end
 end

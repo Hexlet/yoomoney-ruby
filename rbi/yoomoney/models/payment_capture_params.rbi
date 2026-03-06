@@ -12,6 +12,9 @@ module Yoomoney
         end
 
       sig { returns(String) }
+      attr_accessor :payment_id
+
+      sig { returns(String) }
       attr_accessor :idempotence_key
 
       # Данные для продажи авиабилетов.
@@ -51,6 +54,7 @@ module Yoomoney
 
       sig do
         params(
+          payment_id: String,
           idempotence_key: String,
           airline: Yoomoney::Airline::OrHash,
           amount: Yoomoney::MonetaryAmount::OrHash,
@@ -61,6 +65,7 @@ module Yoomoney
         ).returns(T.attached_class)
       end
       def self.new(
+        payment_id:,
         idempotence_key:,
         # Данные для продажи авиабилетов.
         airline: nil,
@@ -79,6 +84,7 @@ module Yoomoney
       sig do
         override.returns(
           {
+            payment_id: String,
             idempotence_key: String,
             airline: Yoomoney::Airline,
             amount: Yoomoney::MonetaryAmount,

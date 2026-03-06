@@ -1,15 +1,23 @@
 module Yoomoney
   module Models
     type payment_retrieve_params =
-      {  } & Yoomoney::Internal::Type::request_parameters
+      { payment_id: String } & Yoomoney::Internal::Type::request_parameters
 
     class PaymentRetrieveParams < Yoomoney::Internal::Type::BaseModel
       extend Yoomoney::Internal::Type::RequestParameters::Converter
       include Yoomoney::Internal::Type::RequestParameters
 
-      def initialize: (?request_options: Yoomoney::request_opts) -> void
+      attr_accessor payment_id: String
 
-      def to_hash: -> { request_options: Yoomoney::RequestOptions }
+      def initialize: (
+        payment_id: String,
+        ?request_options: Yoomoney::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        payment_id: String,
+        request_options: Yoomoney::RequestOptions
+      }
     end
   end
 end

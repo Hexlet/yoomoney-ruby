@@ -2,6 +2,7 @@ module Yoomoney
   module Models
     type payment_capture_params =
       {
+        payment_id: String,
         idempotence_key: String,
         airline: Yoomoney::Airline,
         amount: Yoomoney::MonetaryAmount,
@@ -14,6 +15,8 @@ module Yoomoney
     class PaymentCaptureParams < Yoomoney::Internal::Type::BaseModel
       extend Yoomoney::Internal::Type::RequestParameters::Converter
       include Yoomoney::Internal::Type::RequestParameters
+
+      attr_accessor payment_id: String
 
       attr_accessor idempotence_key: String
 
@@ -40,6 +43,7 @@ module Yoomoney
       ) -> ::Array[Yoomoney::TransferData]
 
       def initialize: (
+        payment_id: String,
         idempotence_key: String,
         ?airline: Yoomoney::Airline,
         ?amount: Yoomoney::MonetaryAmount,
@@ -50,6 +54,7 @@ module Yoomoney
       ) -> void
 
       def to_hash: -> {
+        payment_id: String,
         idempotence_key: String,
         airline: Yoomoney::Airline,
         amount: Yoomoney::MonetaryAmount,

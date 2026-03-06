@@ -12,20 +12,28 @@ module Yoomoney
         end
 
       sig { returns(String) }
+      attr_accessor :payment_id
+
+      sig { returns(String) }
       attr_accessor :idempotence_key
 
       sig do
         params(
+          payment_id: String,
           idempotence_key: String,
           request_options: Yoomoney::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
-      def self.new(idempotence_key:, request_options: {})
+      def self.new(payment_id:, idempotence_key:, request_options: {})
       end
 
       sig do
         override.returns(
-          { idempotence_key: String, request_options: Yoomoney::RequestOptions }
+          {
+            payment_id: String,
+            idempotence_key: String,
+            request_options: Yoomoney::RequestOptions
+          }
         )
       end
       def to_hash
