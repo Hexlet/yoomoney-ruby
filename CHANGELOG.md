@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.4.1 (2026-03-07)
+
+Full Changelog: [v0.4.0...v0.4.1](https://github.com/Hexlet/yoomoney-ruby/compare/v0.4.0...v0.4.1)
+
+### Bug Fixes
+
+* properly mock time in ruby ci tests ([0b0f2b9](https://github.com/Hexlet/yoomoney-ruby/commit/0b0f2b9b46b018511f77974f9c07bf16c41b9de8))
+
+
+### Chores
+
+* **ci:** add build step ([97e903b](https://github.com/Hexlet/yoomoney-ruby/commit/97e903b2e36f772efddd46fe27068e52c83bbd9c))
+* **ci:** skip uploading artifacts on stainless-internal branches ([769989f](https://github.com/Hexlet/yoomoney-ruby/commit/769989fb624918ba20854868cb63f4f5205a0e4a))
+* **internal:** codegen related update ([9f0b901](https://github.com/Hexlet/yoomoney-ruby/commit/9f0b9017a1935611d16145bee578e2bd020b2e3e))
+* **internal:** codegen related update ([a3a34e9](https://github.com/Hexlet/yoomoney-ruby/commit/a3a34e92ccdbaf9b73180348eb9e6d748027aaf5))
+* **internal:** remove mock server code ([ff71548](https://github.com/Hexlet/yoomoney-ruby/commit/ff7154864d2ab53d55c4eeacb28120965dca14a1))
+* update mock server docs ([98bf708](https://github.com/Hexlet/yoomoney-ruby/commit/98bf7084f1c04c1d0c816d96584a4074e9187024))
+
 ## 0.4.0 (2026-02-19)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/Hexlet/yoomoney-ruby/compare/v0.3.0...v0.4.0)
