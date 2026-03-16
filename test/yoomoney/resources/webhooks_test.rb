@@ -4,7 +4,7 @@ require_relative "../test_helper"
 
 class Yoomoney::Test::Resources::WebhooksTest < Yoomoney::Test::ResourceTest
   def test_create_required_params
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response =
       @yoomoney.webhooks.create(
@@ -27,7 +27,7 @@ class Yoomoney::Test::Resources::WebhooksTest < Yoomoney::Test::ResourceTest
   end
 
   def test_list
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response = @yoomoney.webhooks.list
 
@@ -44,7 +44,7 @@ class Yoomoney::Test::Resources::WebhooksTest < Yoomoney::Test::ResourceTest
   end
 
   def test_delete
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response = @yoomoney.webhooks.delete("webhook_id")
 

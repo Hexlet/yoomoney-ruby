@@ -3,24 +3,13 @@
 module Yoomoney
   module Resources
     class PersonalData
-      # Some parameter documentations has been truncated, see
-      # {Yoomoney::Models::PersonalDataCreateParams} for more details.
-      #
       # Создание персональных данных
       #
-      # @overload create(first_name:, last_name:, type:, idempotence_key:, metadata: nil, middle_name: nil, request_options: {})
+      # @overload create(body:, idempotence_key:, request_options: {})
       #
-      # @param first_name [String] Body param: Имя.
-      #
-      # @param last_name [String] Body param: Фамилия.
-      #
-      # @param type [Symbol, Yoomoney::Models::PersonalDataType] Body param: Тип персональных данных.
+      # @param body [Yoomoney::Models::PersonalDataCreateParams::Body::SbpPayoutRecipientPersonalDataRequest, Yoomoney::Models::PersonalDataCreateParams::Body::PayoutStatementRecipientPersonalDataRequest] Body param
       #
       # @param idempotence_key [String] Header param
-      #
-      # @param metadata [Hash{Symbol=>String}] Body param: Любые дополнительные данные, которые нужны вам для работы (например,
-      #
-      # @param middle_name [String] Body param: Отчество.
       #
       # @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -29,12 +18,11 @@ module Yoomoney
       # @see Yoomoney::Models::PersonalDataCreateParams
       def create(params)
         parsed, options = Yoomoney::PersonalDataCreateParams.dump_request(params)
-        header_params = {idempotence_key: "idempotence-key"}
         @client.request(
           method: :post,
           path: "personal_data",
-          headers: parsed.slice(*header_params.keys).transform_keys(header_params),
-          body: parsed.except(*header_params.keys),
+          headers: parsed.except(:body).transform_keys(idempotence_key: "idempotence-key"),
+          body: parsed[:body],
           model: Yoomoney::PersonalDataAPI,
           options: options
         )

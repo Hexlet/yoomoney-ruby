@@ -74,10 +74,11 @@ module Yoomoney
       # @see Yoomoney::Models::DealListParams
       def list(params = {})
         parsed, options = Yoomoney::DealListParams.dump_request(params)
+        query = Yoomoney::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "deals",
-          query: parsed,
+          query: query,
           model: Yoomoney::Models::DealListResponse,
           options: options
         )

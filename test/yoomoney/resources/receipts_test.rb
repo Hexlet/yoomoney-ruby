@@ -4,7 +4,7 @@ require_relative "../test_helper"
 
 class Yoomoney::Test::Resources::ReceiptsTest < Yoomoney::Test::ResourceTest
   def test_create_required_params
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response =
       @yoomoney.receipts.create(
@@ -52,7 +52,7 @@ class Yoomoney::Test::Resources::ReceiptsTest < Yoomoney::Test::ResourceTest
   end
 
   def test_retrieve
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response = @yoomoney.receipts.retrieve("receipt_id")
 
@@ -85,7 +85,7 @@ class Yoomoney::Test::Resources::ReceiptsTest < Yoomoney::Test::ResourceTest
   end
 
   def test_list
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response = @yoomoney.receipts.list
 

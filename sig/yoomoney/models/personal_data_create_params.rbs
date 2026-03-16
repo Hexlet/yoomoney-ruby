@@ -2,12 +2,8 @@ module Yoomoney
   module Models
     type personal_data_create_params =
       {
-        first_name: String,
-        last_name: String,
-        type: Yoomoney::Models::personal_data_type,
-        idempotence_key: String,
-        metadata: ::Hash[Symbol, String],
-        middle_name: String
+        body: Yoomoney::Models::PersonalDataCreateParams::body,
+        idempotence_key: String
       }
       & Yoomoney::Internal::Type::request_parameters
 
@@ -15,41 +11,89 @@ module Yoomoney
       extend Yoomoney::Internal::Type::RequestParameters::Converter
       include Yoomoney::Internal::Type::RequestParameters
 
-      attr_accessor first_name: String
-
-      attr_accessor last_name: String
-
-      attr_accessor type: Yoomoney::Models::personal_data_type
+      attr_accessor body: Yoomoney::Models::PersonalDataCreateParams::body
 
       attr_accessor idempotence_key: String
 
-      attr_reader metadata: ::Hash[Symbol, String]?
-
-      def metadata=: (::Hash[Symbol, String]) -> ::Hash[Symbol, String]
-
-      attr_reader middle_name: String?
-
-      def middle_name=: (String) -> String
-
       def initialize: (
-        first_name: String,
-        last_name: String,
-        type: Yoomoney::Models::personal_data_type,
+        body: Yoomoney::Models::PersonalDataCreateParams::body,
         idempotence_key: String,
-        ?metadata: ::Hash[Symbol, String],
-        ?middle_name: String,
         ?request_options: Yoomoney::request_opts
       ) -> void
 
       def to_hash: -> {
-        first_name: String,
-        last_name: String,
-        type: Yoomoney::Models::personal_data_type,
+        body: Yoomoney::Models::PersonalDataCreateParams::body,
         idempotence_key: String,
-        metadata: ::Hash[Symbol, String],
-        middle_name: String,
         request_options: Yoomoney::RequestOptions
       }
+
+      type body =
+        Yoomoney::PersonalDataCreateParams::Body::SbpPayoutRecipientPersonalDataRequest
+        | Yoomoney::PersonalDataCreateParams::Body::PayoutStatementRecipientPersonalDataRequest
+
+      module Body
+        extend Yoomoney::Internal::Type::Union
+
+        type sbp_payout_recipient_personal_data_request =
+          { first_name: String, last_name: String, middle_name: String }
+
+        class SbpPayoutRecipientPersonalDataRequest < Yoomoney::Models::PersonalDataRequest
+          def first_name: -> String
+
+          def first_name=: (String _) -> String
+
+          def last_name: -> String
+
+          def last_name=: (String _) -> String
+
+          def middle_name: -> String?
+
+          def middle_name=: (String _) -> String
+
+          def initialize: (
+            first_name: String,
+            last_name: String,
+            ?middle_name: String
+          ) -> void
+
+          def to_hash: -> {
+            first_name: String,
+            last_name: String,
+            middle_name: String
+          }
+        end
+
+        type payout_statement_recipient_personal_data_request =
+          { first_name: String, last_name: String, middle_name: String }
+
+        class PayoutStatementRecipientPersonalDataRequest < Yoomoney::Models::PersonalDataRequest
+          def first_name: -> String
+
+          def first_name=: (String _) -> String
+
+          def last_name: -> String
+
+          def last_name=: (String _) -> String
+
+          def middle_name: -> String?
+
+          def middle_name=: (String _) -> String
+
+          def initialize: (
+            first_name: String,
+            last_name: String,
+            ?middle_name: String
+          ) -> void
+
+          def to_hash: -> {
+            first_name: String,
+            last_name: String,
+            middle_name: String
+          }
+        end
+
+        def self?.variants: -> ::Array[Yoomoney::Models::PersonalDataCreateParams::body]
+      end
     end
   end
 end

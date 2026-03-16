@@ -4,7 +4,7 @@ require_relative "../test_helper"
 
 class Yoomoney::Test::Resources::MeTest < Yoomoney::Test::ResourceTest
   def test_retrieve
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response = @yoomoney.me.retrieve
 

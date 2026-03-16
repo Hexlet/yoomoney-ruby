@@ -15,10 +15,11 @@ module Yoomoney
       # @see Yoomoney::Models::MeRetrieveParams
       def retrieve(params = {})
         parsed, options = Yoomoney::MeRetrieveParams.dump_request(params)
+        query = Yoomoney::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "me",
-          query: parsed,
+          query: query,
           model: Yoomoney::Models::MeRetrieveResponse,
           options: options
         )

@@ -6,32 +6,20 @@ module Yoomoney
       # Создание персональных данных
       sig do
         params(
-          first_name: String,
-          last_name: String,
-          type: Yoomoney::PersonalDataType::OrSymbol,
+          body:
+            T.any(
+              Yoomoney::PersonalDataCreateParams::Body::SbpPayoutRecipientPersonalDataRequest::OrHash,
+              Yoomoney::PersonalDataCreateParams::Body::PayoutStatementRecipientPersonalDataRequest::OrHash
+            ),
           idempotence_key: String,
-          metadata: T::Hash[Symbol, String],
-          middle_name: String,
           request_options: Yoomoney::RequestOptions::OrHash
         ).returns(Yoomoney::PersonalDataAPI)
       end
       def create(
-        # Body param: Имя.
-        first_name:,
-        # Body param: Фамилия.
-        last_name:,
-        # Body param: Тип персональных данных.
-        type:,
+        # Body param
+        body:,
         # Header param
         idempotence_key:,
-        # Body param: Любые дополнительные данные, которые нужны вам для работы (например,
-        # номер заказа). Передаются в виде набора пар «ключ-значение» и возвращаются в
-        # ответе от ЮKassa. Ограничения: максимум 16 ключей, имя ключа не больше 32
-        # символов, значение ключа не больше 512 символов, тип данных — строка в формате
-        # UTF-8.
-        metadata: nil,
-        # Body param: Отчество.
-        middle_name: nil,
         request_options: {}
       )
       end

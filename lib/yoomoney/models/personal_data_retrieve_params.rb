@@ -7,7 +7,13 @@ module Yoomoney
       extend Yoomoney::Internal::Type::RequestParameters::Converter
       include Yoomoney::Internal::Type::RequestParameters
 
-      # @!method initialize(request_options: {})
+      # @!attribute personal_data_id
+      #
+      #   @return [String]
+      required :personal_data_id, String
+
+      # @!method initialize(personal_data_id:, request_options: {})
+      #   @param personal_data_id [String]
       #   @param request_options [Yoomoney::RequestOptions, Hash{Symbol=>Object}]
     end
   end

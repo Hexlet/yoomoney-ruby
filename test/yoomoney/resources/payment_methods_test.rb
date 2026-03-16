@@ -4,7 +4,7 @@ require_relative "../test_helper"
 
 class Yoomoney::Test::Resources::PaymentMethodsTest < Yoomoney::Test::ResourceTest
   def test_create_required_params
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response =
       @yoomoney.payment_methods.create(
@@ -32,7 +32,7 @@ class Yoomoney::Test::Resources::PaymentMethodsTest < Yoomoney::Test::ResourceTe
   end
 
   def test_retrieve
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response = @yoomoney.payment_methods.retrieve("payment_method_id")
 

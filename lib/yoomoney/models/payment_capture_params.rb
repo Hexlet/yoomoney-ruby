@@ -7,6 +7,11 @@ module Yoomoney
       extend Yoomoney::Internal::Type::RequestParameters::Converter
       include Yoomoney::Internal::Type::RequestParameters
 
+      # @!attribute payment_id
+      #
+      #   @return [String]
+      required :payment_id, String
+
       # @!attribute idempotence_key
       #
       #   @return [String]
@@ -42,7 +47,9 @@ module Yoomoney
       #   @return [Array<Yoomoney::Models::TransferData>, nil]
       optional :transfers, -> { Yoomoney::Internal::Type::ArrayOf[Yoomoney::TransferData] }
 
-      # @!method initialize(idempotence_key:, airline: nil, amount: nil, deal: nil, receipt: nil, transfers: nil, request_options: {})
+      # @!method initialize(payment_id:, idempotence_key:, airline: nil, amount: nil, deal: nil, receipt: nil, transfers: nil, request_options: {})
+      #   @param payment_id [String]
+      #
       #   @param idempotence_key [String]
       #
       #   @param airline [Yoomoney::Models::Airline] Данные для продажи авиабилетов.

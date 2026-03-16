@@ -4,7 +4,7 @@ require_relative "../test_helper"
 
 class Yoomoney::Test::Resources::PayoutsTest < Yoomoney::Test::ResourceTest
   def test_create_required_params
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response =
       @yoomoney.payouts.create(amount: {currency: :RUB, value: "value"}, idempotence_key: "Idempotence-Key")
@@ -33,7 +33,7 @@ class Yoomoney::Test::Resources::PayoutsTest < Yoomoney::Test::ResourceTest
   end
 
   def test_retrieve
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response = @yoomoney.payouts.retrieve("payout_id")
 
@@ -61,7 +61,7 @@ class Yoomoney::Test::Resources::PayoutsTest < Yoomoney::Test::ResourceTest
   end
 
   def test_list
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response = @yoomoney.payouts.list
 
@@ -79,7 +79,7 @@ class Yoomoney::Test::Resources::PayoutsTest < Yoomoney::Test::ResourceTest
   end
 
   def test_search
-    skip("Prism tests are disabled")
+    skip("Mock server tests are disabled")
 
     response = @yoomoney.payouts.search
 
