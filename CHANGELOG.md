@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.5.0 (2026-05-14)
+
+Full Changelog: [v0.4.1...v0.5.0](https://github.com/Hexlet/yoomoney-ruby/compare/v0.4.1...v0.5.0)
+
+### Features
+
+* support setting headers via env ([56d1e96](https://github.com/Hexlet/yoomoney-ruby/commit/56d1e963c6df51152c0d93f8211f158378949339))
+
+
+### Bug Fixes
+
+* align path encoding with RFC 3986 section 3.3 ([9bd4272](https://github.com/Hexlet/yoomoney-ruby/commit/9bd4272cb3ac8f124da75aa27ec3a39f7c8b0666))
+* **client:** elide content type header on requests without body ([437bba0](https://github.com/Hexlet/yoomoney-ruby/commit/437bba09741612ee2bdf1cd4c7b550bbfa9c37c2))
+* **internal:** correct multipart form field name encoding ([c92d15c](https://github.com/Hexlet/yoomoney-ruby/commit/c92d15c3f6eed70c96278d9f43bfa96e6a0e951b))
+* multipart encoding for file arrays ([b8e11b9](https://github.com/Hexlet/yoomoney-ruby/commit/b8e11b90d5985fcb84a7dcc96ad06d22ea6c9fad))
+* variable name typo ([7470296](https://github.com/Hexlet/yoomoney-ruby/commit/7470296ce37a30019e968a86b72fa910b045702d))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([9f29e5b](https://github.com/Hexlet/yoomoney-ruby/commit/9f29e5b7f76fa07d4c03220b203563f2d0e6b026))
+* **ci:** support opting out of skipping builds on metadata-only commits ([823e1af](https://github.com/Hexlet/yoomoney-ruby/commit/823e1af5ed00238d318236fb6f13d0d35380a53e))
+* **internal:** more robust bootstrap script ([9813a57](https://github.com/Hexlet/yoomoney-ruby/commit/9813a5744c83c44425e6b43267c500ec09e6bd29))
+* **internal:** tweak CI branches ([f732219](https://github.com/Hexlet/yoomoney-ruby/commit/f7322192ae33c7a63dcda5ee362df4144cc65598))
+* **internal:** update gitignore ([25dfa03](https://github.com/Hexlet/yoomoney-ruby/commit/25dfa03491acfe4fc43aa3745101e2add214cbe4))
+
 ## 0.4.1 (2026-03-07)
 
 Full Changelog: [v0.4.0...v0.4.1](https://github.com/Hexlet/yoomoney-ruby/compare/v0.4.0...v0.4.1)

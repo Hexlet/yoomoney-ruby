@@ -95,6 +95,19 @@ module Yoomoney
     )
       base_url ||= "https://api.yookassa.ru/v3"
 
+      headers = {}
+      custom_headers_env = ENV["YOOMONEY_CUSTOM_HEADERS"]
+      unless custom_headers_env.nil?
+        parsed = {}
+        custom_headers_env.split("\n").each do |line|
+          colon = line.index(":")
+          unless colon.nil?
+            parsed[line[0...colon].strip] = line[(colon + 1)..].strip
+          end
+        end
+        headers = parsed.merge(headers)
+      end
+
       @username = username&.to_s
       @password = password&.to_s
 
@@ -103,7 +116,8 @@ module Yoomoney
         timeout: timeout,
         max_retries: max_retries,
         initial_retry_delay: initial_retry_delay,
-        max_retry_delay: max_retry_delay
+        max_retry_delay: max_retry_delay,
+        headers: headers
       )
 
       @payments = Yoomoney::Resources::Payments.new(client: self)
