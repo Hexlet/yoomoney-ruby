@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.1 (2026-06-23)
+
+Full Changelog: [v0.5.0...v0.5.1](https://github.com/Hexlet/yoomoney-ruby/compare/v0.5.0...v0.5.1)
+
+### Bug Fixes
+
+* **client:** send content-type header for requests with an omitted optional body ([d527cce](https://github.com/Hexlet/yoomoney-ruby/commit/d527cce5ba9ca4a3a69dde49a4bc40ff2937b556))
+
 ## 0.5.0 (2026-05-14)
 
 Full Changelog: [v0.4.1...v0.5.0](https://github.com/Hexlet/yoomoney-ruby/compare/v0.4.1...v0.5.0)
