@@ -181,17 +181,25 @@ module Yoomoney
       module Confirmation
         extend Yoomoney::Internal::Type::Union
 
-        variant -> { Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataRedirect }
+        discriminator :type
 
-        variant -> { Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataExternal }
+        variant :redirect, -> { Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataRedirect }
 
-        variant -> { Yoomoney::ConfirmationData }
+        variant :external, -> { Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataExternal }
 
-        variant -> { Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataEmbedded }
+        variant :qr, -> { Yoomoney::ConfirmationData }
 
-        variant -> { Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataMobileApplication }
+        variant :embedded, -> { Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataEmbedded }
+
+        variant :mobile_application, -> { Yoomoney::PaymentCreateParams::Confirmation::ConfirmationDataMobileApplication }
 
         class ConfirmationDataRedirect < Yoomoney::Models::ConfirmationData
+          # @!attribute type
+          #   Код сценария подтверждения.
+          #
+          #   @return [Symbol, :redirect]
+          required :type, const: :redirect
+
           # @!attribute return_url
           #   URL, на который необходимо перенаправить пользователя после оплаты.
           #
@@ -204,43 +212,73 @@ module Yoomoney
           #   @return [Boolean, nil]
           optional :enforce, Yoomoney::Internal::Type::Boolean
 
-          # @!method initialize(return_url:, enforce: nil)
+          # @!method initialize(return_url:, enforce: nil, locale: nil, type: :redirect)
           #   @param return_url [String] URL, на который необходимо перенаправить пользователя после оплаты.
           #
           #   @param enforce [Boolean] Требование пройти аутентификацию при оплате банковской картой по 3-D Secure.
+          #
+          #   @param locale [Symbol, Yoomoney::Models::Locale] Язык интерфейса, писем и смс.
+          #
+          #   @param type [Symbol, :redirect] Код сценария подтверждения.
         end
 
         class ConfirmationDataExternal < Yoomoney::Models::ConfirmationData
+          # @!attribute type
+          #   Код сценария подтверждения.
+          #
+          #   @return [Symbol, :external]
+          required :type, const: :external
+
           # @!attribute locale
           #   Язык интерфейса.
           #
           #   @return [Symbol, Yoomoney::Models::Locale, nil]
           optional :locale, enum: -> { Yoomoney::Locale }
 
-          # @!method initialize(locale: nil)
+          # @!method initialize(locale: nil, type: :external)
           #   @param locale [Symbol, Yoomoney::Models::Locale] Язык интерфейса.
+          #
+          #   @param type [Symbol, :external] Код сценария подтверждения.
         end
 
         class ConfirmationDataEmbedded < Yoomoney::Models::ConfirmationData
+          # @!attribute type
+          #   Код сценария подтверждения.
+          #
+          #   @return [Symbol, :embedded]
+          required :type, const: :embedded
+
           # @!attribute locale
           #   Язык интерфейса.
           #
           #   @return [Symbol, Yoomoney::Models::Locale, nil]
           optional :locale, enum: -> { Yoomoney::Locale }
 
-          # @!method initialize(locale: nil)
+          # @!method initialize(locale: nil, type: :embedded)
           #   @param locale [Symbol, Yoomoney::Models::Locale] Язык интерфейса.
+          #
+          #   @param type [Symbol, :embedded] Код сценария подтверждения.
         end
 
         class ConfirmationDataMobileApplication < Yoomoney::Models::ConfirmationData
+          # @!attribute type
+          #   Код сценария подтверждения.
+          #
+          #   @return [Symbol, :mobile_application]
+          required :type, const: :mobile_application
+
           # @!attribute return_url
           #   URL, на который необходимо перенаправить пользователя после оплаты.
           #
           #   @return [String]
           required :return_url, String
 
-          # @!method initialize(return_url:)
+          # @!method initialize(return_url:, locale: nil, type: :mobile_application)
           #   @param return_url [String] URL, на который необходимо перенаправить пользователя после оплаты.
+          #
+          #   @param locale [Symbol, Yoomoney::Models::Locale] Язык интерфейса, писем и смс.
+          #
+          #   @param type [Symbol, :mobile_application] Код сценария подтверждения.
         end
 
         # @!method self.variants
