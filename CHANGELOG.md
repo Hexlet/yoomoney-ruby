@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.2](https://github.com/Hexlet/yoomoney-ruby/compare/v0.5.1...v0.5.2) (2026-09-27)
+
+
+### Bug Fixes
+
+* send the type of payment confirmation models ([#11](https://github.com/Hexlet/yoomoney-ruby/issues/11)) ([371fb7f](https://github.com/Hexlet/yoomoney-ruby/commit/371fb7fde17e06bf99cf669af7e3ef8ca2087a49)), closes [#10](https://github.com/Hexlet/yoomoney-ruby/issues/10)
+
 ## 0.5.1 (2026-06-23)
 
 Full Changelog: [v0.5.0...v0.5.1](https://github.com/Hexlet/yoomoney-ruby/compare/v0.5.0...v0.5.1)
