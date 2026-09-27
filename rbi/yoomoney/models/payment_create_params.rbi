@@ -407,6 +407,17 @@ module Yoomoney
               )
             end
 
+          # Код сценария подтверждения.
+          sig { returns(Symbol) }
+          attr_accessor :type
+
+          # Язык интерфейса, писем и смс.
+          sig { returns(T.nilable(Yoomoney::Locale::OrSymbol)) }
+          attr_reader :locale
+
+          sig { params(locale: Yoomoney::Locale::OrSymbol).void }
+          attr_writer :locale
+
           # URL, на который необходимо перенаправить пользователя после оплаты.
           sig { returns(String) }
           attr_accessor :return_url
@@ -419,19 +430,35 @@ module Yoomoney
           attr_writer :enforce
 
           sig do
-            params(return_url: String, enforce: T::Boolean).returns(
-              T.attached_class
-            )
+            params(
+              return_url: String,
+              enforce: T::Boolean,
+              locale: Yoomoney::Locale::OrSymbol,
+              type: Symbol
+            ).returns(T.attached_class)
           end
           def self.new(
             # URL, на который необходимо перенаправить пользователя после оплаты.
             return_url:,
             # Требование пройти аутентификацию при оплате банковской картой по 3-D Secure.
-            enforce: nil
+            enforce: nil,
+            # Язык интерфейса, писем и смс.
+            locale: nil,
+            # Код сценария подтверждения.
+            type: :redirect
           )
           end
 
-          sig { override.returns({ return_url: String, enforce: T::Boolean }) }
+          sig do
+            override.returns(
+              {
+                return_url: String,
+                enforce: T::Boolean,
+                locale: Yoomoney::Locale::OrSymbol,
+                type: Symbol
+              }
+            )
+          end
           def to_hash
           end
         end
@@ -445,6 +472,10 @@ module Yoomoney
               )
             end
 
+          # Код сценария подтверждения.
+          sig { returns(Symbol) }
+          attr_accessor :type
+
           # Язык интерфейса.
           sig { returns(T.nilable(Yoomoney::Locale::OrSymbol)) }
           attr_reader :locale
@@ -453,15 +484,23 @@ module Yoomoney
           attr_writer :locale
 
           sig do
-            params(locale: Yoomoney::Locale::OrSymbol).returns(T.attached_class)
+            params(locale: Yoomoney::Locale::OrSymbol, type: Symbol).returns(
+              T.attached_class
+            )
           end
           def self.new(
             # Язык интерфейса.
-            locale: nil
+            locale: nil,
+            # Код сценария подтверждения.
+            type: :external
           )
           end
 
-          sig { override.returns({ locale: Yoomoney::Locale::OrSymbol }) }
+          sig do
+            override.returns(
+              { locale: Yoomoney::Locale::OrSymbol, type: Symbol }
+            )
+          end
           def to_hash
           end
         end
@@ -475,6 +514,10 @@ module Yoomoney
               )
             end
 
+          # Код сценария подтверждения.
+          sig { returns(Symbol) }
+          attr_accessor :type
+
           # Язык интерфейса.
           sig { returns(T.nilable(Yoomoney::Locale::OrSymbol)) }
           attr_reader :locale
@@ -483,15 +526,23 @@ module Yoomoney
           attr_writer :locale
 
           sig do
-            params(locale: Yoomoney::Locale::OrSymbol).returns(T.attached_class)
+            params(locale: Yoomoney::Locale::OrSymbol, type: Symbol).returns(
+              T.attached_class
+            )
           end
           def self.new(
             # Язык интерфейса.
-            locale: nil
+            locale: nil,
+            # Код сценария подтверждения.
+            type: :embedded
           )
           end
 
-          sig { override.returns({ locale: Yoomoney::Locale::OrSymbol }) }
+          sig do
+            override.returns(
+              { locale: Yoomoney::Locale::OrSymbol, type: Symbol }
+            )
+          end
           def to_hash
           end
         end
@@ -505,18 +556,47 @@ module Yoomoney
               )
             end
 
+          # Код сценария подтверждения.
+          sig { returns(Symbol) }
+          attr_accessor :type
+
+          # Язык интерфейса, писем и смс.
+          sig { returns(T.nilable(Yoomoney::Locale::OrSymbol)) }
+          attr_reader :locale
+
+          sig { params(locale: Yoomoney::Locale::OrSymbol).void }
+          attr_writer :locale
+
           # URL, на который необходимо перенаправить пользователя после оплаты.
           sig { returns(String) }
           attr_accessor :return_url
 
-          sig { params(return_url: String).returns(T.attached_class) }
+          sig do
+            params(
+              return_url: String,
+              locale: Yoomoney::Locale::OrSymbol,
+              type: Symbol
+            ).returns(T.attached_class)
+          end
           def self.new(
             # URL, на который необходимо перенаправить пользователя после оплаты.
-            return_url:
+            return_url:,
+            # Язык интерфейса, писем и смс.
+            locale: nil,
+            # Код сценария подтверждения.
+            type: :mobile_application
           )
           end
 
-          sig { override.returns({ return_url: String }) }
+          sig do
+            override.returns(
+              {
+                return_url: String,
+                locale: Yoomoney::Locale::OrSymbol,
+                type: Symbol
+              }
+            )
+          end
           def to_hash
           end
         end

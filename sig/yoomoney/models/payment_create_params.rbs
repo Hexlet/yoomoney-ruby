@@ -175,9 +175,23 @@ module Yoomoney
       module Confirmation
         extend Yoomoney::Internal::Type::Union
 
-        type confirmation_data_redirect = { return_url: String, enforce: bool }
+        type confirmation_data_redirect =
+          {
+            return_url: String,
+            enforce: bool,
+            locale: Yoomoney::Models::locale,
+            type: :redirect
+          }
 
         class ConfirmationDataRedirect < Yoomoney::Models::ConfirmationData
+          def type: -> :redirect
+
+          def type=: (:redirect _) -> :redirect
+
+          def locale: -> Yoomoney::Models::locale?
+
+          def locale=: (Yoomoney::Models::locale _) -> Yoomoney::Models::locale
+
           def return_url: -> String
 
           def return_url=: (String _) -> String
@@ -186,45 +200,86 @@ module Yoomoney
 
           def enforce=: (bool _) -> bool
 
-          def initialize: (return_url: String, ?enforce: bool) -> void
+          def initialize: (
+            return_url: String,
+            ?enforce: bool,
+            ?locale: Yoomoney::Models::locale,
+            ?type: :redirect
+          ) -> void
 
-          def to_hash: -> { return_url: String, enforce: bool }
+          def to_hash: -> {
+            return_url: String,
+            enforce: bool,
+            locale: Yoomoney::Models::locale,
+            type: :redirect
+          }
         end
 
-        type confirmation_data_external = { locale: Yoomoney::Models::locale }
+        type confirmation_data_external =
+          { locale: Yoomoney::Models::locale, type: :external }
 
         class ConfirmationDataExternal < Yoomoney::Models::ConfirmationData
+          def type: -> :external
+
+          def type=: (:external _) -> :external
+
           def locale: -> Yoomoney::Models::locale?
 
           def locale=: (Yoomoney::Models::locale _) -> Yoomoney::Models::locale
 
-          def initialize: (?locale: Yoomoney::Models::locale) -> void
+          def initialize: (?locale: Yoomoney::Models::locale, ?type: :external) -> void
 
-          def to_hash: -> { locale: Yoomoney::Models::locale }
+          def to_hash: -> { locale: Yoomoney::Models::locale, type: :external }
         end
 
-        type confirmation_data_embedded = { locale: Yoomoney::Models::locale }
+        type confirmation_data_embedded =
+          { locale: Yoomoney::Models::locale, type: :embedded }
 
         class ConfirmationDataEmbedded < Yoomoney::Models::ConfirmationData
+          def type: -> :embedded
+
+          def type=: (:embedded _) -> :embedded
+
           def locale: -> Yoomoney::Models::locale?
 
           def locale=: (Yoomoney::Models::locale _) -> Yoomoney::Models::locale
 
-          def initialize: (?locale: Yoomoney::Models::locale) -> void
+          def initialize: (?locale: Yoomoney::Models::locale, ?type: :embedded) -> void
 
-          def to_hash: -> { locale: Yoomoney::Models::locale }
+          def to_hash: -> { locale: Yoomoney::Models::locale, type: :embedded }
         end
 
-        type confirmation_data_mobile_application = { return_url: String }
+        type confirmation_data_mobile_application =
+          {
+            return_url: String,
+            locale: Yoomoney::Models::locale,
+            type: :mobile_application
+          }
 
         class ConfirmationDataMobileApplication < Yoomoney::Models::ConfirmationData
+          def type: -> :mobile_application
+
+          def type=: (:mobile_application _) -> :mobile_application
+
+          def locale: -> Yoomoney::Models::locale?
+
+          def locale=: (Yoomoney::Models::locale _) -> Yoomoney::Models::locale
+
           def return_url: -> String
 
           def return_url=: (String _) -> String
 
-          def initialize: (return_url: String) -> void
+          def initialize: (
+            return_url: String,
+            ?locale: Yoomoney::Models::locale,
+            ?type: :mobile_application
+          ) -> void
 
-          def to_hash: -> { return_url: String }
+          def to_hash: -> {
+            return_url: String,
+            locale: Yoomoney::Models::locale,
+            type: :mobile_application
+          }
         end
 
         def self?.variants: -> ::Array[Yoomoney::Models::PaymentCreateParams::confirmation]
